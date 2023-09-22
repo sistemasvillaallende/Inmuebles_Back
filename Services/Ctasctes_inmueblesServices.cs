@@ -101,7 +101,7 @@ namespace Web_Api_Inm.Services
                     objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
                     foreach (var item in lst)
                     {
-                        Ctasctes_inmuebles.Confirma_elimina_cancelacion(item.nro_transaccion, item);
+                        //Ctasctes_inmuebles.Confirma_elimina_cancelacion(item.nro_transaccion, item);
                         string_detalle += string.Format("Periodo {0} : ", item.periodo);
                     }
                     objA.detalle = string_detalle;

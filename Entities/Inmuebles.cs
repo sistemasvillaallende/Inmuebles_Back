@@ -762,7 +762,7 @@ namespace Web_Api_Inm.Entities
             bool busquedaSi = false;
             try
             {
-                List<Vehiculos> lst = new List<Vehiculos>();
+                List<Inmuebles> lst = new List<Inmuebles>();
                 string sql = @" SELECT *
                                 FROM (
                                     SELECT ROW_NUMBER() OVER (ORDER BY circunscripcion, seccion, manzana, parcela, p_h) AS RowNum, *

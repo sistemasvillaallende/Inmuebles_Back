@@ -76,7 +76,7 @@ namespace Web_Api_Inm.Entities.INM
 
             cmd = new SqlCommand();
 
-            cmd.Parameters.Add(new SqlParameter("@dominio", dominio));
+            //cmd.Parameters.Add(new SqlParameter("@dominio", dominio));
 
             try
             {

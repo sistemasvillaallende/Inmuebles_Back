@@ -19,7 +19,6 @@ namespace Web_Api_Inm
             services.AddSwaggerGen();
             // configure DI for application services
             services.AddScoped<IUsuarioServices, UsuarioServices>();
-            services.AddScoped<IVehiculosService, VehiculosService>();
             services.AddScoped<ICtasctes_inmueblesServices, Ctasctes_inmueblesServices>();
             services.AddScoped<ICedulonesServices, CedulonesServices>();
             //
