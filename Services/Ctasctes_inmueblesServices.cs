@@ -17,7 +17,7 @@ namespace Web_Api_Inm.Services
         {
             try
             {
-                return Ctasctes_inmuebles.IniciarCtacte(circunscripcion,seccion, manzana, parcela, p_h);
+                return Ctasctes_inmuebles.IniciarCtacte(circunscripcion, seccion, manzana, parcela, p_h);
             }
             catch (Exception)
             {
@@ -41,7 +41,7 @@ namespace Web_Api_Inm.Services
         {
             try
             {
-                return Ctasctes_inmuebles.ListarCtacte(circunscripcion, seccion, manzana, parcela, p_h, 
+                return Ctasctes_inmuebles.ListarCtacte(circunscripcion, seccion, manzana, parcela, p_h,
                     tipo_consulta, cate_deuda_desde, cate_deuda_hasta);
             }
             catch (Exception)
@@ -82,7 +82,7 @@ namespace Web_Api_Inm.Services
                 throw;
             }
         }
-        public void Confirma_elimina_cancelacion(int circunscripcion, int seccion, int manzana, int parcela, int p_h, 
+        public void Confirma_elimina_cancelacion(int circunscripcion, int seccion, int manzana, int parcela, int p_h,
             List<Ctasctes_inmuebles> lst, Auditoria objA)
         {
             try
@@ -91,11 +91,11 @@ namespace Web_Api_Inm.Services
                 {
                     string string_detalle = "Se cancelo total o parcial: ";
                     objA.identificacion =
-                        string.Format("{0}-{1}-{2}-{3}-{4}",circunscripcion.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
+                        string.Format("{0}-{1}-{2}-{3}-{4}", circunscripcion.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
                                                             seccion.ToString().PadLeft(2, Convert.ToChar("0")),
                                                             manzana.ToString().PadLeft(2, Convert.ToChar("0")),
                                                             parcela.ToString().PadLeft(3, Convert.ToChar("0")),
-                                                            p_h.ToString().PadLeft(3,Convert.ToChar("0")));
+                                                            p_h.ToString().PadLeft(3, Convert.ToChar("0")));
                     objA.proceso = "CANCELACION CUENTA CORRIENTE";
                     objA.detalle = "";
                     objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
@@ -159,13 +159,12 @@ namespace Web_Api_Inm.Services
                 throw;
             }
         }
-        public void Confirma_reliquidacion(int circunscripcion, int seccion, int manzana, int parcela, int p_h, 
+        public void Confirma_reliquidacion(int circunscripcion, int seccion, int manzana, int parcela, int p_h,
             List<Ctasctes_inmuebles> lst, Auditoria objA)
         {
-            SqlTransaction? trx = null;
             try
             {
-                using (SqlConnection cn = DALBase.GetConnectionSIIMVA())
+                using (TransactionScope scope = new TransactionScope())
                 {
                     string string_detalle = "Se Reliquido los : ";
                     objA.identificacion = string.Format("{0}-{1}-{2}-{3}-{4}", circunscripcion.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
@@ -175,35 +174,32 @@ namespace Web_Api_Inm.Services
                                                             p_h.ToString().PadLeft(3, Convert.ToChar("0")));
                     objA.proceso = "RECALCULO DEUDA INMUEBLES";
                     objA.detalle = "";
-                    objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                    cn.Open();
-                    trx = cn.BeginTransaction();
-                    Ctasctes_inmuebles.Confirma_reliquidacion(cn, trx, circunscripcion, seccion, manzana, parcela, p_h, lst);
+                    objA.observaciones += string.Format(" Fecha auditoria: {0} ", DateTime.Now);
+                    Ctasctes_inmuebles.Confirma_reliquidacion(circunscripcion, seccion, manzana, parcela, p_h, lst);
                     foreach (var item in lst)
                     {
                         string_detalle += string.Format("Periodo {0} : ", item.periodo);
                     }
                     objA.detalle = string_detalle;
-                    AuditoriaD.InsertAuditoria(cn, trx, objA);
-                    trx.Commit();
+                    AuditoriaD.InsertAuditoria(objA);
+                    scope.Complete();
                 }
             }
             catch (Exception)
             {
-                trx.Rollback();
                 throw;
             }
         }
         public List<Ctasctes_inmuebles> Reliquidar_periodos(int circunscripcion, int seccion, int manzana, int parcela, int p_h,
-            List<Ctasctes_inmuebles> lst, Auditoria objA)
+            List<Ctasctes_inmuebles> lst)
         {
             try
             {
                 List<Ctasctes_inmuebles> lstCtasctes = new();
-                using (SqlConnection cn = DALBase.GetConnectionSIIMVA())
+                using (TransactionScope scope = new TransactionScope())
                 {
-                    cn.Open();
-                    lstCtasctes = Ctasctes_inmuebles.Reliquidar_periodos(cn, circunscripcion, seccion, manzana, parcela, p_h, lst);
+                    lstCtasctes = Ctasctes_inmuebles.Reliquidar_periodos(circunscripcion, seccion, manzana, parcela, p_h, lst);
+                    scope.Complete();
                 }
                 return lstCtasctes;
             }
@@ -220,15 +216,13 @@ namespace Web_Api_Inm.Services
             try
             {
                 string string_detalle = " Periodos incluidos : ";
-                using (SqlConnection cn = DALBase.GetConnectionSIIMVA())
+                using (TransactionScope scope = new TransactionScope())
                 {
-                    cn.Open();
-                    trx = cn.BeginTransaction();
                     objA.identificacion = string.Format("{0}-{1}-{2}-{3}-{4}", circunscripcion.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
-                                                            seccion.ToString().PadLeft(2, Convert.ToChar("0")),
-                                                            manzana.ToString().PadLeft(2, Convert.ToChar("0")),
-                                                            parcela.ToString().PadLeft(3, Convert.ToChar("0")),
-                                                            p_h.ToString().PadLeft(3, Convert.ToChar("0"))); 
+                                         seccion.ToString().PadLeft(2, Convert.ToChar("0")),
+                                         manzana.ToString().PadLeft(2, Convert.ToChar("0")),
+                                         parcela.ToString().PadLeft(3, Convert.ToChar("0")),
+                                         p_h.ToString().PadLeft(3, Convert.ToChar("0")));
                     objA.proceso = "INICIALIZACION CUENTA INMUEBLES";
                     objA.detalle = "";
                     objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
@@ -237,14 +231,13 @@ namespace Web_Api_Inm.Services
                         string_detalle += string.Format("Periodo {0} : ", item.periodo);
                     }
                     objA.detalle += string_detalle;
-                    Ctasctes_inmuebles.Confirma_iniciar_ctacte(cn, trx, circunscripcion, seccion, manzana, parcela, p_h, lst);
-                    AuditoriaD.InsertAuditoria(cn, trx, objA);
-                    trx.Commit();
+                    Ctasctes_inmuebles.Confirma_iniciar_ctacte(circunscripcion, seccion, manzana, parcela, p_h, lst);
+                    AuditoriaD.InsertAuditoria(objA);
+                    scope.Complete();
                 }
             }
             catch (Exception)
             {
-                trx.Rollback();
                 throw;
             }
 

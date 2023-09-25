@@ -23,7 +23,7 @@ namespace Web_Api_Inm.Services
         public void Confirma_reliquidacion(int circunscripcion, int seccion, int manzana, int parcela, int p_h,
             List<Ctasctes_inmuebles> lst, Auditoria objA);
         public List<Ctasctes_inmuebles> Reliquidar_periodos(int circunscripcion, int seccion, int manzana, int parcela, int p_h, 
-            List<Ctasctes_inmuebles> lst, Auditoria objA);
+            List<Ctasctes_inmuebles> lst);
         public void Confirma_iniciar_ctacte(int circunscripcion, int seccion, int manzana, int parcela, int p_h, 
             List<Ctasctes_inmuebles> lst, Auditoria objA);
         public DETALLE_PAGO DetallePago(int nroCedulon, int nroTransaccion);

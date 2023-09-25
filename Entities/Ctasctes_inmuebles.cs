@@ -57,7 +57,6 @@ namespace Web_Api_Inm
         public int cod_tipo_per { get; set; }
         public decimal sub_total { get; set; }
 
-
         public Ctasctes_inmuebles()
         {
             tipo_transaccion = 0;
@@ -511,7 +510,7 @@ namespace Web_Api_Inm
                 throw;
             }
         }
-        public static void Confirma_iniciar_ctacte(SqlConnection cn, SqlTransaction trx, int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
+        public static void Confirma_iniciar_ctacte(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
         {
             try
             {
@@ -582,54 +581,57 @@ namespace Web_Api_Inm
                 sql.AppendLine(", @observaciones");
                 sql.AppendLine(", @nro_cedulon_paypertic");
                 sql.AppendLine(")");
-                SqlCommand cmd = cn.CreateCommand();
-                cmd.Transaction = trx;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = sql.ToString();
-                cmd.Parameters.AddWithValue("@tipo_transaccion", 1);
-                cmd.Parameters.AddWithValue("@nro_transaccion", 0);
-                cmd.Parameters.AddWithValue("@circunscripcion", 0);
-                cmd.Parameters.AddWithValue("@seccion", 0);
-                cmd.Parameters.AddWithValue("@parcela", 0);
-                cmd.Parameters.AddWithValue("@p_h", 0);
-                cmd.Parameters.AddWithValue("@fecha_transaccion", 0);
-                cmd.Parameters.AddWithValue("@periodo", string.Empty);
-                cmd.Parameters.AddWithValue("@cedulon_impreso", true);
-                cmd.Parameters.AddWithValue("@nro_pago_parcial", 0);
-                cmd.Parameters.AddWithValue("@monto_original", 0);
-                cmd.Parameters.AddWithValue("@nro_plan", null);
-                cmd.Parameters.AddWithValue("@pagado", false);
-                cmd.Parameters.AddWithValue("@debe", 0);
-                cmd.Parameters.AddWithValue("@haber", 0);
-                cmd.Parameters.AddWithValue("@deuda_activa", true);
-                cmd.Parameters.AddWithValue("@pago_parcial", 0);
-                cmd.Parameters.AddWithValue("@categoria_deuda", 1);
-                cmd.Parameters.AddWithValue("@nro_procuracion", null);
-                cmd.Parameters.AddWithValue("@vencimiento", null);
-                cmd.Parameters.AddWithValue("@nro_cedulon", 0);
-                cmd.Parameters.AddWithValue("@monto_pagado", 0);
-                cmd.Parameters.AddWithValue("@recargo", 0);
-                cmd.Parameters.AddWithValue("@honorarios", 0);
-                cmd.Parameters.AddWithValue("@iva_hons", 0);
-                cmd.Parameters.AddWithValue("@tipo_deuda", 1);
-                cmd.Parameters.AddWithValue("@decreto", 0);
-                cmd.Parameters.AddWithValue("@observaciones", string.Empty);
-                cmd.Parameters.AddWithValue("@nro_cedulon_paypertic", 0);
-                nro_transaccion = GetNroTransaccion(cn, trx, 4);
-                UpdateNroTransaccion(cn, trx, 4, nro_transaccion + lst.Count);
-                foreach (var item in lst)
+                using (SqlConnection cn = GetConnectionSIIMVA())
                 {
-                    nro_transaccion += 1;
-                    cmd.Parameters["@tipo_transaccion"].Value = item.tipo_transaccion;
-                    cmd.Parameters["periodo"].Value = item.periodo;
-                    cmd.Parameters["@nro_transaccion"].Value = item.nro_transaccion;
-                    cmd.Parameters["@cir"].Value = cir;
-                    cmd.Parameters["@sec"].Value = sec;
-                    cmd.Parameters["@man"].Value = man;
-                    cmd.Parameters["@par"].Value = par;
-                    cmd.Parameters["@p_h"].Value = p_h;
-                    cmd.Parameters["@vencimiento"].Value = item.vencimiento;
-                    cmd.ExecuteNonQuery();
+                    nro_transaccion = GetNroTransaccion(1);
+                    UpdateNroTransaccion(1, nro_transaccion + lst.Count);
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = sql.ToString();
+                    cmd.Parameters.AddWithValue("@tipo_transaccion", 1);
+                    cmd.Parameters.AddWithValue("@nro_transaccion", 0);
+                    cmd.Parameters.AddWithValue("@circunscripcion", 0);
+                    cmd.Parameters.AddWithValue("@seccion", 0);
+                    cmd.Parameters.AddWithValue("@parcela", 0);
+                    cmd.Parameters.AddWithValue("@p_h", 0);
+                    cmd.Parameters.AddWithValue("@fecha_transaccion", 0);
+                    cmd.Parameters.AddWithValue("@periodo", string.Empty);
+                    cmd.Parameters.AddWithValue("@cedulon_impreso", true);
+                    cmd.Parameters.AddWithValue("@nro_pago_parcial", 0);
+                    cmd.Parameters.AddWithValue("@monto_original", 0);
+                    cmd.Parameters.AddWithValue("@nro_plan", null);
+                    cmd.Parameters.AddWithValue("@pagado", false);
+                    cmd.Parameters.AddWithValue("@debe", 0);
+                    cmd.Parameters.AddWithValue("@haber", 0);
+                    cmd.Parameters.AddWithValue("@deuda_activa", true);
+                    cmd.Parameters.AddWithValue("@pago_parcial", 0);
+                    cmd.Parameters.AddWithValue("@categoria_deuda", 1);
+                    cmd.Parameters.AddWithValue("@nro_procuracion", null);
+                    cmd.Parameters.AddWithValue("@vencimiento", null);
+                    cmd.Parameters.AddWithValue("@nro_cedulon", 0);
+                    cmd.Parameters.AddWithValue("@monto_pagado", 0);
+                    cmd.Parameters.AddWithValue("@recargo", 0);
+                    cmd.Parameters.AddWithValue("@honorarios", 0);
+                    cmd.Parameters.AddWithValue("@iva_hons", 0);
+                    cmd.Parameters.AddWithValue("@tipo_deuda", 1);
+                    cmd.Parameters.AddWithValue("@decreto", 0);
+                    cmd.Parameters.AddWithValue("@observaciones", string.Empty);
+                    cmd.Parameters.AddWithValue("@nro_cedulon_paypertic", 0);
+                    
+                    foreach (var item in lst)
+                    {
+                        nro_transaccion += 1;
+                        cmd.Parameters["@tipo_transaccion"].Value = item.tipo_transaccion;
+                        cmd.Parameters["periodo"].Value = item.periodo;
+                        cmd.Parameters["@nro_transaccion"].Value = item.nro_transaccion;
+                        cmd.Parameters["@cir"].Value = cir;
+                        cmd.Parameters["@sec"].Value = sec;
+                        cmd.Parameters["@man"].Value = man;
+                        cmd.Parameters["@par"].Value = par;
+                        cmd.Parameters["@p_h"].Value = p_h;
+                        cmd.Parameters["@vencimiento"].Value = item.vencimiento;
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
             catch (Exception)
@@ -1415,6 +1417,222 @@ namespace Web_Api_Inm
                 throw;
             }
         }
+        #region Deuda Anual
+        private static void sqlUpdateCedulones2(int cir, int sec, int man, int par, int p_h,
+            decimal monto_original, decimal debe, int nro_transaccion, string periodo)
+        {
+            try
+            {
+                string strSQL = @"UPDATE CEDULONES2
+                                    set monto_1=@monto_1, monto_2=@monto_2
+                                    FROM DEUDAS_x_CEDULON3 a
+                                    WHERE a.nro_transaccion=@nro_transaccion
+                                    AND CEDULONES2.nro_cedulon=a.nro_cedulon
+                                    AND CEDULONES2.subsistema=1
+                                    AND CEDULONES2.circunscripcion=@cir
+                                    AND CEDULONES2.seccion=@sec
+                                    AND CEDULONES2.manzana=@man
+                                    AND CEDULONES2.parcela=@par
+                                    AND CEDULONES2.p_h=@p_h
+                                    AND CEDULONES2.periodo=@periodo";
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strSQL;
+                    cmd.Parameters.AddWithValue("@cir", cir);
+                    cmd.Parameters.AddWithValue("@sec", sec);
+                    cmd.Parameters.AddWithValue("@man", man);
+                    cmd.Parameters.AddWithValue("@par", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
+                    cmd.Parameters.AddWithValue("@monto_1", monto_original);
+                    cmd.Parameters.AddWithValue("@monto_2", debe);
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        private static void sqlUpdateDeudas_x_ced3(int cir, int sec, int man, int par, int p_h,
+            decimal monto_original, int nro_transaccion, string periodo)
+        {
+            try
+            {
+                string strSQL = @"UPDATE DEUDAS_x_CEDULON3 
+                                    set monto_pagado=@monto_1
+                                    FROM CEDULONES2 
+                                    WHERE nro_transaccion=@nro_transaccion
+                                    AND CEDULONES2.nro_cedulon= DEUDAS_x_CEDULON3.nro_cedulon
+                                    AND CEDULONES2.subsistema=1
+                                    AND CEDULONES2.circunscripcion=@cir
+                                    AND CEDULONES2.seccion=@sec
+                                    AND CEDULONES2.manzana=@man
+                                    AND CEDULONES2.parcela=@par
+                                    AND CEDULONES2.p_h=@p_h
+                                    AND CEDULONES2.periodo=@periodo";
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strSQL;
+                    cmd.Parameters.AddWithValue("@cir", cir);
+                    cmd.Parameters.AddWithValue("@sec", sec);
+                    cmd.Parameters.AddWithValue("@man", man);
+                    cmd.Parameters.AddWithValue("@par", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
+                    cmd.Parameters.AddWithValue("@monto_1", monto_original);
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        private static void sqlDelete_Detalle_Anual(int nro_transaccion)
+        {
+            try
+            {
+                string strSQL = @"DELETE
+                                  FROM DETALLE_DEUDA_IMN_ANUAL
+                                  WHERE nro_transaccion =@nro_transaccion";
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strSQL;
+                    cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        private static void sqlInsert_Detalle_Anual(int nro_transaccion)
+        {
+            try
+            {
+                string strSQL = @"INSERT into DETALLE_DEUDA_INM_ANUAL
+                                  SELECT *
+                                  FROM AUX_DETALLE_DEUDA_AUTO_RECALCULO_ANUAL
+                                  WHERE nro_transaccion=@nro_transaccion";
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strSQL;
+                    cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        #endregion
+        #region Deuda Mensual
+        private static void sqlUpdate_Ctasctes(int cir, int sec, int man, int par, int p_h,
+            decimal monto_original, decimal debe, int nro_transaccion, string periodo)
+        {
+            try
+            {
+                string strSQL = @"UPDATE CTASCTES_INMUEBLES
+                                    SET monto_original=@monto_1, debe=@monto_2
+                                    WHERE nro_transaccion=@nro_transaccion
+                                    AND tipo_transaccion=1
+                                    AND circunscripcion=@cir
+                                    AND seccion=@sec
+                                    AND manzana=@man
+                                    AND parcela=@par
+                                    AND p_h=@p_h
+                                    AND periodo=@periodo";
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strSQL;
+                    cmd.Parameters.AddWithValue("@cir", cir);
+                    cmd.Parameters.AddWithValue("@sec", sec);
+                    cmd.Parameters.AddWithValue("@man", man);
+                    cmd.Parameters.AddWithValue("@par", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
+                    cmd.Parameters.AddWithValue("@monto_1", monto_original);
+                    cmd.Parameters.AddWithValue("@monto_2", debe);
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        private static void sqlDelete_Detalle_Mensual(int nro_transaccion)
+        {
+            try
+            {
+                string strSQL = @"DELETE
+                                  FROM DETALLE_DEUDA_INM
+                                  WHERE nro_transaccion =@nro_transaccion";
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strSQL;
+                    cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        private static void sqlInsert_Detalle_Mensual(int nro_transaccion)
+        {
+            try
+            {
+                string strSQL = @"INSERT into DETALLE_DEUDA_INM
+                                  SELECT *
+                                  FROM AUX_DETALLE_DEUDA_INM_RECALCULO
+                                  WHERE nro_transaccion=@nro_transaccion";
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strSQL;
+                    cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        #endregion
+        #region Reliquida
         public static List<Ctasctes_inmuebles> Listar_periodos_a_reliquidar(int cir, int sec, int man, int par, int p_h)
         {
             try
@@ -1505,240 +1723,8 @@ namespace Web_Api_Inm
                 throw;
             }
         }
-        public static void Confirma_reliquidacion(SqlConnection cn, SqlTransaction trx,
-            int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
-        {
-            try
-            {
-                int anio = 0;
-                foreach (var item in lst)
-                {
-                    anio = Convert.ToInt32(item.periodo.Substring(0, 4));
-                    if (anio >= 2020)
-                    {
-                        if (item.cod_tipo_per == 4) //Periodo Anual
-                        {
-                            sqlUpdateCedulones2(cn, trx, item.circunscripcion, item.seccion, item.manzana, item.parcela,
-                                item.p_h, item.monto_original, item.debe, item.nro_transaccion, item.periodo);
-                            sqlUpdateDeudas_x_ced3(cn, trx, item.circunscripcion, item.seccion, item.manzana, item.parcela,
-                                item.p_h, item.monto_original, item.nro_transaccion, item.periodo);
-                            sqlDelete_Detalle_Anual(cn, trx, item.nro_transaccion);
-                            sqlInsert_Detalle_Anual(cn, trx, item.nro_transaccion);
-                        }
-                        else
-                        {
-                            sqlUpdate_Ctasctes(cn, trx, item.circunscripcion, item.seccion, item.manzana, item.parcela,
-                                item.p_h, item.monto_original, item.debe, item.nro_transaccion, item.periodo);
-                            sqlDelete_Detalle_Mensual(cn, trx, item.nro_transaccion);
-                            sqlInsert_Detalle_Mensual(cn, trx, item.nro_transaccion);
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        #region Deuda Anual
-        private static void sqlUpdateCedulones2(SqlConnection cn, SqlTransaction trx, int cir, int sec, int man, int par, int p_h,
-            decimal monto_original, decimal debe, int nro_transaccion, string periodo)
-        {
-            try
-            {
-                string strSQL = @"UPDATE CEDULONES2
-                                    set monto_1=@monto_1, monto_2=@monto_2
-                                    FROM DEUDAS_x_CEDULON3 a
-                                    WHERE a.nro_transaccion=@nro_transaccion
-                                    AND CEDULONES2.nro_cedulon=a.nro_cedulon
-                                    AND CEDULONES2.subsistema=1
-                                    AND CEDULONES2.circunscripcion=@cir
-                                    AND CEDULONES2.seccion=@sec
-                                    AND CEDULONES2.manzana=@man
-                                    AND CEDULONES2.parcela=@par
-                                    AND CEDULONES2.p_h=@p_h
-                                    AND CEDULONES2.periodo=@periodo";
-
-                SqlCommand cmd = cn.CreateCommand();
-                cmd.Transaction = trx;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strSQL;
-                cmd.Parameters.AddWithValue("@cir", cir);
-                cmd.Parameters.AddWithValue("@sec", sec);
-                cmd.Parameters.AddWithValue("@man", man);
-                cmd.Parameters.AddWithValue("@par", par);
-                cmd.Parameters.AddWithValue("@p_h", p_h);
-                cmd.Parameters.AddWithValue("@periodo", periodo);
-                cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
-                cmd.Parameters.AddWithValue("@monto_1", monto_original);
-                cmd.Parameters.AddWithValue("@monto_2", debe);
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        private static void sqlUpdateDeudas_x_ced3(SqlConnection cn, SqlTransaction trx, int cir, int sec, int man, int par, int p_h,
-            decimal monto_original, int nro_transaccion, string periodo)
-        {
-            try
-            {
-                string strSQL = @"UPDATE DEUDAS_x_CEDULON3 
-                                    set monto_pagado=@monto_1
-                                    FROM CEDULONES2 
-                                    WHERE nro_transaccion=@nro_transaccion
-                                    AND CEDULONES2.nro_cedulon= DEUDAS_x_CEDULON3.nro_cedulon
-                                    AND CEDULONES2.subsistema=1
-                                    AND CEDULONES2.circunscripcion=@cir
-                                    AND CEDULONES2.seccion=@sec
-                                    AND CEDULONES2.manzana=@man
-                                    AND CEDULONES2.parcela=@par
-                                    AND CEDULONES2.p_h=@p_h
-                                    AND CEDULONES2.periodo=@periodo";
-                SqlCommand cmd = cn.CreateCommand();
-                cmd.Transaction = trx;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strSQL;
-                cmd.Parameters.AddWithValue("@cir", cir);
-                cmd.Parameters.AddWithValue("@sec", sec);
-                cmd.Parameters.AddWithValue("@man", man);
-                cmd.Parameters.AddWithValue("@par", par);
-                cmd.Parameters.AddWithValue("@p_h", p_h);
-                cmd.Parameters.AddWithValue("@periodo", periodo);
-                cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
-                cmd.Parameters.AddWithValue("@monto_1", monto_original);
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-        private static void sqlDelete_Detalle_Anual(SqlConnection cn, SqlTransaction trx, int nro_transaccion)
-        {
-            try
-            {
-                string strSQL = @"DELETE
-                                  FROM DETALLE_DEUDA_IMN_ANUAL
-                                  WHERE nro_transaccion =@nro_transaccion";
-                SqlCommand cmd = cn.CreateCommand();
-                cmd.Transaction = trx;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strSQL;
-                cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        private static void sqlInsert_Detalle_Anual(SqlConnection cn, SqlTransaction trx, int nro_transaccion)
-        {
-            try
-            {
-                string strSQL = @"INSERT into DETALLE_DEUDA_INM_ANUAL
-                                  SELECT *
-                                  FROM AUX_DETALLE_DEUDA_AUTO_RECALCULO_ANUAL
-                                  WHERE nro_transaccion=@nro_transaccion";
-                SqlCommand cmd = cn.CreateCommand();
-                cmd.Transaction = trx;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strSQL;
-                cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-        #endregion
-        #region Deuda Mensual
-        private static void sqlUpdate_Ctasctes(SqlConnection cn, SqlTransaction trx, int cir, int sec, int man, int par, int p_h,
-            decimal monto_original, decimal debe, int nro_transaccion, string periodo)
-        {
-            try
-            {
-                string strSQL = @"UPDATE CTASCTES_INMUEBLES
-                                    SET monto_original=@monto_1, debe=@monto_2
-                                    WHERE nro_transaccion=@nro_transaccion
-                                    AND tipo_transaccion=1
-                                    AND circunscripcion=@cir
-                                    AND seccion=@sec
-                                    AND manzana=@man
-                                    AND parcela=@par
-                                    AND p_h=@p_h
-                                    AND periodo=@periodo";
-
-                SqlCommand cmd = cn.CreateCommand();
-                cmd.Transaction = trx;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strSQL;
-                cmd.Parameters.AddWithValue("@cir", cir);
-                cmd.Parameters.AddWithValue("@sec", sec);
-                cmd.Parameters.AddWithValue("@man", man);
-                cmd.Parameters.AddWithValue("@par", par);
-                cmd.Parameters.AddWithValue("@p_h", p_h);
-                cmd.Parameters.AddWithValue("@periodo", periodo);
-                cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
-                cmd.Parameters.AddWithValue("@monto_1", monto_original);
-                cmd.Parameters.AddWithValue("@monto_2", debe);
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        private static void sqlDelete_Detalle_Mensual(SqlConnection cn, SqlTransaction trx, int nro_transaccion)
-        {
-            try
-            {
-                string strSQL = @"DELETE
-                                  FROM DETALLE_DEUDA_INM
-                                  WHERE nro_transaccion =@nro_transaccion";
-                SqlCommand cmd = cn.CreateCommand();
-                cmd.Transaction = trx;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strSQL;
-                cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-        private static void sqlInsert_Detalle_Mensual(SqlConnection cn, SqlTransaction trx, int nro_transaccion)
-        {
-            try
-            {
-                string strSQL = @"INSERT into DETALLE_DEUDA_INM
-                                  SELECT *
-                                  FROM AUX_DETALLE_DEUDA_INM_RECALCULO
-                                  WHERE nro_transaccion=@nro_transaccion";
-                SqlCommand cmd = cn.CreateCommand();
-                cmd.Transaction = trx;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strSQL;
-                cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-        #endregion
-        public static List<Ctasctes_inmuebles> Reliquidar_periodos(SqlConnection cn, int cir, int sec, int man, int par, int p_h,
-            List<Ctasctes_inmuebles> lst)
+        public static List<Ctasctes_inmuebles> Reliquidar_periodos(int cir, int sec, int man, int par, int p_h,
+      List<Ctasctes_inmuebles> lst)
         {
             //Parametros que vienen como item en la la lst
             //string periodo, int nro_transaccion, int tipo_per
@@ -1756,15 +1742,15 @@ namespace Web_Api_Inm
                         if (item.cod_tipo_per == 1) //Periodo Mensual
                         {
                             //sp_LIQUIDA_TASA_PROP_MENSUAL_SUP_RECALCULO_2023
-                            auxmonto_original = sp_RECALCULO_INMUEBLES_2023(cn, item.circunscripcion, item.seccion, item.manzana,
+                            auxmonto_original = sp_RECALCULO_INMUEBLES_2023(item.circunscripcion, item.seccion, item.manzana,
                                 item.parcela, item.p_h, item.periodo, item.cod_tipo_per);
-                            auxdebe = auxmonto_original + Calcula_Interes(cn, auxmonto_original, item.vencimiento);
+                            auxdebe = auxmonto_original + Calcula_Interes(auxmonto_original, item.vencimiento);
                             item.monto_original = Convert.ToDecimal(auxmonto_original);
                             item.debe = Convert.ToDecimal(auxdebe);
                         }
                         else
                         {
-                            auxmonto_original = sp_RECALCULO_INMUEBLES_ANUAL_2023(cn, item.circunscripcion, item.seccion, item.manzana,
+                            auxmonto_original = sp_RECALCULO_INMUEBLES_ANUAL_2023(item.circunscripcion, item.seccion, item.manzana,
                                 item.parcela, item.p_h, item.periodo, item.cod_tipo_per);
                             if (item.vencimiento > DateTime.Now)
                                 auxdebe = auxmonto_original * valor;
@@ -1783,19 +1769,56 @@ namespace Web_Api_Inm
                 throw;
             }
         }
-        private static double Calcula_Interes(SqlConnection cn, double auxmonto_original, DateTime? vencimiento)
+        public static void Confirma_reliquidacion(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
+        {
+            try
+            {
+                int anio = 0;
+                foreach (var item in lst)
+                {
+                    anio = Convert.ToInt32(item.periodo.Substring(0, 4));
+                    if (anio >= 2020)
+                    {
+                        if (item.cod_tipo_per == 4) //Periodo Anual
+                        {
+                            sqlUpdateCedulones2(item.circunscripcion, item.seccion, item.manzana, item.parcela,
+                                item.p_h, item.monto_original, item.debe, item.nro_transaccion, item.periodo);
+                            sqlUpdateDeudas_x_ced3(item.circunscripcion, item.seccion, item.manzana, item.parcela,
+                                item.p_h, item.monto_original, item.nro_transaccion, item.periodo);
+                            sqlDelete_Detalle_Anual(item.nro_transaccion);
+                            sqlInsert_Detalle_Anual(item.nro_transaccion);
+                        }
+                        else
+                        {
+                            sqlUpdate_Ctasctes(item.circunscripcion, item.seccion, item.manzana, item.parcela,
+                                item.p_h, item.monto_original, item.debe, item.nro_transaccion, item.periodo);
+                            sqlDelete_Detalle_Mensual(item.nro_transaccion);
+                            sqlInsert_Detalle_Mensual(item.nro_transaccion);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        private static double Calcula_Interes(double auxmonto_original, DateTime? vencimiento)
         {
             try
             {
                 DateTimeFormatInfo culturaFecArgentina = new CultureInfo("es-AR", false).DateTimeFormat;
                 double interes = 0;
-                SqlCommand cmd = cn.CreateCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "dbo.Calculo_Interes_4";
-                cmd.Connection.OpenAsync();
-                cmd.Parameters.AddWithValue("@monto_original", auxmonto_original);
-                cmd.Parameters.AddWithValue("@vencimiento", Convert.ToDateTime(vencimiento, culturaFecArgentina));
-                interes = Convert.ToDouble(cmd.ExecuteScalarAsync());
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "dbo.Calculo_Interes_4";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@monto_original", auxmonto_original);
+                    cmd.Parameters.AddWithValue("@vencimiento", Convert.ToDateTime(vencimiento, culturaFecArgentina));
+                    interes = Convert.ToDouble(cmd.ExecuteScalar());
+                }
                 return interes;
             }
             catch (Exception)
@@ -1804,26 +1827,29 @@ namespace Web_Api_Inm
                 throw;
             }
         }
-        private static double sp_RECALCULO_INMUEBLES_2023(SqlConnection cn, int cir, int sec, int man, int par, int p_h,
+        private static double sp_RECALCULO_INMUEBLES_2023(int cir, int sec, int man, int par, int p_h,
             string periodo, int tipo_per)
         {
             try
             {
                 double total = 0;
-                SqlCommand cmd = cn.CreateCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "sp_LIQUIDA_TASA_PROP_MENSUAL_SUP_RECALCULO_2023";
-                cmd.Connection.OpenAsync();
-                cmd.Parameters.AddWithValue("@periodo", periodo);
-                cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
-                cmd.Parameters.AddWithValue("@circunscripcion", cir);
-                cmd.Parameters.AddWithValue("@seccion", sec);
-                cmd.Parameters.AddWithValue("@manzana", man);
-                cmd.Parameters.AddWithValue("@parcela", par);
-                cmd.Parameters.AddWithValue("@p_h", p_h);
-                cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
-                //cmd.ExecuteNonQueryAsync();
-                total = Convert.ToDouble(cmd.ExecuteScalarAsync());
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_LIQUIDA_TASA_PROP_MENSUAL_SUP_RECALCULO_2023";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
                 return total;
             }
             catch (Exception)
@@ -1832,24 +1858,29 @@ namespace Web_Api_Inm
                 throw;
             }
         }
-        private static double sp_RECALCULO_INMUEBLES_ANUAL_2023(SqlConnection cn, int cir, int sec, int man, int par, int p_h, string periodo, int tipo_per)
+        private static double sp_RECALCULO_INMUEBLES_ANUAL_2023(int cir, int sec, int man, int par, int p_h, string periodo, int tipo_per)
         {
             try
             {
                 double total = 0;
-                SqlCommand cmd = cn.CreateCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "sp_LIQUIDA_TASA_PROP_ANUAL_SUP_RECALCULO_2023";
-                cmd.Connection.OpenAsync();
-                cmd.Parameters.AddWithValue("@periodo", periodo);
-                cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
-                cmd.Parameters.AddWithValue("@circunscripcion", cir);
-                cmd.Parameters.AddWithValue("@seccion", sec);
-                cmd.Parameters.AddWithValue("@manzana", man);
-                cmd.Parameters.AddWithValue("@parcela", par);
-                cmd.Parameters.AddWithValue("@p_h", p_h);
-                //cmd.ExecuteNonQueryAsync();
-                total = Convert.ToDouble(cmd.ExecuteScalarAsync());
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+
+
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_LIQUIDA_TASA_PROP_ANUAL_SUP_RECALCULO_2023";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
                 return total;
             }
             catch (Exception)
@@ -1858,7 +1889,7 @@ namespace Web_Api_Inm
                 throw;
             }
         }
-
+        #endregion
     }
 }
 
