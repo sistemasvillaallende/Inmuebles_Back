@@ -24,17 +24,36 @@ namespace Web_Api_Inm.Services
                 throw;
             }
         }
-        public List<Ctasctes_inmuebles> PeriodosRecalculo(int circunscripcion, int seccion, int manzana, int parcela, int p_h)
+        public void Confirma_iniciar_ctacte(int circunscripcion, int seccion, int manzana, int parcela, int p_h, List<Ctasctes_inmuebles> lst, Auditoria objA)
         {
             try
             {
-                return Ctasctes_inmuebles.PeriodosRecalculo(circunscripcion, seccion, manzana, parcela, p_h);
+                string string_detalle = " Periodos incluidos : ";
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    objA.identificacion = string.Format("{0}-{1}-{2}-{3}-{4}", circunscripcion.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
+                                         seccion.ToString().PadLeft(2, Convert.ToChar("0")),
+                                         manzana.ToString().PadLeft(2, Convert.ToChar("0")),
+                                         parcela.ToString().PadLeft(3, Convert.ToChar("0")),
+                                         p_h.ToString().PadLeft(3, Convert.ToChar("0")));
+                    objA.proceso = "INICIALIZACION CUENTA INMUEBLES";
+                    objA.detalle = "";
+                    objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                    foreach (var item in lst)
+                    {
+                        string_detalle += string.Format("Periodo {0} : ", item.periodo);
+                    }
+                    objA.detalle += string_detalle;
+                    Ctasctes_inmuebles.Confirma_iniciar_ctacte(circunscripcion, seccion, manzana, parcela, p_h, lst);
+                    AuditoriaD.InsertAuditoria(objA);
+                    scope.Complete();
+                }
             }
             catch (Exception)
             {
-
                 throw;
             }
+
         }
         public List<Ctasctes_inmuebles> ListarCtacte(int circunscripcion, int seccion, int manzana, int parcela, int p_h, int tipo_consulta,
                                                         int cate_deuda_desde, int cate_deuda_hasta)
@@ -71,37 +90,26 @@ namespace Web_Api_Inm.Services
                 throw;
             }
         }
-        public List<Ctasctes_inmuebles> Listar_Periodos_cancelados(int circunscripcion, int seccion, int manzana, int parcela, int p_h)
-        {
-            try
-            {
-                return Ctasctes_inmuebles.Listar_Periodos_cancelados(circunscripcion, seccion, manzana, parcela, p_h);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        public void Confirma_elimina_cancelacion(int circunscripcion, int seccion, int manzana, int parcela, int p_h,
-            List<Ctasctes_inmuebles> lst, Auditoria objA)
+        public void Confirma_cancelacion_ctasctes(int tipo_transaccion, int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst, Auditoria objA)
         {
             try
             {
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    string string_detalle = "Se cancelo total o parcial: ";
-                    objA.identificacion =
-                        string.Format("{0}-{1}-{2}-{3}-{4}", circunscripcion.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
-                                                            seccion.ToString().PadLeft(2, Convert.ToChar("0")),
-                                                            manzana.ToString().PadLeft(2, Convert.ToChar("0")),
-                                                            parcela.ToString().PadLeft(3, Convert.ToChar("0")),
+                    string
+                    string_detalle = "Se Elimino total o parcial: ";
+                    objA.identificacion = string.Format("{0}-{1}-{2}-{3}-{4}", cir.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
+                                                            sec.ToString().PadLeft(2, Convert.ToChar("0")),
+                                                            man.ToString().PadLeft(2, Convert.ToChar("0")),
+                                                            par.ToString().PadLeft(3, Convert.ToChar("0")),
                                                             p_h.ToString().PadLeft(3, Convert.ToChar("0")));
                     objA.proceso = "CANCELACION CUENTA CORRIENTE";
                     objA.detalle = "";
                     objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                    Ctasctes_inmuebles.InsertCancelacioMasiva(tipo_transaccion, cir, sec, man, par, p_h, lst);
+                    Ctasctes_inmuebles.MarcopagadalaCtacte(cir, sec, man, par, p_h, lst);
                     foreach (var item in lst)
                     {
-                        //Ctasctes_inmuebles.Confirma_elimina_cancelacion(item.nro_transaccion, item);
                         string_detalle += string.Format("Periodo {0} : ", item.periodo);
                     }
                     objA.detalle = string_detalle;
@@ -111,29 +119,42 @@ namespace Web_Api_Inm.Services
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
-        public void Confirma_cancelacion_ctasctes(int tipo_transaccion, int circunscripcion, int seccion, int manzana, int parcela, int p_h, List<Ctasctes_inmuebles> lst, Auditoria objA)
+        public List<Ctasctes_inmuebles> Listar_Periodos_cancelados(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                return Ctasctes_inmuebles.Listar_Periodos_cancelados(cir, sec, man, par, p_h);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public void Confirma_elimina_cancelacion(int cir, int sec, int man, int par, int p_h,
+            List<Ctasctes_inmuebles> lst, Auditoria objA)
         {
             try
             {
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    string
-                    string_detalle = "Se Elimino total o parcial: ";
-                    objA.identificacion = string.Format("{0}-{1}-{2}-{3}-{4}", circunscripcion.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
-                                                            seccion.ToString().PadLeft(2, Convert.ToChar("0")),
-                                                            manzana.ToString().PadLeft(2, Convert.ToChar("0")),
-                                                            parcela.ToString().PadLeft(3, Convert.ToChar("0")),
+                    string string_detalle = "Se cancelo total o parcial: ";
+                    objA.identificacion =
+                        string.Format("{0}-{1}-{2}-{3}-{4}", cir.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
+                                                            sec.ToString().PadLeft(2, Convert.ToChar("0")),
+                                                            man.ToString().PadLeft(2, Convert.ToChar("0")),
+                                                            par.ToString().PadLeft(3, Convert.ToChar("0")),
                                                             p_h.ToString().PadLeft(3, Convert.ToChar("0")));
-                    objA.proceso = "ELIMINA CANCELACION OPERATIVA";
+                    objA.proceso = "CANCELACION CUENTA CORRIENTE";
                     objA.detalle = "";
                     objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                    Ctasctes_inmuebles.Confirma_elimina_cancelacion(cir, sec, man, par, p_h, lst);
+                    Ctasctes_inmuebles.MarconopagadalaCtacte(cir, sec, man, par, p_h, lst);
                     foreach (var item in lst)
                     {
-                        Ctasctes_inmuebles.Confirma_cancelacion_ctasctes(tipo_transaccion, item);
+                        //Ctasctes_inmuebles.Confirma_elimina_cancelacion(item.nro_transaccion, item);
                         string_detalle += string.Format("Periodo {0} : ", item.periodo);
                     }
                     objA.detalle = string_detalle;
@@ -210,37 +231,17 @@ namespace Web_Api_Inm.Services
             }
 
         }
-        public void Confirma_iniciar_ctacte(int circunscripcion, int seccion, int manzana, int parcela, int p_h, List<Ctasctes_inmuebles> lst, Auditoria objA)
+        public List<Ctasctes_inmuebles> PeriodosRecalculo(int circunscripcion, int seccion, int manzana, int parcela, int p_h)
         {
-            SqlTransaction? trx = null;
             try
             {
-                string string_detalle = " Periodos incluidos : ";
-                using (TransactionScope scope = new TransactionScope())
-                {
-                    objA.identificacion = string.Format("{0}-{1}-{2}-{3}-{4}", circunscripcion.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
-                                         seccion.ToString().PadLeft(2, Convert.ToChar("0")),
-                                         manzana.ToString().PadLeft(2, Convert.ToChar("0")),
-                                         parcela.ToString().PadLeft(3, Convert.ToChar("0")),
-                                         p_h.ToString().PadLeft(3, Convert.ToChar("0")));
-                    objA.proceso = "INICIALIZACION CUENTA INMUEBLES";
-                    objA.detalle = "";
-                    objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                    foreach (var item in lst)
-                    {
-                        string_detalle += string.Format("Periodo {0} : ", item.periodo);
-                    }
-                    objA.detalle += string_detalle;
-                    Ctasctes_inmuebles.Confirma_iniciar_ctacte(circunscripcion, seccion, manzana, parcela, p_h, lst);
-                    AuditoriaD.InsertAuditoria(objA);
-                    scope.Complete();
-                }
+                return Ctasctes_inmuebles.PeriodosRecalculo(circunscripcion, seccion, manzana, parcela, p_h);
             }
             catch (Exception)
             {
+
                 throw;
             }
-
         }
         public DETALLE_PAGO DetallePago(int nroCedulon, int nroTransaccion)
         {

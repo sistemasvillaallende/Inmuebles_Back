@@ -10,6 +10,7 @@ using Web_Api_Inm.Entities.HELPERS;
 
 using Web_Api_Inm.Entities;
 using WSAfip;
+using System.Runtime.ConstrainedExecution;
 
 namespace Web_Api_Inm
 {
@@ -617,7 +618,7 @@ namespace Web_Api_Inm
                     cmd.Parameters.AddWithValue("@decreto", 0);
                     cmd.Parameters.AddWithValue("@observaciones", string.Empty);
                     cmd.Parameters.AddWithValue("@nro_cedulon_paypertic", 0);
-                    
+
                     foreach (var item in lst)
                     {
                         nro_transaccion += 1;
@@ -1309,20 +1310,205 @@ namespace Web_Api_Inm
                 throw;
             }
         }
-        public static void Confirma_cancelacion_ctasctes(int tipo_transaccion, Ctasctes_inmuebles obj)
+        public static void InsertCancelacioMasiva(int tipo_transaccion, int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
         {
             try
             {
-                //Recibe un 7 u 8 como tipo de transaccion
-                //7 Cancelacion, 8 Decreto resolucion
-                obj.tipo_transaccion = tipo_transaccion;
-                insert(obj);
+                StringBuilder sql = new StringBuilder();
+                sql.AppendLine("INSERT INTO Ctasctes_inmuebles(");
+                sql.AppendLine("tipo_transaccion");
+                sql.AppendLine(", nro_transaccion");
+                sql.AppendLine(", nro_pago_parcial");
+                sql.AppendLine(", circunscripcion");
+                sql.AppendLine(", seccion");
+                sql.AppendLine(", manzana");
+                sql.AppendLine(", parcela");
+                sql.AppendLine(", p_h");
+                sql.AppendLine(", fecha_transaccion");
+                sql.AppendLine(", periodo");
+                sql.AppendLine(", monto_original");
+                sql.AppendLine(", pagado");
+                sql.AppendLine(", debe");
+                sql.AppendLine(", haber");
+                sql.AppendLine(", pago_parcial");
+                sql.AppendLine(", vencimiento");
+                sql.AppendLine(", categoria_deuda");
+                sql.AppendLine(", monto_pagado");
+                sql.AppendLine(", deuda_activa");
+                sql.AppendLine(")");
+                sql.AppendLine("VALUES");
+                sql.AppendLine("(");
+                sql.AppendLine("@tipo_transaccion");
+                sql.AppendLine(", @nro_transaccion");
+                sql.AppendLine(", @nro_pago_parcial");
+                sql.AppendLine(", @circunscripcion");
+                sql.AppendLine(", @seccion");
+                sql.AppendLine(", @manzana");
+                sql.AppendLine(", @parcela");
+                sql.AppendLine(", @p_h");
+                sql.AppendLine(", @fecha_transaccion");
+                sql.AppendLine(", @periodo");
+                sql.AppendLine(", @monto_original");
+                sql.AppendLine(", @pagado");
+                sql.AppendLine(", @debe");
+                sql.AppendLine(", @haber");
+                sql.AppendLine(", @pago_parcial");
+                sql.AppendLine(", @vencimiento");
+                sql.AppendLine(", @categoria_deuda");
+                sql.AppendLine(", @monto_pagado");
+                sql.AppendLine(", @deuda_activa");
+                sql.AppendLine(")");
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = sql.ToString();
+                    cmd.Parameters.AddWithValue("@tipo_transaccion", tipo_transaccion);
+                    cmd.Parameters.AddWithValue("@nro_transaccion", 0);
+                    cmd.Parameters.AddWithValue("@nro_pago_parcial", 0);
+                    cmd.Parameters.AddWithValue("@circunscripcion", 0);
+                    cmd.Parameters.AddWithValue("@seccion", 0);
+                    cmd.Parameters.AddWithValue("@manzana", 0);
+                    cmd.Parameters.AddWithValue("@parcela", 0);
+                    cmd.Parameters.AddWithValue("@p_h", 0);
+                    cmd.Parameters.AddWithValue("@fecha_transaccion", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@periodo", string.Empty);
+                    cmd.Parameters.AddWithValue("@monto_original", 0);
+                    cmd.Parameters.AddWithValue("@pagado", 1);
+                    cmd.Parameters.AddWithValue("@debe", 0);
+                    cmd.Parameters.AddWithValue("@haber", 0);
+                    cmd.Parameters.AddWithValue("@pago_parcial", 0);
+                    cmd.Parameters.AddWithValue("@vencimiento", string.Empty);
+                    cmd.Parameters.AddWithValue("@categoria_deuda", 0);
+                    cmd.Parameters.AddWithValue("@monto_pagado", 0);
+                    cmd.Parameters.AddWithValue("@deuda_activa", 1);
+                    cmd.Connection.Open();
+                    foreach (var item in lst)
+                    {
+                        cmd.Parameters["@nro_transaccion"].Value = item.nro_transaccion;
+                        cmd.Parameters["@tipo_transaccion"].Value = tipo_transaccion;
+                        cmd.Parameters["@nro_pago_parcial"].Value = item.nro_pago_parcial;
+                        cmd.Parameters["@circunscripcion"].Value = cir;
+                        cmd.Parameters["@seccion"].Value = sec;
+                        cmd.Parameters["@manzana"].Value = man;
+                        cmd.Parameters["@parcela"].Value = par;
+                        cmd.Parameters["@p_h"].Value = p_h;
+                        cmd.Parameters["@fecha_transaccion"].Value = DateTime.Now;
+                        cmd.Parameters["@periodo"].Value = item.periodo;
+                        cmd.Parameters["@haber"].Value = item.debe;
+                        cmd.Parameters["@pago_parcial"].Value = item.pago_parcial;
+                        cmd.Parameters["@vencimiento"].Value = item.vencimiento;
+                        cmd.Parameters["@categoria_deuda"].Value = item.categoria_deuda;
+                        cmd.Parameters["@deuda_activa"].Value = item.deuda_activa;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
             }
-            catch (Exception)
+            catch (SqlException ex)
             {
-                throw;
+                throw new Exception("Error en Insertar la Cancelacion en la CtaCte del Inmueble ", ex);
             }
         }
+        public static void MarcopagadalaCtacte(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.AppendLine("UPDATE Ctasctes_inmuebles");
+                sql.AppendLine("set pagado=1");
+                sql.AppendLine("WHERE circunscripcion=@circunscripcion AND ");
+                sql.AppendLine("      seccion=@seccion AND ");
+                sql.AppendLine("      manzana=@manzana AND ");
+                sql.AppendLine("      parcela=@parcela AND ");
+                sql.AppendLine("      p_h=@p_h AND ");
+                sql.AppendLine("      tipo_transaccion=1 AND ");
+                sql.AppendLine("      nro_transaccion=@nro_transaccion");
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = sql.ToString();
+                    cmd.Parameters.AddWithValue("@circunscripcion", 0);
+                    cmd.Parameters.AddWithValue("@seccion", 0);
+                    cmd.Parameters.AddWithValue("@manzana", 0);
+                    cmd.Parameters.AddWithValue("@parcela", 0);
+                    cmd.Parameters.AddWithValue("@p_h", 0);
+                    cmd.Parameters.AddWithValue("@nro_transaccion", 0);
+                    cmd.Connection.Open();
+                    foreach (var item in lst)
+                    {
+                        cmd.Parameters["@circunscripcion"].Value = cir;
+                        cmd.Parameters["@seccion"].Value = sec;
+                        cmd.Parameters["@manzana"].Value = man;
+                        cmd.Parameters["@parcela"].Value = par;
+                        cmd.Parameters["@p_h"].Value = p_h;
+                        cmd.Parameters["@nro_transaccion"].Value = item.nro_transaccion;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error en la marca de la CtaCte del Inmueble", ex);
+            }
+        }
+        public static void MarconopagadalaCtacte(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.AppendLine("UPDATE Ctasctes_inmuebles");
+                sql.AppendLine("set pagado=0");
+                sql.AppendLine("WHERE circunscripcion=@circunscripcion AND ");
+                sql.AppendLine("      seccion=@seccion AND ");
+                sql.AppendLine("      manzana=@manzana AND ");
+                sql.AppendLine("      parcela=@parcela AND ");
+                sql.AppendLine("      p_h=@p_h AND ");
+                sql.AppendLine("      tipo_transaccion=1 AND ");
+                sql.AppendLine("      nro_transaccion=@nro_transaccion");
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = sql.ToString();
+                    cmd.Parameters.AddWithValue("@circunscripcion", 0);
+                    cmd.Parameters.AddWithValue("@seccion", 0);
+                    cmd.Parameters.AddWithValue("@manzana", 0);
+                    cmd.Parameters.AddWithValue("@parcela", 0);
+                    cmd.Parameters.AddWithValue("@p_h", 0);
+                    cmd.Parameters.AddWithValue("@nro_transaccion", 0);
+                    cmd.Connection.Open();
+                    foreach (var item in lst)
+                    {
+                        cmd.Parameters["@circunscripcion"].Value = cir;
+                        cmd.Parameters["@seccion"].Value = sec;
+                        cmd.Parameters["@manzana"].Value = man;
+                        cmd.Parameters["@parcela"].Value = par;
+                        cmd.Parameters["@p_h"].Value = p_h;
+                        cmd.Parameters["@nro_transaccion"].Value = item.nro_transaccion;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error en la marca de la CtaCte del Inmueble...", ex);
+            }
+        }
+        //public static void Confirma_cancelacion_ctasctes(int tipo_transaccion, Ctasctes_inmuebles obj)
+        //{
+        //    try
+        //    {
+        //        //Recibe un 7 u 8 como tipo de transaccion
+        //        //7 Cancelacion, 8 Decreto resolucion
+        //        obj.tipo_transaccion = tipo_transaccion;
+        //        insert(obj);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
         public static List<Ctasctes_inmuebles> Listar_Periodos_cancelados(int cir, int sec, int man, int par, int p_h)
         {
             try
@@ -1383,7 +1569,7 @@ namespace Web_Api_Inm
                 throw;
             }
         }
-        public static void Confirma_elimina_cancelacion(int cir, int sec, int man, int par, int p_h, int nro_transaccion)
+        public static void Confirma_elimina_cancelacion(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
         {
             try
             {
@@ -1401,19 +1587,27 @@ namespace Web_Api_Inm
                     SqlCommand cmd = con.CreateCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = strSQL;
-                    cmd.Connection.OpenAsync();
+                    cmd.Connection.Open();
                     cmd.Parameters.AddWithValue("@cir", cir);
                     cmd.Parameters.AddWithValue("@sec", sec);
                     cmd.Parameters.AddWithValue("@man", man);
                     cmd.Parameters.AddWithValue("@par", par);
                     cmd.Parameters.AddWithValue("@p_h", p_h);
-                    cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
-                    cmd.ExecuteNonQueryAsync();
+                    cmd.Parameters.AddWithValue("@nro_transaccion", 0);
+                    foreach (var item in lst)
+                    {
+                        cmd.Parameters["@circunscripcion"].Value = cir;
+                        cmd.Parameters["@seccion"].Value = sec;
+                        cmd.Parameters["@manzana"].Value = man;
+                        cmd.Parameters["@parcela"].Value = par;
+                        cmd.Parameters["@p_h"].Value = p_h;
+                        cmd.Parameters["@nro_transaccion"].Value = item.nro_transaccion;
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
