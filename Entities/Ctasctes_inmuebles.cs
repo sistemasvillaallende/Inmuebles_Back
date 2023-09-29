@@ -473,7 +473,7 @@ namespace Web_Api_Inm
                                 AND C.seccion=@sec
                                 AND C.manzana=@man
                                 AND C.parcela=@par
-                                AND C.p_h=
+                                AND C.p_h=@p_h
                                 AND C.periodo=V.periodo)
                                 AND V.subsistema=1
                         ORDER BY V.periodo";
@@ -1832,7 +1832,7 @@ namespace Web_Api_Inm
             try
             {
                 string strSQL = string.Empty;
-                strSQL = @"SELECT a.nro_transaccion, a.periodo, a.monto_original,
+                strSQL = @"SELECT a.tipo_transaccion, a.nro_transaccion, a.periodo, a.monto_original,
                               a.debe, a.vencimiento, v.cod_tipo_per
                             FROM CTASCTES_INMUEBLES a WITH (NOLOCK)
                             join VENCIMIENTOS_PERIODOS2 v on
@@ -1851,14 +1851,18 @@ namespace Web_Api_Inm
 
                             UNION ALL
 
-                            SELECT b.nro_transaccion, a.periodo, a.monto_1 as monto_original,
+                            SELECT 1 as tipo_transaccion, b.nro_transaccion, a.periodo, a.monto_1 as monto_original,
                              a.monto_2 as debe, a.vencimiento_1 as vencimiento,
                              4 as cod_tipo_per
                             FROM Cedulones2 A  WITH (NOLOCK)
                             JOIN Deudas_x_cedulon3 b on
                               a.nro_cedulon=b.nro_cedulon
                             WHERE
-                              A.dominio=@dominio AND
+                              a.circunscripcion=@cir AND
+                              a.seccion=@sec AND
+                              a.manzana=@man AND
+                              a.parcela=@par AND
+                              a.p_h=@p_h AND
                               A.no_pagado=1 AND
                               A.subsistema=1and
                               A.tipo_cedulon=1 and 
@@ -1877,9 +1881,11 @@ namespace Web_Api_Inm
                     cmd.Parameters.AddWithValue("@man", man);
                     cmd.Parameters.AddWithValue("@par", par);
                     cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Connection.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
                     if (dr.HasRows)
                     {
+                        int tipo_transaccion = dr.GetOrdinal("tipo_transaccion");
                         int nro_transaccion = dr.GetOrdinal("nro_transaccion");
                         int periodo = dr.GetOrdinal("periodo");
                         int monto_original = dr.GetOrdinal("monto_original");
@@ -1895,6 +1901,7 @@ namespace Web_Api_Inm
                             obj.manzana = man;
                             obj.parcela = par;
                             obj.p_h = p_h;
+                            if (!dr.IsDBNull(tipo_transaccion)) { obj.tipo_transaccion = dr.GetInt32(tipo_transaccion); }
                             if (!dr.IsDBNull(nro_transaccion)) { obj.nro_transaccion = dr.GetInt32(nro_transaccion); }
                             if (!dr.IsDBNull(periodo)) { obj.periodo = dr.GetString(periodo); }
                             if (!dr.IsDBNull(monto_original)) { obj.monto_original = dr.GetDecimal(monto_original); }

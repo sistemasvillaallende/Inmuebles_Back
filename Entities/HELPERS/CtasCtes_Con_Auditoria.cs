@@ -7,7 +7,7 @@
         public int man { get; set; }
         public int par { get; set; }
         public int p_h { get; set; }
-        public List<Ctasctes_inmuebles> lstCtasTes { get; set; }
+        public List<Ctasctes_inmuebles> lstCtastes { get; set; }
         public AUDITORIA.Auditoria auditoria { get; set; }
         public CtasCtes_Con_Auditoria()
         {
@@ -16,7 +16,7 @@
             man = 0;
             par = 0;
             p_h = 0;
-            lstCtasTes = new List<Ctasctes_inmuebles>();
+            lstCtastes = new List<Ctasctes_inmuebles>();
             auditoria = new AUDITORIA.Auditoria();
         }
     }
