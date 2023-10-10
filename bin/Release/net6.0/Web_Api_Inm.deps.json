@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "Web_Api_Auto/1.0.0": {
+      "Web_Api_Inm/1.0.0": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.1",
           "Swashbuckle.AspNetCore": "6.2.3",
@@ -18,7 +18,7 @@
           "System.ServiceModel.Security": "4.10.2"
         },
         "runtime": {
-          "Web_Api_Auto.dll": {}
+          "Web_Api_Inm.dll": {}
         }
       },
       "Microsoft.Bcl.AsyncInterfaces/5.0.0": {
@@ -602,7 +602,7 @@
     }
   },
   "libraries": {
-    "Web_Api_Auto/1.0.0": {
+    "Web_Api_Inm/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
