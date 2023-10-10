@@ -21,6 +21,9 @@ namespace Web_Api_Inm
             services.AddScoped<IUsuarioServices, UsuarioServices>();
             services.AddScoped<ICtasctes_inmueblesServices, Ctasctes_inmueblesServices>();
             services.AddScoped<ICedulonesServices, CedulonesServices>();
+            services.AddScoped<IConceptos_inmuebleService, Conceptos_inmuebleService>();
+            services.AddScoped<IDescadic_x_inmuebleService, Descadic_x_inmuebleService>();
+            services.AddScoped<IInmueblesService, InmueblesServices>();
             //
             services.AddCors();
 

@@ -32,23 +32,25 @@ namespace Web_Api_Inm.Entities
         {
             try
             {
-                StringBuilder sql = new StringBuilder();
-                sql.AppendLine("SELECT B.fecha_movimiento, E.NRO_TRANSACCION, A.nro_cedulon, E.monto_pagado,");
-                sql.AppendLine("c.descripcion, E.periodo, G.des_tarjeta, F.CANT_CUOTAS");
-                sql.AppendLine("FROM COMPR_X_MOVIM_CAJA_V2 A");
-                sql.AppendLine("FULL JOIN MOVIM_CAJA_V2 B ON A.nro_movimiento=B.nro_movimiento");
-                sql.AppendLine("FULL JOIN ENTIDAD_RECAUDADORA C ON B.cod_forma_pago=C.Id_entidad");
-                sql.AppendLine("FULL JOIN CEDULONES2 D ON A.nro_cedulon=D.nro_cedulon");
-                sql.AppendLine("FULL JOIN CTASCTES_AUTOMOTORES E ON A.nro_cedulon=E.nro_cedulon AND E.TIPO_TRANSACCION=2");
-                sql.AppendLine("FULL JOIN PAGOS_PAYPERTIC F ON A.nro_cedulon=F.NRO_CEDULON");
-                sql.AppendLine("FULL JOIN TARJETAS_DEBITOS G ON F.COD_TARJETA_INTERNO=G.cod_tarjeta");
-                sql.AppendLine("WHERE A.nro_cedulon=@nro_cedulon AND E.NRO_TRANSACCION=@nro_transaccion");
+                string sql = @"
+                            SELECT B.fecha_movimiento, E.NRO_TRANSACCION, 
+                            A.nro_cedulon, E.monto_pagado,
+                            c.descripcion, E.periodo, G.des_tarjeta, F.CANT_CUOTAS
+                            FROM COMPR_X_MOVIM_CAJA_V2 A
+                            FULL JOIN MOVIM_CAJA_V2 B ON A.nro_movimiento=B.nro_movimiento
+                            FULL JOIN ENTIDAD_RECAUDADORA C ON B.cod_forma_pago=C.Id_entidad
+                            FULL JOIN CEDULONES2 D ON A.nro_cedulon=D.nro_cedulon
+                            FULL JOIN CTASCTES_INMUEBLES E ON A.nro_cedulon=E.nro_cedulon
+                            AND E.TIPO_TRANSACCION=2
+                            FULL JOIN PAGOS_PAYPERTIC F ON A.nro_cedulon=F.NRO_CEDULON
+                            FULL JOIN TARJETAS_DEBITOS G ON F.COD_TARJETA_INTERNO=G.cod_tarjeta
+                            WHERE A.nro_cedulon=@nro_cedulon AND E.NRO_TRANSACCION=@nro_transaccion";
 
                 DETALLE_PAGO obj = null;
                 using (SqlConnection con = GetConnection())
                 {
                     SqlCommand cmd = con.CreateCommand();
-                    cmd.CommandText = sql.ToString();
+                    cmd.CommandText = sql;
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("@nro_cedulon", nroCedulon);
                     cmd.Parameters.AddWithValue("@nro_transaccion", nroTransaccion);

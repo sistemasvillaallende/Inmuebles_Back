@@ -266,17 +266,6 @@ namespace Web_Api_Inm.Services
                 throw;
             }
         }
-        public GrillaInm DetalleProcuracion(int nro_proc)
-        {
-            try
-            {
-                return GrillaInm.DetalleProcuracion(nro_proc);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
         public PlanPago DetPlanPago(int nro_plan)
         {
             try
@@ -301,6 +290,121 @@ namespace Web_Api_Inm.Services
             }
             catch (Exception ex)
             {
+                throw;
+            }
+        }
+        public Ctasctes_inmuebles getByPk(int tipo_transaccion, int nro_transaccion, int nro_pago_parcial)
+        {
+            try
+            {
+                return Ctasctes_inmuebles.getByPk(tipo_transaccion, nro_transaccion, nro_pago_parcial);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public List<Ctasctes_inmuebles> read()
+        {
+            try
+            {
+                return Ctasctes_inmuebles.read();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public int insert(Ctasctes_inmuebles obj)
+        {
+            try
+            {
+                return Ctasctes_inmuebles.insert(obj);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public void update(Ctasctes_inmuebles obj)
+        {
+            try
+            {
+                Ctasctes_inmuebles.update(obj);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public void delete(Ctasctes_inmuebles obj)
+        {
+            try
+            {
+                Ctasctes_inmuebles.delete(obj);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public GrillaTasa DetalleProcuracion(int nro_proc)
+        {
+            try
+            {
+                return GrillaTasa.DetalleProcuracion(nro_proc);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public List<LstDeudaTasa> getListDeudaTasa(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                List<LstDeudaTasa> lst = LstDeudaTasa.getListDeudaTasa(cir, sec, man, par, p_h);
+
+                return lst;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public List<LstDeudaTasa> getListDeudaTasaProcurada(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                return LstDeudaTasa.getListDeudaTasaProcurada(cir, sec, man, par, p_h);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public List<LstDeudaTasa> getListDeudaTasaNoVencida(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                return LstDeudaTasa.getListDeudaTasaNoVencida(cir, sec, man, par, p_h);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public List<Combo> ListarCategoriasTasa()
+        {
+            try
+            {
+                return Entities.Inmuebles.ListarCategoriasTasa();
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }
