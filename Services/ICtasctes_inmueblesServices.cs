@@ -27,9 +27,19 @@ namespace Web_Api_Inm.Services
         public void Confirma_iniciar_ctacte(int circunscripcion, int seccion, int manzana, int parcela, int p_h, 
             List<Ctasctes_inmuebles> lst, Auditoria objA);
         public DETALLE_PAGO DetallePago(int nroCedulon, int nroTransaccion);
+        public GrillaTasa DetalleProcuracion(int nro_proc);
         public List<DETALLE_DEUDA> DetalleDeuda(int nroTransaccion);
-        public GrillaInm DetalleProcuracion(int nro_proc);
         public PlanPago DetPlanPago(int nro_plan);
         public List<LstDeudaInm> getListDeudaInm(int circunscripcion, int seccion, int manzana, int parcela, int p_h);
+        public List<Ctasctes_inmuebles> read();
+        public Ctasctes_inmuebles getByPk(int tipo_transaccion, int nro_transaccion, int nro_pago_parcial);
+        public int insert(Ctasctes_inmuebles obj);
+        public void update(Ctasctes_inmuebles obj);
+        public void delete(Ctasctes_inmuebles obj);
+        public List<LstDeudaTasa> getListDeudaTasa(int cir, int sec, int man, int par, int p_h);
+        public List<LstDeudaTasa> getListDeudaTasaProcurada(int cir, int sec, int man, int par, int p_h);
+        public List<LstDeudaTasa> getListDeudaTasaNoVencida(int cir, int sec, int man, int par, int p_h);
+        public List<Combo> ListarCategoriasTasa();
+
     }
 }

@@ -75,6 +75,7 @@ namespace Web_Api_Inm.Entities
         public string LAT { get; set; }
         public string LONG { get; set; }
         public string DIR_GOOGLE { get; set; }
+        public int total_row { get; set; }
         public AUDITORIA.Auditoria objAuditoria { get; set; }
         public Inmuebles()
         {
@@ -757,68 +758,159 @@ namespace Web_Api_Inm.Entities
                 throw;
             }
         }
-        public async static Task<List<Inmuebles>> GetInmueblesPaginado(string buscarPor, string strParametro, int registro_desde, int registro_hasta)
+        public static string armoDenominacion(int cir, int sec, int man, int par, int p_h)
         {
-            bool busquedaSi = false;
+            try
+            {
+                StringBuilder denominacion = new StringBuilder();
+
+                if (cir < 10)
+                    denominacion.AppendFormat("CIR: 0{0} - ", cir);
+                if (cir > 9 && cir < 100)
+                    denominacion.AppendFormat("CIR: {0} - ", cir);
+
+                if (sec < 10)
+                    denominacion.AppendFormat("SEC: 0{0} - ", sec);
+                if (sec > 9 && sec < 100)
+                    denominacion.AppendFormat("SEC: {0} - ", sec);
+
+                if (man < 10)
+                    denominacion.AppendFormat("MAN: 00{0} - ", man);
+                if (man > 9 && man < 100)
+                    denominacion.AppendFormat("MAN: 0{0} - ", man);
+                if (man > 99)
+                    denominacion.AppendFormat("MAN: {0} - ", man);
+
+                if (par < 10)
+                    denominacion.AppendFormat("PAR: 00{0} - ", par);
+                if (par > 9 && par < 100)
+                    denominacion.AppendFormat("PAR: 0{0} - ", par);
+                if (par > 99)
+                    denominacion.AppendFormat("PAR: {0} - ", par);
+
+                if (p_h < 10)
+                    denominacion.AppendFormat("P_H: 00{0}", p_h);
+                if (p_h > 9 && p_h < 100)
+                    denominacion.AppendFormat("P_H: 0{0}", p_h);
+                if (p_h > 99)
+                    denominacion.AppendFormat("P_H: {0}", p_h);
+
+                return denominacion.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public static string armoDenominacion2(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                StringBuilder denominacion = new StringBuilder();
+
+                if (cir < 10)
+                    denominacion.AppendFormat("0{0}", cir);
+                if (cir > 9 && cir < 100)
+                    denominacion.AppendFormat("{0}", cir);
+
+                if (sec < 10)
+                    denominacion.AppendFormat("0{0}", sec);
+                if (sec > 9 && sec < 100)
+                    denominacion.AppendFormat("{0}", sec);
+
+                if (man < 10)
+                    denominacion.AppendFormat("00{0}", man);
+                if (man > 9 && man < 100)
+                    denominacion.AppendFormat("0{0}", man);
+                if (man > 99)
+                    denominacion.AppendFormat("{0}", man);
+
+                if (par < 10)
+                    denominacion.AppendFormat("00{0}", par);
+                if (par > 9 && par < 100)
+                    denominacion.AppendFormat("0{0}", par);
+                if (par > 99)
+                    denominacion.AppendFormat("{0}", par);
+
+                if (p_h < 10)
+                    denominacion.AppendFormat("00{0}", p_h);
+                if (p_h > 9 && p_h < 100)
+                    denominacion.AppendFormat("0{0}", p_h);
+                if (p_h > 99)
+                    denominacion.AppendFormat("{0}", p_h);
+
+                return denominacion.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public static string armoDenominacion3(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                StringBuilder denominacion = new StringBuilder();
+
+                if (cir < 10)
+                    denominacion.AppendFormat("0{0} - ", cir);
+                if (cir > 9 && cir < 100)
+                    denominacion.AppendFormat("{0} - ", cir);
+
+                if (sec < 10)
+                    denominacion.AppendFormat("0{0} - ", sec);
+                if (sec > 9 && sec < 100)
+                    denominacion.AppendFormat("{0} - ", sec);
+
+                if (man < 10)
+                    denominacion.AppendFormat("00{0} - ", man);
+                if (man > 9 && man < 100)
+                    denominacion.AppendFormat("0{0} - ", man);
+                if (man > 99)
+                    denominacion.AppendFormat("{0} - ", man);
+
+                if (par < 10)
+                    denominacion.AppendFormat("00{0} - ", par);
+                if (par > 9 && par < 100)
+                    denominacion.AppendFormat("0{0} - ", par);
+                if (par > 99)
+                    denominacion.AppendFormat("{0} - ", par);
+
+                if (p_h < 10)
+                    denominacion.AppendFormat("00{0}", p_h);
+                if (p_h > 9 && p_h < 100)
+                    denominacion.AppendFormat("0{0}", p_h);
+                if (p_h > 99)
+                    denominacion.AppendFormat("{0}", p_h);
+
+                return denominacion.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public static List<Inmuebles> GetInmueblesPaginado(string buscarPor, string strParametro,
+            int registro_desde, int registro_hasta)
+        {
             try
             {
                 List<Inmuebles> lst = new List<Inmuebles>();
-                string sql = @" SELECT *
-                                FROM (
-                                    SELECT ROW_NUMBER() OVER (ORDER BY circunscripcion, seccion, manzana, parcela, p_h) AS RowNum, *
-                                    FROM Inmuebles (nolock)
-                                ) AS tabla_numerada";
-                //WHERE
-                //RowNum BETWEEN @desde AND @hasta
-                //ORDER By Dominio
-                string sqlWhere = "";
-                if (!string.IsNullOrEmpty(buscarPor))
-                {
-                    switch (buscarPor)
-                    {
-                        case "dominio":
-                            sqlWhere = @" WHERE
-                                dominio=@parametro AND
-                                RowNum BETWEEN @desde AND @hasta
-                                ORDER By Dominio";
-                            break;
-                        case "cuit":
-                            sqlWhere = @" WHERE
-                                cuit=Convert(varchar(11),@parametro) AND
-                                RowNum BETWEEN @desde AND @hasta
-                                ORDER BY circunscripcion, seccion, manzana, parcela, p_h";
-                            break;
-                        case "titular":
-                            sqlWhere = @" WHERE
-                                nombre like @parametro + '%' AND
-                                RowNum BETWEEN @desde AND @hasta
-                                ORDER BY circunscripcion, seccion, manzana, parcela, p_h";
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                if (sqlWhere.Length > 0)
-                {
-                    busquedaSi = true;
-                    sql += sqlWhere;
-                }
-                else
-                {
-                    busquedaSi = false;
-                    sql += " WHERE RowNum BETWEEN @desde AND @hasta ORDER BY circunscripcion, seccion, manzana, parcela, p_h";
-                }
-                using (SqlConnection con = GetConnectionSIIMVA())
+
+                using (SqlConnection con = GetConnection())
                 {
                     SqlCommand cmd = con.CreateCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = sql.ToString();
-                    cmd.Parameters.AddWithValue("@desde", registro_desde);
-                    cmd.Parameters.AddWithValue("@hasta", registro_hasta);
-                    if (busquedaSi)
-                        cmd.Parameters.AddWithValue("@parametro", strParametro);
-                    await cmd.Connection.OpenAsync();
-                    SqlDataReader dr = await cmd.ExecuteReaderAsync();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "PAGINACION_TASA";
+
+                    cmd.Parameters.AddWithValue("@filtro", buscarPor);
+                    cmd.Parameters.AddWithValue("@valor_filtro", strParametro);
+                    cmd.Parameters.AddWithValue("@pagina_inicio", registro_desde);
+                    cmd.Parameters.AddWithValue("@cant_registros", registro_hasta);
+                    var total_row = cmd.Parameters.Add("@total_row", SqlDbType.Int);
+                    total_row.Direction = ParameterDirection.Output;
+                    cmd.Connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
                     lst = mapeo(dr);
                     return lst;
                 }
@@ -1150,9 +1242,43 @@ namespace Web_Api_Inm.Entities
 
                 throw;
             }
-        }       
+        }
 
-
+        public static List<Combo> ListarCategoriasTasa()
+        {
+            try
+            {
+                List<Combo> lst = new List<Combo>();
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "SELECT * FROM CATE_DEUDA_INMUEBLE";
+                    cmd.Connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    Combo? obj;
+                    obj = new Combo();
+                    obj.text = "TODAS LAS DEUDAS";
+                    obj.value = "0";
+                    lst.Add(obj);
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            obj = new();
+                            if (!dr.IsDBNull(0)) { obj.value = Convert.ToString(dr.GetInt32(0)); }
+                            if (!dr.IsDBNull(1)) { obj.text = dr.GetString(1); }
+                            lst.Add(obj);
+                        }
+                    }
+                    return lst;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
 
 

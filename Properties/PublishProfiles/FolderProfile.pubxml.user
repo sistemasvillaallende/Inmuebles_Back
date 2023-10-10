@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Este archivo se usa en el proceso de publicación y empaquetado del proyecto web. Para personalizar el comportamiento de este proceso,
+edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 para obtener más información. 
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\WebApiTasa</_PublishTargetUrl>
+    <History>True|2023-10-10T01:33:24.1626461Z;True|2023-10-09T19:17:33.2884408-03:00;True|2023-10-09T10:21:25.6340995-03:00;True|2023-10-09T10:16:21.6883993-03:00;</History>
+  </PropertyGroup>
+</Project>
