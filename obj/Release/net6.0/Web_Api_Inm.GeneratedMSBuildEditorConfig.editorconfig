@@ -5,7 +5,6 @@ build_property.UsingMicrosoftNETSdkWeb = true
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
 build_property.PlatformNeutralAssembly = 
-<<<<<<< HEAD
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Web_Api_Inm
@@ -15,14 +14,4 @@ build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = D:\Dev\NET2022\Web_Api_Inm
-=======
-build_property._SupportedPlatformList = Linux,macOS,Windows
-build_property.RootNamespace = Web_Api_Inm
-build_property.RootNamespace = Web_Api_Inm
-build_property.ProjectDir = D:\Municipalidad\Inmuebles_Back\
-build_property.RazorLangVersion = 6.0
-build_property.SupportLocalizedComponentNames = 
-build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Municipalidad\Inmuebles_Back
->>>>>>> 186c6b4e1ab13673fc19c390e2d0c8e2ed78c6f2
 build_property._RazorSourceGeneratorDebug = 

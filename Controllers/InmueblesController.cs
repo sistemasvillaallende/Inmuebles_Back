@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
+using Web_Api_Inm.Entities.AUDITORIA;
 using Web_Api_Inm.Helpers;
 using Web_Api_Inm.Services;
 
@@ -95,19 +96,38 @@ namespace Web_Api_Inm.Controllers
                 return null;
         }
         [HttpGet]
-        public Entities.Inmuebles getByPk(
-    int circunscripcion, int seccion, int manzana, int parcela, int p_h)
+        public Entities.Inmuebles getByPk(int circunscripcion, int seccion, int manzana, int parcela, int p_h)
         {
             try
             {
-                return _InmueblesService.getByPk(circunscripcion, seccion,
-                    manzana, parcela, p_h);
+                return _InmueblesService.getByPk(circunscripcion, seccion, manzana, parcela, p_h);
             }
             catch (Exception ex)
             {
-
                 throw;
             }
+        }
+
+        [HttpPost]
+        public IActionResult InformeCtaCteCompleto(int cir, int sec, int man, int par, int p_h, string per, Auditoria objA)
+        {
+            var reporte = _InmueblesService.InformeCtaCteCompleto(cir, sec, man, par, p_h, per, objA);
+            if (reporte.Count == 0)
+            {
+                return BadRequest(new { message = @"Información, no se encontraron Datos para este Inmueble " });
+            }
+            return Ok(reporte);
+        }
+
+        [HttpPost]
+        public IActionResult InformeCtaCteSolodeuda(int cir, int sec, int man, int par, int p_h, int categoria_deuda, int categoria_deuda2, string per, Auditoria objA)
+        {
+            var reporte = _InmueblesService.InformeCtaCteSoloDeuda(cir, sec, man, par, p_h, categoria_deuda, categoria_deuda2, per, objA);
+            if (reporte.Count == 0)
+            {
+                return BadRequest(new { message = @"Información, no se encontraron Datos para este Inmueble " });
+            }
+            return Ok(reporte);
         }
     }
 }
