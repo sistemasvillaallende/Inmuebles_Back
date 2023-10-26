@@ -11,7 +11,6 @@ namespace Web_Api_Inm.Services
         public int insert(Descadic_x_inmueble obj);
         public void update(Descadic_x_inmueble obj);
         public void delete(Descadic_x_inmueble obj);
-        public List<Descadic_x_inmueble> listConceptosXinmueble(
-    int circunscripcion, int seccion, int manzana, int parcela, int p_h);
+        public List<Descadic_x_inmueble> listConceptosXinmueble(int circunscripcion, int seccion, int manzana, int parcela, int p_h);
     }
 }

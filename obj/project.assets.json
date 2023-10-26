@@ -438,7 +438,7 @@
           "lib/netcoreapp2.0/_._": {}
         }
       },
-      "System.Private.ServiceModel/4.10.2": {
+      "System.Private.ServiceModel/4.10.3": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "5.0.0",
@@ -713,11 +713,11 @@
           }
         }
       },
-      "System.ServiceModel.Duplex/4.10.2": {
+      "System.ServiceModel.Duplex/4.10.3": {
         "type": "package",
         "dependencies": {
-          "System.Private.ServiceModel": "4.10.2",
-          "System.ServiceModel.Primitives": "4.10.2"
+          "System.Private.ServiceModel": "4.10.3",
+          "System.ServiceModel.Primitives": "4.10.3"
         },
         "compile": {
           "ref/net6.0/System.ServiceModel.Duplex.dll": {}
@@ -728,13 +728,13 @@
           }
         }
       },
-      "System.ServiceModel.Federation/4.10.2": {
+      "System.ServiceModel.Federation/4.10.3": {
         "type": "package",
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.WsTrust": "6.8.0",
-          "System.ServiceModel.Http": "4.10.2",
-          "System.ServiceModel.Primitives": "4.10.2",
-          "System.ServiceModel.Security": "4.10.2"
+          "System.ServiceModel.Http": "4.10.3",
+          "System.ServiceModel.Primitives": "4.10.3",
+          "System.ServiceModel.Security": "4.10.3"
         },
         "compile": {
           "lib/netstandard2.0/System.ServiceModel.Federation.dll": {
@@ -788,11 +788,11 @@
           }
         }
       },
-      "System.ServiceModel.Http/4.10.2": {
+      "System.ServiceModel.Http/4.10.3": {
         "type": "package",
         "dependencies": {
-          "System.Private.ServiceModel": "4.10.2",
-          "System.ServiceModel.Primitives": "4.10.2"
+          "System.Private.ServiceModel": "4.10.3",
+          "System.ServiceModel.Primitives": "4.10.3"
         },
         "compile": {
           "ref/net6.0/System.ServiceModel.Http.dll": {}
@@ -803,11 +803,11 @@
           }
         }
       },
-      "System.ServiceModel.NetTcp/4.10.2": {
+      "System.ServiceModel.NetTcp/4.10.3": {
         "type": "package",
         "dependencies": {
-          "System.Private.ServiceModel": "4.10.2",
-          "System.ServiceModel.Primitives": "4.10.2"
+          "System.Private.ServiceModel": "4.10.3",
+          "System.ServiceModel.Primitives": "4.10.3"
         },
         "compile": {
           "ref/net6.0/System.ServiceModel.NetTcp.dll": {}
@@ -818,10 +818,10 @@
           }
         }
       },
-      "System.ServiceModel.Primitives/4.10.2": {
+      "System.ServiceModel.Primitives/4.10.3": {
         "type": "package",
         "dependencies": {
-          "System.Private.ServiceModel": "4.10.2"
+          "System.Private.ServiceModel": "4.10.3"
         },
         "compile": {
           "ref/net6.0/System.ServiceModel.Primitives.dll": {},
@@ -836,11 +836,11 @@
           }
         }
       },
-      "System.ServiceModel.Security/4.10.2": {
+      "System.ServiceModel.Security/4.10.3": {
         "type": "package",
         "dependencies": {
-          "System.Private.ServiceModel": "4.10.2",
-          "System.ServiceModel.Primitives": "4.10.2"
+          "System.Private.ServiceModel": "4.10.3",
+          "System.ServiceModel.Primitives": "4.10.3"
         },
         "compile": {
           "ref/net6.0/System.ServiceModel.Security.dll": {}
@@ -1990,10 +1990,10 @@
         "version.txt"
       ]
     },
-    "System.Private.ServiceModel/4.10.2": {
-      "sha512": "bi2/w2EDXqxno8zfbt6vHcrpGw0Pav8tEMzmJraHwJvWYJd45wcqr7gNa2IUs91j4z+BNGMooStaWS6pm2Lq0A==",
+    "System.Private.ServiceModel/4.10.3": {
+      "sha512": "BcUV7OERlLqGxDXZuIyIMMmk1PbqBblLRbAoigmzIUx/M8A+8epvyPyXRpbgoucKH7QmfYdQIev04Phx2Co08A==",
       "type": "package",
-      "path": "system.private.servicemodel/4.10.2",
+      "path": "system.private.servicemodel/4.10.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2016,7 +2016,7 @@
         "lib/netstandard2.0/zh-Hans/System.Private.ServiceModel.resources.dll",
         "lib/netstandard2.0/zh-Hant/System.Private.ServiceModel.resources.dll",
         "ref/netstandard2.0/_._",
-        "system.private.servicemodel.4.10.2.nupkg.sha512",
+        "system.private.servicemodel.4.10.3.nupkg.sha512",
         "system.private.servicemodel.nuspec"
       ]
     },
@@ -2783,10 +2783,10 @@
         "version.txt"
       ]
     },
-    "System.ServiceModel.Duplex/4.10.2": {
-      "sha512": "FjFGC7DOTNrkItAYQZVyrDTqXezqFIzmdKL1YaN1ZHdbq5oeyo//iyR+OGXLAfbBxyHultFgV1DetarYBSvIxw==",
+    "System.ServiceModel.Duplex/4.10.3": {
+      "sha512": "IZ8ZahvTenWML7/jGUXSCm6jHlxpMbcb+Hy+h5p1WP9YVtb+Er7FHRRGizqQMINEdK6HhWpD6rzr5PdxNyusdg==",
       "type": "package",
-      "path": "system.servicemodel.duplex/4.10.2",
+      "path": "system.servicemodel.duplex/4.10.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2824,14 +2824,14 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.servicemodel.duplex.4.10.2.nupkg.sha512",
+        "system.servicemodel.duplex.4.10.3.nupkg.sha512",
         "system.servicemodel.duplex.nuspec"
       ]
     },
-    "System.ServiceModel.Federation/4.10.2": {
-      "sha512": "2jDrqYrIspmpIasSZ/Q8LrHJswxwyCko1dsGZUAFR/Z6WJufFjbRpwoWV+gBM0/7b1mb/oSa3DwNjjgK+lsP3Q==",
+    "System.ServiceModel.Federation/4.10.3": {
+      "sha512": "VFQgE+XFdUXvxShtdQwNJ0AxfYr0ZVS0TlR3yRwCZxtcRPD0rnkSNfTbIiLxjH0j+O+IrtNZh9EDAQCLEiSNMA==",
       "type": "package",
-      "path": "system.servicemodel.federation/4.10.2",
+      "path": "system.servicemodel.federation/4.10.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2853,14 +2853,14 @@
         "lib/netstandard2.0/tr/System.ServiceModel.Federation.resources.dll",
         "lib/netstandard2.0/zh-Hans/System.ServiceModel.Federation.resources.dll",
         "lib/netstandard2.0/zh-Hant/System.ServiceModel.Federation.resources.dll",
-        "system.servicemodel.federation.4.10.2.nupkg.sha512",
+        "system.servicemodel.federation.4.10.3.nupkg.sha512",
         "system.servicemodel.federation.nuspec"
       ]
     },
-    "System.ServiceModel.Http/4.10.2": {
-      "sha512": "1AhiJwPc+90GjBd/sDkT93RVuRj688ZQInXzWfd56AEjDzWieUcAUh9ppXhRuEVpT+x48D5GBYJc1VxDP4IT+Q==",
+    "System.ServiceModel.Http/4.10.3": {
+      "sha512": "hodkn0rPTYmoZ9EIPwcleUrOi1gZBPvU0uFvzmJbyxl1lIpVM5GxTrs/pCETStjOXCiXhBDoZQYajquOEfeW/w==",
       "type": "package",
-      "path": "system.servicemodel.http/4.10.2",
+      "path": "system.servicemodel.http/4.10.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2904,14 +2904,14 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.servicemodel.http.4.10.2.nupkg.sha512",
+        "system.servicemodel.http.4.10.3.nupkg.sha512",
         "system.servicemodel.http.nuspec"
       ]
     },
-    "System.ServiceModel.NetTcp/4.10.2": {
-      "sha512": "jWNKeXfccRqkbjTkVyKD0QBBO+FnYWQrNrJByT+oOab17UBLfvUdt1kLhPe3qZalIlBoqvRFtw6yR/oRs5r3Vw==",
+    "System.ServiceModel.NetTcp/4.10.3": {
+      "sha512": "tP7GN7ehqSIQEz7yOJEtY8ziTpfavf2IQMPKa7r9KGQ75+uEW6/wSlWez7oKQwGYuAHbcGhpJvdG6WoVMKYgkw==",
       "type": "package",
-      "path": "system.servicemodel.nettcp/4.10.2",
+      "path": "system.servicemodel.nettcp/4.10.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2952,14 +2952,14 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.servicemodel.nettcp.4.10.2.nupkg.sha512",
+        "system.servicemodel.nettcp.4.10.3.nupkg.sha512",
         "system.servicemodel.nettcp.nuspec"
       ]
     },
-    "System.ServiceModel.Primitives/4.10.2": {
-      "sha512": "8QOguIqHtWYywBt7SubPhdICE2LClHzqOMDy0LQIui4T3QJOae7g6UR+alCW61nEufYNtO8Uss41EbXqD8hdww==",
+    "System.ServiceModel.Primitives/4.10.3": {
+      "sha512": "aNcdry95wIP1J+/HcLQM/f/AA73LnBQDNc2uCoZ+c1//KpVRp8nMZv5ApMwK+eDNVdCK8G0NLInF+xG3mfQL+g==",
       "type": "package",
-      "path": "system.servicemodel.primitives/4.10.2",
+      "path": "system.servicemodel.primitives/4.10.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3007,14 +3007,14 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.servicemodel.primitives.4.10.2.nupkg.sha512",
+        "system.servicemodel.primitives.4.10.3.nupkg.sha512",
         "system.servicemodel.primitives.nuspec"
       ]
     },
-    "System.ServiceModel.Security/4.10.2": {
-      "sha512": "BdYdPHRJLqwFAJYbmdl9M5qqjJ6O7TVw9AMcW0h7+oc0ah0ufYuSIrN75BhNNAIcaYcviWzC3PDT5H0QkNX7ug==",
+    "System.ServiceModel.Security/4.10.3": {
+      "sha512": "vqelKb7DvP2inb6LDJ5Igi8wpOYdtLXn5luDW5qEaqkV2sYO1pKlVYBpr6g6m5SevzbdZlVNu67dQiD/H6EdGQ==",
       "type": "package",
-      "path": "system.servicemodel.security/4.10.2",
+      "path": "system.servicemodel.security/4.10.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3055,7 +3055,7 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.servicemodel.security.4.10.2.nupkg.sha512",
+        "system.servicemodel.security.4.10.3.nupkg.sha512",
         "system.servicemodel.security.nuspec"
       ]
     },

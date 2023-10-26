@@ -1495,20 +1495,6 @@ namespace Web_Api_Inm
                 throw new Exception("Error en la marca de la CtaCte del Inmueble...", ex);
             }
         }
-        //public static void Confirma_cancelacion_ctasctes(int tipo_transaccion, Ctasctes_inmuebles obj)
-        //{
-        //    try
-        //    {
-        //        //Recibe un 7 u 8 como tipo de transaccion
-        //        //7 Cancelacion, 8 Decreto resolucion
-        //        obj.tipo_transaccion = tipo_transaccion;
-        //        insert(obj);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
         public static List<Ctasctes_inmuebles> Listar_Periodos_cancelados(int cir, int sec, int man, int par, int p_h)
         {
             try
