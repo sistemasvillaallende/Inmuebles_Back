@@ -1,4 +1,5 @@
 ﻿using System.Data.SqlClient;
+using System.Runtime.ConstrainedExecution;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Transactions;
@@ -7,6 +8,7 @@ using Web_Api_Inm.Entities.AUDITORIA;
 using Web_Api_Inm.Entities.HELPERS;
 using Web_Api_Inm.Entities.INM;
 using WSAfip;
+using static System.Collections.Specialized.BitVector32;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Web_Api_Inm.Services
@@ -31,11 +33,12 @@ namespace Web_Api_Inm.Services
                 string string_detalle = " Periodos incluidos : ";
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    objA.identificacion = string.Format("{0}-{1}-{2}-{3}-{4}", circunscripcion.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
-                                         seccion.ToString().PadLeft(2, Convert.ToChar("0")),
-                                         manzana.ToString().PadLeft(2, Convert.ToChar("0")),
-                                         parcela.ToString().PadLeft(3, Convert.ToChar("0")),
-                                         p_h.ToString().PadLeft(3, Convert.ToChar("0")));
+                    objA.identificacion = Entities.Inmuebles.armoDenominacion3(circunscripcion, seccion, manzana, parcela, p_h);
+                    //string.Format("{0}-{1}-{2}-{3}-{4}", circunscripcion.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
+                    //                 seccion.ToString().PadLeft(2, Convert.ToChar("0")),
+                    //                 manzana.ToString().PadLeft(2, Convert.ToChar("0")),
+                    //                 parcela.ToString().PadLeft(3, Convert.ToChar("0")),
+                    //                 p_h.ToString().PadLeft(3, Convert.ToChar("0")));
                     objA.proceso = "INICIALIZACION CUENTA INMUEBLES";
                     objA.detalle = "";
                     objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
@@ -98,11 +101,7 @@ namespace Web_Api_Inm.Services
                 {
                     string
                     string_detalle = "Se Elimino total o parcial: ";
-                    objA.identificacion = string.Format("{0}-{1}-{2}-{3}-{4}", cir.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
-                                                            sec.ToString().PadLeft(2, Convert.ToChar("0")),
-                                                            man.ToString().PadLeft(2, Convert.ToChar("0")),
-                                                            par.ToString().PadLeft(3, Convert.ToChar("0")),
-                                                            p_h.ToString().PadLeft(3, Convert.ToChar("0")));
+                    objA.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
                     objA.proceso = "CANCELACION CUENTA CORRIENTE";
                     objA.detalle = "";
                     objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
@@ -141,12 +140,12 @@ namespace Web_Api_Inm.Services
                 using (TransactionScope scope = new TransactionScope())
                 {
                     string string_detalle = "Se cancelo total o parcial: ";
-                    objA.identificacion =
-                        string.Format("{0}-{1}-{2}-{3}-{4}", cir.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
-                                                            sec.ToString().PadLeft(2, Convert.ToChar("0")),
-                                                            man.ToString().PadLeft(2, Convert.ToChar("0")),
-                                                            par.ToString().PadLeft(3, Convert.ToChar("0")),
-                                                            p_h.ToString().PadLeft(3, Convert.ToChar("0")));
+                    objA.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
+                    //string.Format("{0}-{1}-{2}-{3}-{4}", cir.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
+                    //                                        sec.ToString().PadLeft(2, Convert.ToChar("0")),
+                    //                                        man.ToString().PadLeft(3, Convert.ToChar("0")),
+                    //                                        par.ToString().PadLeft(3, Convert.ToChar("0")),
+                    //                                        p_h.ToString().PadLeft(3, Convert.ToChar("0")));
                     objA.proceso = "CANCELACION CUENTA CORRIENTE";
                     objA.detalle = "";
                     objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
@@ -188,11 +187,7 @@ namespace Web_Api_Inm.Services
                 using (TransactionScope scope = new TransactionScope())
                 {
                     string string_detalle = "Se Reliquido los : ";
-                    objA.identificacion = string.Format("{0}-{1}-{2}-{3}-{4}", circunscripcion.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
-                                                            seccion.ToString().PadLeft(2, Convert.ToChar("0")),
-                                                            manzana.ToString().PadLeft(2, Convert.ToChar("0")),
-                                                            parcela.ToString().PadLeft(3, Convert.ToChar("0")),
-                                                            p_h.ToString().PadLeft(3, Convert.ToChar("0")));
+                    objA.identificacion = Entities.Inmuebles.armoDenominacion3(circunscripcion, seccion, manzana, parcela, p_h);
                     objA.proceso = "RECALCULO DEUDA INMUEBLES";
                     objA.detalle = "";
                     objA.observaciones += string.Format(" Fecha auditoria: {0} ", DateTime.Now);

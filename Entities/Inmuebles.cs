@@ -853,36 +853,34 @@ namespace Web_Api_Inm.Entities
                 StringBuilder denominacion = new StringBuilder();
 
                 if (cir < 10)
-                    denominacion.AppendFormat("0{0} - ", cir);
+                    denominacion.AppendFormat("0{0}-", cir);
                 if (cir > 9 && cir < 100)
-                    denominacion.AppendFormat("{0} - ", cir);
+                    denominacion.AppendFormat("{0}-", cir);
 
                 if (sec < 10)
-                    denominacion.AppendFormat("0{0} - ", sec);
+                    denominacion.AppendFormat("0{0}-", sec);
                 if (sec > 9 && sec < 100)
-                    denominacion.AppendFormat("{0} - ", sec);
+                    denominacion.AppendFormat("{0}-", sec);
 
                 if (man < 10)
-                    denominacion.AppendFormat("00{0} - ", man);
+                    denominacion.AppendFormat("00{0}-", man);
                 if (man > 9 && man < 100)
-                    denominacion.AppendFormat("0{0} - ", man);
+                    denominacion.AppendFormat("0{0}-", man);
                 if (man > 99)
-                    denominacion.AppendFormat("{0} - ", man);
+                    denominacion.AppendFormat("{0}-", man);
 
                 if (par < 10)
-                    denominacion.AppendFormat("00{0} - ", par);
+                    denominacion.AppendFormat("00{0}-", par);
                 if (par > 9 && par < 100)
-                    denominacion.AppendFormat("0{0} - ", par);
+                    denominacion.AppendFormat("0{0}-", par);
                 if (par > 99)
-                    denominacion.AppendFormat("{0} - ", par);
-
+                    denominacion.AppendFormat("{0}-", par);
                 if (p_h < 10)
                     denominacion.AppendFormat("00{0}", p_h);
                 if (p_h > 9 && p_h < 100)
                     denominacion.AppendFormat("0{0}", p_h);
                 if (p_h > 99)
                     denominacion.AppendFormat("{0}", p_h);
-
                 return denominacion.ToString();
             }
             catch (Exception ex)
@@ -1075,7 +1073,7 @@ namespace Web_Api_Inm.Entities
                 throw;
             }
         }
-        public static List<Combo> Categorias_liq_tasa()
+        public static List<Combo> Categorias_liq_zona()
         {
             try
             {
@@ -1243,7 +1241,6 @@ namespace Web_Api_Inm.Entities
                 throw;
             }
         }
-
         public static List<Combo> ListarCategoriasTasa()
         {
             try

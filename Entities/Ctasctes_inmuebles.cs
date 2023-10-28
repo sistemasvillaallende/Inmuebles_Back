@@ -848,8 +848,8 @@ namespace Web_Api_Inm
             try
             {
                 DateTimeFormatInfo culturaFecArgentina = new CultureInfo("es-AR", false).DateTimeFormat;
-                StringBuilder strSql = new StringBuilder();
-                strSql.AppendLine(@"SELECT 
+                StringBuilder strSQL = new StringBuilder();
+                strSQL.AppendLine(@"SELECT 
                                     movimiento=
                                         (SELECT t.Descripcion 
                                         FROM TIPOS_TRANSACCIONES t 
@@ -881,34 +881,34 @@ namespace Web_Api_Inm
                 {
                     if (cate_deuda_desde == cate_deuda_hasta)
                     {
-                        strSql.AppendLine(@"A.categoria_deuda = @categoria_desde");
+                        strSQL.AppendLine(@"A.categoria_deuda = @categoria_desde");
                     }
                     else
                     {
-                        strSql.AppendLine(@"A.categoria_deuda between @categoria_desde and @categoria_hasta");
+                        strSQL.AppendLine(@"A.categoria_deuda between @categoria_desde and @categoria_hasta");
                     }
-                    strSql.AppendLine(@"ORDER BY PERIODO, NRO_TRANSACCION, TIPO_TRANSACCION");
+                    strSQL.AppendLine(@"ORDER BY PERIODO, NRO_TRANSACCION, TIPO_TRANSACCION");
                 }
                 else  // solo deudas
                 {
                     if (cate_deuda_desde == cate_deuda_hasta)
                     {
-                        strSql.AppendLine(@"A.categoria_deuda = @categoria_desde AND");
+                        strSQL.AppendLine(@"A.categoria_deuda = @categoria_desde AND");
                     }
                     else
                     {
-                        strSql.AppendLine(@"A.categoria_deuda between @categoria_desde and @categoria_hasta AND");
+                        strSQL.AppendLine(@"A.categoria_deuda between @categoria_desde and @categoria_hasta AND");
                     }
-                    strSql.AppendLine(@"((A.tipo_transaccion=1 AND A.pagado=0) OR (A.tipo_transaccion <> 1 AND NOT EXISTS 
+                    strSQL.AppendLine(@"((A.tipo_transaccion=1 AND A.pagado=0) OR (A.tipo_transaccion <> 1 AND NOT EXISTS 
                         (SELECT * FROM CTASCTES_INMUEBLES B WHERE B.tipo_transaccion = 1 AND B.nro_transaccion = A.nro_transaccion AND pagado = 1)))");
-                    strSql.AppendLine(@"ORDER BY PERIODO, NRO_TRANSACCION, TIPO_TRANSACCION");
+                    strSQL.AppendLine(@"ORDER BY PERIODO, NRO_TRANSACCION, TIPO_TRANSACCION");
                 }
                 List<Ctasctes_inmuebles> lst = new List<Ctasctes_inmuebles>();
                 using (SqlConnection con = GetConnectionSIIMVA())
                 {
                     SqlCommand cmd = con.CreateCommand();
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = strSql.ToString();
+                    cmd.CommandText = strSQL.ToString();
                     cmd.Parameters.AddWithValue("@cir", cir);
                     cmd.Parameters.AddWithValue("@sec", sec);
                     cmd.Parameters.AddWithValue("@man", man);
@@ -1495,20 +1495,6 @@ namespace Web_Api_Inm
                 throw new Exception("Error en la marca de la CtaCte del Inmueble...", ex);
             }
         }
-        //public static void Confirma_cancelacion_ctasctes(int tipo_transaccion, Ctasctes_inmuebles obj)
-        //{
-        //    try
-        //    {
-        //        //Recibe un 7 u 8 como tipo de transaccion
-        //        //7 Cancelacion, 8 Decreto resolucion
-        //        obj.tipo_transaccion = tipo_transaccion;
-        //        insert(obj);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
         public static List<Ctasctes_inmuebles> Listar_Periodos_cancelados(int cir, int sec, int man, int par, int p_h)
         {
             try

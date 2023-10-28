@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
+using Web_Api_Inm.Entities;
 using Web_Api_Inm.Entities.AUDITORIA;
+using Web_Api_Inm.Entities.HELPERS;
 using Web_Api_Inm.Helpers;
 using Web_Api_Inm.Services;
 
@@ -16,6 +18,13 @@ namespace Web_Api_Inm.Controllers
         public InmueblesController(IInmueblesService InmueblesService)
         {
             _InmueblesService = InmueblesService;
+        }
+        
+        [HttpGet]
+        public ActionResult Categorias_liq_zona()
+        {
+            var zonas = _InmueblesService.Categorias_liq_zona();
+            return Ok(zonas);
         }
 
         [HttpGet]
@@ -95,18 +104,6 @@ namespace Web_Api_Inm.Controllers
             else
                 return null;
         }
-        [HttpGet]
-        public Entities.Inmuebles getByPk(int circunscripcion, int seccion, int manzana, int parcela, int p_h)
-        {
-            try
-            {
-                return _InmueblesService.getByPk(circunscripcion, seccion, manzana, parcela, p_h);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
 
         [HttpPost]
         public IActionResult InformeCtaCteCompleto(int cir, int sec, int man, int par, int p_h, string per, Auditoria objA)
@@ -128,6 +125,13 @@ namespace Web_Api_Inm.Controllers
                 return BadRequest(new { message = @"Información, no se encontraron Datos para este Inmueble " });
             }
             return Ok(reporte);
+        }
+
+        [HttpGet]
+        public IActionResult ListarCategoriasTasa()
+        {
+            var categorias = _InmueblesService.ListarCategoriasTasa();
+            return Ok(categorias);
         }
     }
 }
