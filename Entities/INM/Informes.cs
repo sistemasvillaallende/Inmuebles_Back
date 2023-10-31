@@ -1,5 +1,7 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
+using System.Globalization;
+using System.Text;
 
 namespace Web_Api_Inm.Entities.INM
 {
@@ -226,7 +228,92 @@ namespace Web_Api_Inm.Entities.INM
                 throw;
             }
         }
-
+        public static List<Informes> Resumendeuda(int cir, int sec, int man, int par, int p_h,
+          int tipo_consulta, string periodo, int cate_deuda_desde, int cate_deuda_hasta)
+        {
+            try
+            {
+                DateTimeFormatInfo culturaFecArgentina = new CultureInfo("es-AR", false).DateTimeFormat;
+                List<Informes> lst = new List<Informes>();
+                StringBuilder strSQL = new StringBuilder();
+                strSQL.AppendLine(@"SELECT 
+                                    a.vencimiento,
+                                    a.nro_transaccion,
+                                    a.tipo_transaccion,
+                                    (SELECT t.Descripcion 
+                                       FROM TIPOS_TRANSACCIONES t 
+                                     WHERE t.tipo_transaccion=a.Tipo_transaccion) as des_transaccion, 
+                                    (SELECT c.des_categoria 
+                                        FROM CATE_DEUDA_INMUEBLE c 
+                                        WHERE c.cod_categoria = a.categoria_deuda ) as categoria,
+	                                a.periodo,
+                                    a.debe,
+                                    a.haber,
+                                    a.nro_plan, 
+                                    a.nro_procuracion
+                                    FROM CTASCTES_INMUEBLES a WITH (NOLOCK) 
+                                    WHERE  
+                                      a.circunscripcion=@cir AND
+                                      a.seccion=@sec AND
+                                      a.manzana=@man AND
+                                      a.parcela=@par AND
+                                      a.p_h=@p_h AND 
+                                      a.deuda_activa = 1 AND");
+                if (periodo.Length > 0)
+                {
+                    strSQL.AppendLine(@"a.periodo=>=@periodo AND");
+                }
+                if (tipo_consulta == 1)// toda la cuenta corriente
+                {
+                    if (cate_deuda_desde == cate_deuda_hasta)
+                    {
+                        strSQL.AppendLine(@"a.categoria_deuda = @categoria_desde");
+                    }
+                    else
+                    {
+                        strSQL.AppendLine(@"a.categoria_deuda between @categoria_desde and @categoria_hasta");
+                    }
+                    strSQL.AppendLine(@"ORDER BY PERIODO, NRO_TRANSACCION, TIPO_TRANSACCION");
+                }
+                else  // solo deudas
+                {
+                    if (cate_deuda_desde == cate_deuda_hasta)
+                    {
+                        strSQL.AppendLine(@"a.categoria_deuda = @categoria_desde AND");
+                    }
+                    else
+                    {
+                        strSQL.AppendLine(@"a.categoria_deuda between @categoria_desde and @categoria_hasta AND");
+                    }
+                    strSQL.AppendLine(@"((a.tipo_transaccion=1 AND a.pagado=0) OR (a.tipo_transaccion <> 1 AND NOT EXISTS 
+                        (SELECT * FROM CTASCTES_INMUEBLES b WHERE b.tipo_transaccion = 1 AND b.nro_transaccion = a.nro_transaccion AND b.pagado = 1)))");
+                    strSQL.AppendLine(@"ORDER BY PERIODO, NRO_TRANSACCION, TIPO_TRANSACCION");
+                }
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strSQL.ToString();
+                    cmd.Parameters.AddWithValue("@cir", cir);
+                    cmd.Parameters.AddWithValue("@sec", sec);
+                    cmd.Parameters.AddWithValue("@man", man);
+                    cmd.Parameters.AddWithValue("@par", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Parameters.AddWithValue("@categoria_desde", cate_deuda_desde);
+                    cmd.Parameters.AddWithValue("@categoria_hasta", cate_deuda_hasta);
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Connection.Open();
+                    cmd.Connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    lst = mapeo(dr);
+                    return lst;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
     }
 }
