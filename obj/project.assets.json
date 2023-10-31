@@ -1,6 +1,9 @@
 {
   "version": 3,
   "targets": {
+<<<<<<< HEAD
+    "net6.0": {}
+=======
     "net6.0": {
       "Microsoft.Bcl.AsyncInterfaces/5.0.0": {
         "type": "package",
@@ -3546,33 +3549,26 @@
         "system.xml.xmldocument.nuspec"
       ]
     }
+>>>>>>> 6c5a3e215982d11ea35ab25716b2282a82a7d65a
   },
+  "libraries": {},
   "projectFileDependencyGroups": {
-    "net6.0": [
-      "Newtonsoft.Json >= 13.0.1",
-      "Swashbuckle.AspNetCore >= 6.2.3",
-      "System.Data.SqlClient >= 4.8.3",
-      "System.ServiceModel.Duplex >= 4.10.*",
-      "System.ServiceModel.Federation >= 4.10.*",
-      "System.ServiceModel.Http >= 4.10.*",
-      "System.ServiceModel.NetTcp >= 4.10.*",
-      "System.ServiceModel.Security >= 4.10.*"
-    ]
+    "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\mandres\\.nuget\\packages\\": {}
+    "C:\\Users\\Martin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Dev\\NET2022\\Web_Api_Inm\\Web_Api_Inm.csproj",
+      "projectUniqueName": "D:\\Municipalidad\\Inmuebles_Back\\Web_Api_Inm.csproj",
       "projectName": "Web_Api_Inm",
-      "projectPath": "D:\\Dev\\NET2022\\Web_Api_Inm\\Web_Api_Inm.csproj",
-      "packagesPath": "C:\\Users\\mandres\\.nuget\\packages\\",
-      "outputPath": "D:\\Dev\\NET2022\\Web_Api_Inm\\obj\\",
+      "projectPath": "D:\\Municipalidad\\Inmuebles_Back\\Web_Api_Inm.csproj",
+      "packagesPath": "C:\\Users\\Martin\\.nuget\\packages\\",
+      "outputPath": "D:\\Municipalidad\\Inmuebles_Back\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\mandres\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Martin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3580,7 +3576,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+        "D:\\packages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3598,60 +3594,17 @@
     "frameworks": {
       "net6.0": {
         "targetAlias": "net6.0",
-        "dependencies": {
-          "Newtonsoft.Json": {
-            "target": "Package",
-            "version": "[13.0.1, )"
-          },
-          "Swashbuckle.AspNetCore": {
-            "target": "Package",
-            "version": "[6.2.3, )"
-          },
-          "System.Data.SqlClient": {
-            "target": "Package",
-            "version": "[4.8.3, )"
-          },
-          "System.ServiceModel.Duplex": {
-            "target": "Package",
-            "version": "[4.10.*, )"
-          },
-          "System.ServiceModel.Federation": {
-            "target": "Package",
-            "version": "[4.10.*, )"
-          },
-          "System.ServiceModel.Http": {
-            "target": "Package",
-            "version": "[4.10.*, )"
-          },
-          "System.ServiceModel.NetTcp": {
-            "target": "Package",
-            "version": "[4.10.*, )"
-          },
-          "System.ServiceModel.Security": {
-            "target": "Package",
-            "version": "[4.10.*, )"
-          }
-        },
         "imports": [
           "net461",
           "net462",
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "frameworkReferences": {
-          "Microsoft.AspNetCore.App": {
-            "privateAssets": "none"
-          },
-          "Microsoft.NETCore.App": {
-            "privateAssets": "all"
-          }
-        },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.410\\RuntimeIdentifierGraph.json"
       }
     }
   }
