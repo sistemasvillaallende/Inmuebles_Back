@@ -26,7 +26,7 @@ namespace Web_Api_Inm.Services
                     obj.objAuditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
                     Inmuebles.update(obj);
                     AuditoriaD.InsertAuditoria(obj.objAuditoria);
-                    scope.Complete();
+                    //scope.Complete();
                 }
             }
             catch (Exception)

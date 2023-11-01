@@ -634,7 +634,7 @@ namespace Web_Api_Inm.Entities
                     cmd.Parameters.AddWithValue("@manzana", obj.manzana);
                     cmd.Parameters.AddWithValue("@parcela", obj.parcela);
                     cmd.Parameters.AddWithValue("@p_h", obj.p_h);
-                    //cmd.Parameters.AddWithValue("@cod_barrio", obj.cod_barrio);
+                    cmd.Parameters.AddWithValue("@cod_barrio", obj.cod_barrio);
                     //cmd.Parameters.AddWithValue("@nro_bad", obj.nro_bad);
                     //cmd.Parameters.AddWithValue("@Nombre", obj.Nombre);
                     //cmd.Parameters.AddWithValue("@exhimido", obj.exhimido);
@@ -696,9 +696,9 @@ namespace Web_Api_Inm.Entities
                     cmd.ExecuteNonQuery();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public static void delete(Inmuebles obj)

@@ -20,7 +20,7 @@ namespace Web_Api_Inm.Controllers
             _InmueblesService = InmueblesService;
         }
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult Updateinmueble(Inmuebles obj)
         {
 
