@@ -19,7 +19,24 @@ namespace Web_Api_Inm.Controllers
         {
             _InmueblesService = InmueblesService;
         }
-        
+
+        [HttpGet]
+        public ActionResult Updateinmueble(Inmuebles obj)
+        {
+
+            var inmueble = _InmueblesService.getByPk(obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h);
+            if (inmueble.circunscripcion == 0)
+            {
+                return BadRequest(new { message = @"Información, no se encontro este Inmueble " });
+            }
+            else
+            {
+                _InmueblesService.update(obj);
+            }
+            return Ok(inmueble);
+
+        }
+
         [HttpGet]
         public ActionResult Categorias_liq_zona()
         {
@@ -105,33 +122,44 @@ namespace Web_Api_Inm.Controllers
                 return null;
         }
 
-        [HttpPost]
-        public IActionResult InformeCtaCteCompleto(int cir, int sec, int man, int par, int p_h, string per, Auditoria objA)
-        {
-            var reporte = _InmueblesService.InformeCtaCteCompleto(cir, sec, man, par, p_h, per, objA);
-            if (reporte.Count == 0)
-            {
-                return BadRequest(new { message = @"Información, no se encontraron Datos para este Inmueble " });
-            }
-            return Ok(reporte);
-        }
+        //[HttpPost]
+        //public IActionResult InformeCtaCteCompleto(int cir, int sec, int man, int par, int p_h, string per, Auditoria objA)
+        //{
+        //    var reporte = _InmueblesService.InformeCtaCteCompleto(cir, sec, man, par, p_h, per, objA);
+        //    if (reporte.Count == 0)
+        //    {
+        //        return BadRequest(new { message = @"Información, no se encontraron Datos para este Inmueble " });
+        //    }
+        //    return Ok(reporte);
+        //}
 
-        [HttpPost]
-        public IActionResult InformeCtaCteSolodeuda(int cir, int sec, int man, int par, int p_h, int categoria_deuda, int categoria_deuda2, string per, Auditoria objA)
-        {
-            var reporte = _InmueblesService.InformeCtaCteSoloDeuda(cir, sec, man, par, p_h, categoria_deuda, categoria_deuda2, per, objA);
-            if (reporte.Count == 0)
-            {
-                return BadRequest(new { message = @"Información, no se encontraron Datos para este Inmueble " });
-            }
-            return Ok(reporte);
-        }
+        //[HttpPost]
+        //public IActionResult InformeCtaCteSolodeuda(int cir, int sec, int man, int par, int p_h, int categoria_deuda, int categoria_deuda2, string per, Auditoria objA)
+        //{
+        //    var reporte = _InmueblesService.InformeCtaCteSoloDeuda(cir, sec, man, par, p_h, categoria_deuda, categoria_deuda2, per, objA);
+        //    if (reporte.Count == 0)
+        //    {
+        //        return BadRequest(new { message = @"Información, no se encontraron Datos para este Inmueble " });
+        //    }
+        //    return Ok(reporte);
+        //}
 
         [HttpGet]
         public IActionResult ListarCategoriasTasa()
         {
             var categorias = _InmueblesService.ListarCategoriasTasa();
             return Ok(categorias);
+        }
+
+        [HttpPost]
+        public IActionResult Resumendeuda(int cir, int sec, int man, int par, int p_h, int tipo_consulta, string periodo, int cate_deuda_desde, int cate_deuda_hasta, Auditoria objA)
+        {
+            var resumen = _InmueblesService.Resumendeuda(cir, sec, man, par, p_h, tipo_consulta, periodo, cate_deuda_desde, cate_deuda_hasta, objA);
+            if (resumen.Count == 0)
+            {
+                return BadRequest(new { message = @"Información, no se encontraron Datos para este Inmueble!!!" });
+            }
+            return Ok(resumen);
         }
     }
 }

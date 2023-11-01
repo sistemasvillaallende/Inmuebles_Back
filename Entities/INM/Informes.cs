@@ -261,7 +261,7 @@ namespace Web_Api_Inm.Entities.INM
                                       a.deuda_activa = 1 AND");
                 if (periodo.Length > 0)
                 {
-                    strSQL.AppendLine(@"a.periodo=>=@periodo AND");
+                    strSQL.AppendLine(@"a.periodo>=@periodo AND");
                 }
                 if (tipo_consulta == 1)// toda la cuenta corriente
                 {
@@ -302,7 +302,6 @@ namespace Web_Api_Inm.Entities.INM
                     cmd.Parameters.AddWithValue("@categoria_desde", cate_deuda_desde);
                     cmd.Parameters.AddWithValue("@categoria_hasta", cate_deuda_hasta);
                     cmd.Parameters.AddWithValue("@periodo", periodo);
-                    cmd.Connection.Open();
                     cmd.Connection.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
                     lst = mapeo(dr);

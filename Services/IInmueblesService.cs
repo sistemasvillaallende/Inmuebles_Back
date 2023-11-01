@@ -7,6 +7,7 @@ namespace Web_Api_Inm.Services
 {
     public interface IInmueblesService
     {
+        public void update(Inmuebles obj);
         public List<Inmuebles> GetInmueblesPaginado(string buscarPor, string strParametro,
             int registro_desde, int registro_hasta);
 
@@ -19,7 +20,8 @@ namespace Web_Api_Inm.Services
         public List<Informes> InformeCtaCteCompleto(int cir, int sec, int man, int par, int p_h, string per, Auditoria objA);
         public List<Combo> ListarCategoriasTasa();
 
-
+        public List<Informes> Resumendeuda(int cir, int sec, int man, int par, int p_h,
+            int tipo_consulta, string periodo, int cate_deuda_desde, int cate_deuda_hasta, Auditoria objA);
 
     }
 }
