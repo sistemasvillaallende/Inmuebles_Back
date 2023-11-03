@@ -12,6 +12,17 @@ namespace Web_Api_Inm.Services
 {
     public class InmueblesServices : IInmueblesService
     {
+        public Inmuebles getByPk(int circunscripcion, int seccion, int manzana, int parcela, int p_h)
+        {
+            try
+            {
+                return Inmuebles.getByPk(circunscripcion, seccion, manzana, parcela, p_h);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public void update(Inmuebles obj)
         {
             try
@@ -56,18 +67,6 @@ namespace Web_Api_Inm.Services
             {
 
                 throw;
-            }
-        }
-        public Inmuebles getByPk(int circunscripcion, int seccion, int manzana, int parcela, int p_h)
-        {
-            try
-            {
-                return Entities.Inmuebles.getByPk(circunscripcion, seccion,
-                    manzana, parcela, p_h);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
         }
         public string armoDenominacion(int cir, int sec, int man, int par, int p_h)
@@ -155,7 +154,7 @@ namespace Web_Api_Inm.Services
                 throw;
             }
         }
-        public List<Informes> Resumendeuda(int cir, int sec, int man, int par, int p_h, 
+        public List<Informes> Resumendeuda(int cir, int sec, int man, int par, int p_h,
             int tipo_consulta, string periodo, int cate_deuda_desde, int cate_deuda_hasta, Auditoria objA)
         {
             try
@@ -168,7 +167,7 @@ namespace Web_Api_Inm.Services
                     AuditoriaD.InsertAuditoria(objA);
                     scope.Complete();
                 }
-                return Informes.Resumendeuda(cir,sec, man, par, p_h, tipo_consulta, periodo, cate_deuda_desde, cate_deuda_hasta);
+                return Informes.Resumendeuda(cir, sec, man, par, p_h, tipo_consulta, periodo, cate_deuda_desde, cate_deuda_hasta);
             }
             catch (Exception)
             {

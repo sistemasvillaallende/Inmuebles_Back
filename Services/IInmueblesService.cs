@@ -7,11 +7,10 @@ namespace Web_Api_Inm.Services
 {
     public interface IInmueblesService
     {
+        public Inmuebles getByPk(int circunscripcion, int seccion, int manzana, int parcela, int p_h);
         public void update(Inmuebles obj);
         public List<Inmuebles> GetInmueblesPaginado(string buscarPor, string strParametro,
             int registro_desde, int registro_hasta);
-
-        public Inmuebles getByPk(int circunscripcion, int seccion, int manzana, int parcela, int p_h);
         public List<Combo> Categorias_liq_zona();
         public string armoDenominacion(int cir, int sec, int man, int par, int p_h);
         public string armoDenominacion2(int cir, int sec, int man, int par, int p_h);

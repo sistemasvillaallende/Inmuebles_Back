@@ -67,11 +67,11 @@ namespace Web_Api_Inm.Entities
         public string cuit_ocupante { get; set; }
         public int nro_bad_ocupante { get; set; }
         public string cod_categoria_zona_liq { get; set; }
-        public int Tipo_ph { get; set; }
-        public DateTime? Fecha_tipo_ph { get; set; }
+        public int tipo_ph { get; set; }
+        public DateTime? fecha_tipo_ph { get; set; }
         public string cuil { get; set; }
-        public DateTime? FECHA_VECINO_DIGITAL { get; set; }
-        public string CUIT_VECINO_DIGITAL { get; set; }
+        public DateTime? fecha_vecino_digital { get; set; }
+        public string cuit_vecino_digital { get; set; }
         public string LAT { get; set; }
         public string LONG { get; set; }
         public string DIR_GOOGLE { get; set; }
@@ -134,11 +134,11 @@ namespace Web_Api_Inm.Entities
             cuit_ocupante = string.Empty;
             nro_bad_ocupante = 0;
             cod_categoria_zona_liq = string.Empty;
-            Tipo_ph = 0;
-            Fecha_tipo_ph = null;// DateTime.Now;
+            tipo_ph = 0;
+            fecha_tipo_ph = null;// DateTime.Now;
             cuil = string.Empty;
-            FECHA_VECINO_DIGITAL = null;// DateTime.Now;
-            CUIT_VECINO_DIGITAL = string.Empty;
+            fecha_vecino_digital = null;// DateTime.Now;
+            cuit_vecino_digital = string.Empty;
             LAT = string.Empty;
             LONG = string.Empty;
             DIR_GOOGLE = string.Empty;
@@ -206,11 +206,11 @@ namespace Web_Api_Inm.Entities
                 int cuit_ocupante = dr.GetOrdinal("cuit_ocupante");
                 int nro_bad_ocupante = dr.GetOrdinal("nro_bad_ocupante");
                 int cod_categoria_zona_liq = dr.GetOrdinal("cod_categoria_zona_liq");
-                int Tipo_ph = dr.GetOrdinal("Tipo_ph");
-                int Fecha_tipo_ph = dr.GetOrdinal("Fecha_tipo_ph");
+                int tipo_ph = dr.GetOrdinal("tipo_ph");
+                int fecha_tipo_ph = dr.GetOrdinal("fecha_tipo_ph");
                 int cuil = dr.GetOrdinal("cuil");
-                int FECHA_VECINO_DIGITAL = dr.GetOrdinal("FECHA_VECINO_DIGITAL");
-                int CUIT_VECINO_DIGITAL = dr.GetOrdinal("CUIT_VECINO_DIGITAL");
+                int fecha_vecino_digital = dr.GetOrdinal("fecha_vecino_digital");
+                int cuit_vecino_digital = dr.GetOrdinal("cuit_vecino_digital");
                 int LAT = dr.GetOrdinal("LAT");
                 int LONG = dr.GetOrdinal("LONG");
                 int DIR_GOOGLE = dr.GetOrdinal("DIR_GOOGLE");
@@ -272,11 +272,11 @@ namespace Web_Api_Inm.Entities
                     if (!dr.IsDBNull(cuit_ocupante)) { obj.cuit_ocupante = dr.GetString(cuit_ocupante); }
                     if (!dr.IsDBNull(nro_bad_ocupante)) { obj.nro_bad_ocupante = dr.GetInt32(nro_bad_ocupante); }
                     if (!dr.IsDBNull(cod_categoria_zona_liq)) { obj.cod_categoria_zona_liq = dr.GetString(cod_categoria_zona_liq); }
-                    if (!dr.IsDBNull(Tipo_ph)) { obj.Tipo_ph = dr.GetInt32(Tipo_ph); }
-                    if (!dr.IsDBNull(Fecha_tipo_ph)) { obj.Fecha_tipo_ph = dr.GetDateTime(Fecha_tipo_ph); }
+                    if (!dr.IsDBNull(tipo_ph)) { obj.tipo_ph = dr.GetInt32(tipo_ph); }
+                    if (!dr.IsDBNull(fecha_tipo_ph)) { obj.fecha_tipo_ph = dr.GetDateTime(fecha_tipo_ph); }
                     if (!dr.IsDBNull(cuil)) { obj.cuil = dr.GetString(cuil); }
-                    if (!dr.IsDBNull(FECHA_VECINO_DIGITAL)) { obj.FECHA_VECINO_DIGITAL = dr.GetDateTime(FECHA_VECINO_DIGITAL); }
-                    if (!dr.IsDBNull(CUIT_VECINO_DIGITAL)) { obj.CUIT_VECINO_DIGITAL = dr.GetString(CUIT_VECINO_DIGITAL); }
+                    if (!dr.IsDBNull(fecha_vecino_digital)) { obj.fecha_vecino_digital = dr.GetDateTime(fecha_vecino_digital); }
+                    if (!dr.IsDBNull(cuit_vecino_digital)) { obj.cuit_vecino_digital = dr.GetString(cuit_vecino_digital); }
                     if (!dr.IsDBNull(LAT)) { obj.LAT = dr.GetString(LAT); }
                     if (!dr.IsDBNull(LONG)) { obj.LONG = dr.GetString(LONG); }
                     if (!dr.IsDBNull(DIR_GOOGLE)) { obj.DIR_GOOGLE = dr.GetString(DIR_GOOGLE); }
@@ -301,9 +301,9 @@ namespace Web_Api_Inm.Entities
                     return lst;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public static Inmuebles getByPk(int circunscripcion, int seccion, int manzana, int parcela, int p_h)
@@ -402,8 +402,8 @@ namespace Web_Api_Inm.Entities
                 sql.AppendLine(", cuit_ocupante");
                 sql.AppendLine(", nro_bad_ocupante");
                 sql.AppendLine(", cod_categoria_zona_liq");
-                sql.AppendLine(", Tipo_ph");
-                sql.AppendLine(", Fecha_tipo_ph");
+                sql.AppendLine(", tipo_ph");
+                sql.AppendLine(", fecha_tipo_ph");
                 sql.AppendLine(", cuil");
                 sql.AppendLine(", FECHA_VECINO_DIGITAL");
                 sql.AppendLine(", CUIT_VECINO_DIGITAL");
@@ -468,11 +468,11 @@ namespace Web_Api_Inm.Entities
                 sql.AppendLine(", @cuit_ocupante");
                 sql.AppendLine(", @nro_bad_ocupante");
                 sql.AppendLine(", @cod_categoria_zona_liq");
-                sql.AppendLine(", @Tipo_ph");
-                sql.AppendLine(", @Fecha_tipo_ph");
+                sql.AppendLine(", @tipo_ph");
+                sql.AppendLine(", @fecha_tipo_ph");
                 sql.AppendLine(", @cuil");
-                sql.AppendLine(", @FECHA_VECINO_DIGITAL");
-                sql.AppendLine(", @CUIT_VECINO_DIGITAL");
+                sql.AppendLine(", @fecha_vecino_digital");
+                sql.AppendLine(", @cuit_vecino_digital");
                 sql.AppendLine(", @LAT");
                 sql.AppendLine(", @LONG");
                 sql.AppendLine(", @DIR_GOOGLE");
@@ -537,11 +537,11 @@ namespace Web_Api_Inm.Entities
                     cmd.Parameters.AddWithValue("@cuit_ocupante", obj.cuit_ocupante);
                     cmd.Parameters.AddWithValue("@nro_bad_ocupante", obj.nro_bad_ocupante);
                     cmd.Parameters.AddWithValue("@cod_categoria_zona_liq", obj.cod_categoria_zona_liq);
-                    cmd.Parameters.AddWithValue("@Tipo_ph", obj.Tipo_ph);
-                    cmd.Parameters.AddWithValue("@Fecha_tipo_ph", obj.Fecha_tipo_ph);
+                    cmd.Parameters.AddWithValue("@tipo_ph", obj.tipo_ph);
+                    cmd.Parameters.AddWithValue("@fecha_tipo_ph", obj.fecha_tipo_ph);
                     cmd.Parameters.AddWithValue("@cuil", obj.cuil);
-                    cmd.Parameters.AddWithValue("@FECHA_VECINO_DIGITAL", obj.FECHA_VECINO_DIGITAL);
-                    cmd.Parameters.AddWithValue("@CUIT_VECINO_DIGITAL", obj.CUIT_VECINO_DIGITAL);
+                    cmd.Parameters.AddWithValue("@fecha_vecino_digital", obj.fecha_vecino_digital);
+                    cmd.Parameters.AddWithValue("@cuit_vecino_digital", obj.cuit_vecino_digital);
                     cmd.Parameters.AddWithValue("@LAT", obj.LAT);
                     cmd.Parameters.AddWithValue("@LONG", obj.LONG);
                     cmd.Parameters.AddWithValue("@DIR_GOOGLE", obj.DIR_GOOGLE);
@@ -551,7 +551,7 @@ namespace Web_Api_Inm.Entities
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
         public static void update(Inmuebles obj)
@@ -610,11 +610,12 @@ namespace Web_Api_Inm.Entities
                 //sql.AppendLine(", cuit_ocupante=@cuit_ocupante");
                 //sql.AppendLine(", nro_bad_ocupante=@nro_bad_ocupante");
                 sql.AppendLine(", cod_categoria_zona_liq=@cod_categoria_zona_liq");
-                sql.AppendLine(", Tipo_ph=@Tipo_ph");
-                sql.AppendLine(", Fecha_tipo_ph=@Fecha_tipo_ph");
+                sql.AppendLine(", tipo_ph=@tipo_ph");
+                if (obj.fecha_tipo_ph != null)
+                    sql.AppendLine(", fecha_tipo_ph=@fecha_tipo_ph");
                 sql.AppendLine(", cuil=@cuil");
-                sql.AppendLine(", FECHA_VECINO_DIGITAL=@FECHA_VECINO_DIGITAL");
-                sql.AppendLine(", CUIT_VECINO_DIGITAL=@CUIT_VECINO_DIGITAL");
+                sql.AppendLine(", fecha_vecino_digital=@fecha_vecino_digital");
+                sql.AppendLine(", cuit_vecino_digital=@cuit_vecino_digital");
                 //sql.AppendLine(", LAT=@LAT");
                 //sql.AppendLine(", LONG=@LONG");
                 //sql.AppendLine(", DIR_GOOGLE=@DIR_GOOGLE");
@@ -684,11 +685,12 @@ namespace Web_Api_Inm.Entities
                     //cmd.Parameters.AddWithValue("@cuit_ocupante", obj.cuit_ocupante);
                     //cmd.Parameters.AddWithValue("@nro_bad_ocupante", obj.nro_bad_ocupante);
                     cmd.Parameters.AddWithValue("@cod_categoria_zona_liq", obj.cod_categoria_zona_liq);
-                    cmd.Parameters.AddWithValue("@Tipo_ph", obj.Tipo_ph);
-                    cmd.Parameters.AddWithValue("@Fecha_tipo_ph", obj.Fecha_tipo_ph);
+                    cmd.Parameters.AddWithValue("@tipo_ph", obj.tipo_ph);
+                    if (obj.fecha_tipo_ph != null)
+                        cmd.Parameters.AddWithValue("@fecha_tipo_ph", obj.fecha_tipo_ph);
                     cmd.Parameters.AddWithValue("@cuil", obj.cuil);
-                    cmd.Parameters.AddWithValue("@FECHA_VECINO_DIGITAL", obj.FECHA_VECINO_DIGITAL);
-                    cmd.Parameters.AddWithValue("@CUIT_VECINO_DIGITAL", obj.CUIT_VECINO_DIGITAL);
+                    cmd.Parameters.AddWithValue("@fecha_vecino_digital", obj.fecha_vecino_digital);
+                    cmd.Parameters.AddWithValue("@cuit_vecino_digital", obj.cuit_vecino_digital);
                     //cmd.Parameters.AddWithValue("@LAT", obj.LAT);
                     //cmd.Parameters.AddWithValue("@LONG", obj.LONG);
                     //cmd.Parameters.AddWithValue("@DIR_GOOGLE", obj.DIR_GOOGLE);

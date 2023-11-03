@@ -19,6 +19,16 @@ namespace Web_Api_Inm.Controllers
         {
             _InmueblesService = InmueblesService;
         }
+        [HttpGet]
+        public IActionResult getByPk(int circunscripcion, int seccion, int manzana, int parcela, int p_h)
+        {
+            var resultado = _InmueblesService.getByPk(circunscripcion, seccion, manzana, parcela, p_h);
+            if (resultado == null)
+            {
+                return BadRequest(new { message = "Error al obtener los datos" });
+            }
+            return Ok(resultado);
+        }
 
         [HttpPost]
         public ActionResult Updateinmueble(Inmuebles obj)
