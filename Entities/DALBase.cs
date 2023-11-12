@@ -113,7 +113,7 @@ namespace Web_Api_Inm
                 switch (subsistema)
                 {
                     case 1:
-                        strSQL = @"SELECT ISNULL(MAX(nro_tran_inmueble) as nro_transaccion
+                        strSQL = @"SELECT ISNULL(MAX(nro_tran_inmueble),0) as nro_transaccion
                                    FROM Numeros_Claves";
                         break;
                     case 2:
@@ -135,7 +135,7 @@ namespace Web_Api_Inm
                     cmd.Connection.Open();
                     nro_transaccion = Convert.ToInt32(cmd.ExecuteScalar());
                 }
-                return nro_transaccion + 1;
+                return nro_transaccion;
             }
             catch (Exception)
             {

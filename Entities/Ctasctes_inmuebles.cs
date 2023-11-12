@@ -530,14 +530,14 @@ namespace Web_Api_Inm
                 sql.AppendLine(", cedulon_impreso");
                 sql.AppendLine(", nro_pago_parcial");
                 sql.AppendLine(", monto_original");
-                sql.AppendLine(", nro_plan");
+                //sql.AppendLine(", nro_plan");
                 sql.AppendLine(", pagado");
                 sql.AppendLine(", debe");
                 sql.AppendLine(", haber");
                 sql.AppendLine(", deuda_activa");
                 sql.AppendLine(", pago_parcial");
                 sql.AppendLine(", categoria_deuda");
-                sql.AppendLine(", nro_procuracion");
+                //sql.AppendLine(", nro_procuracion");
                 sql.AppendLine(", vencimiento");
                 sql.AppendLine(", nro_cedulon");
                 sql.AppendLine(", monto_pagado");
@@ -563,14 +563,14 @@ namespace Web_Api_Inm
                 sql.AppendLine(", @cedulon_impreso");
                 sql.AppendLine(", @nro_pago_parcial");
                 sql.AppendLine(", @monto_original");
-                sql.AppendLine(", @nro_plan");
+                //sql.AppendLine(", @nro_plan");
                 sql.AppendLine(", @pagado");
                 sql.AppendLine(", @debe");
                 sql.AppendLine(", @haber");
                 sql.AppendLine(", @deuda_activa");
                 sql.AppendLine(", @pago_parcial");
                 sql.AppendLine(", @categoria_deuda");
-                sql.AppendLine(", @nro_procuracion");
+                //sql.AppendLine(", @nro_procuracion");
                 sql.AppendLine(", @vencimiento");
                 sql.AppendLine(", @nro_cedulon");
                 sql.AppendLine(", @monto_pagado");
@@ -593,6 +593,7 @@ namespace Web_Api_Inm
                     cmd.Parameters.AddWithValue("@nro_transaccion", 0);
                     cmd.Parameters.AddWithValue("@circunscripcion", 0);
                     cmd.Parameters.AddWithValue("@seccion", 0);
+                    cmd.Parameters.AddWithValue("@manzana", 0);
                     cmd.Parameters.AddWithValue("@parcela", 0);
                     cmd.Parameters.AddWithValue("@p_h", 0);
                     cmd.Parameters.AddWithValue("@fecha_transaccion", 0);
@@ -600,14 +601,14 @@ namespace Web_Api_Inm
                     cmd.Parameters.AddWithValue("@cedulon_impreso", true);
                     cmd.Parameters.AddWithValue("@nro_pago_parcial", 0);
                     cmd.Parameters.AddWithValue("@monto_original", 0);
-                    cmd.Parameters.AddWithValue("@nro_plan", null);
+                    //cmd.Parameters.AddWithValue("@nro_plan", null);
                     cmd.Parameters.AddWithValue("@pagado", false);
                     cmd.Parameters.AddWithValue("@debe", 0);
                     cmd.Parameters.AddWithValue("@haber", 0);
                     cmd.Parameters.AddWithValue("@deuda_activa", true);
                     cmd.Parameters.AddWithValue("@pago_parcial", 0);
                     cmd.Parameters.AddWithValue("@categoria_deuda", 1);
-                    cmd.Parameters.AddWithValue("@nro_procuracion", null);
+                    //cmd.Parameters.AddWithValue("@nro_procuracion", null);
                     cmd.Parameters.AddWithValue("@vencimiento", null);
                     cmd.Parameters.AddWithValue("@nro_cedulon", 0);
                     cmd.Parameters.AddWithValue("@monto_pagado", 0);
@@ -618,17 +619,18 @@ namespace Web_Api_Inm
                     cmd.Parameters.AddWithValue("@decreto", 0);
                     cmd.Parameters.AddWithValue("@observaciones", string.Empty);
                     cmd.Parameters.AddWithValue("@nro_cedulon_paypertic", 0);
-
+                    cmd.Connection.Open();
                     foreach (var item in lst)
                     {
                         nro_transaccion += 1;
-                        cmd.Parameters["@tipo_transaccion"].Value = item.tipo_transaccion;
-                        cmd.Parameters["periodo"].Value = item.periodo;
-                        cmd.Parameters["@nro_transaccion"].Value = item.nro_transaccion;
-                        cmd.Parameters["@cir"].Value = cir;
-                        cmd.Parameters["@sec"].Value = sec;
-                        cmd.Parameters["@man"].Value = man;
-                        cmd.Parameters["@par"].Value = par;
+                        cmd.Parameters["@tipo_transaccion"].Value = 1;
+                        cmd.Parameters["@periodo"].Value = item.periodo;
+                        cmd.Parameters["@nro_transaccion"].Value = nro_transaccion;
+                        cmd.Parameters["@nro_pago_parcial"].Value = 0;
+                        cmd.Parameters["@circunscripcion"].Value = cir;
+                        cmd.Parameters["@seccion"].Value = sec;
+                        cmd.Parameters["@manzana"].Value = man;
+                        cmd.Parameters["@parcela"].Value = par;
                         cmd.Parameters["@p_h"].Value = p_h;
                         cmd.Parameters["@vencimiento"].Value = item.vencimiento;
                         cmd.ExecuteNonQuery();
@@ -1582,10 +1584,10 @@ namespace Web_Api_Inm
                     cmd.Parameters.AddWithValue("@nro_transaccion", 0);
                     foreach (var item in lst)
                     {
-                        cmd.Parameters["@circunscripcion"].Value = cir;
-                        cmd.Parameters["@seccion"].Value = sec;
-                        cmd.Parameters["@manzana"].Value = man;
-                        cmd.Parameters["@parcela"].Value = par;
+                        cmd.Parameters["@cir"].Value = cir;
+                        cmd.Parameters["@sec"].Value = sec;
+                        cmd.Parameters["@man"].Value = man;
+                        cmd.Parameters["@par"].Value = par;
                         cmd.Parameters["@p_h"].Value = p_h;
                         cmd.Parameters["@nro_transaccion"].Value = item.nro_transaccion;
                         cmd.ExecuteNonQuery();
