@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>13d6d3a9-2a25-425f-bb9d-95500389e1b2</UserSecretsId>
+    <PackageOutputPath />
   </PropertyGroup>
 
   <ItemGroup>
