@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -214,6 +215,7 @@ namespace Web_Api_Inm.Entities
                 int LAT = dr.GetOrdinal("LAT");
                 int LONG = dr.GetOrdinal("LONG");
                 int DIR_GOOGLE = dr.GetOrdinal("DIR_GOOGLE");
+                int TOTAL = dr.GetOrdinal("TOTAL");
                 while (dr.Read())
                 {
                     obj = new Inmuebles();
@@ -280,6 +282,7 @@ namespace Web_Api_Inm.Entities
                     if (!dr.IsDBNull(LAT)) { obj.LAT = dr.GetString(LAT); }
                     if (!dr.IsDBNull(LONG)) { obj.LONG = dr.GetString(LONG); }
                     if (!dr.IsDBNull(DIR_GOOGLE)) { obj.DIR_GOOGLE = dr.GetString(DIR_GOOGLE); }
+                    if (!dr.IsDBNull(TOTAL)) { obj.total_row = dr.GetInt32(TOTAL); }
                     lst.Add(obj);
                 }
             }
@@ -907,12 +910,15 @@ namespace Web_Api_Inm.Entities
                     cmd.Parameters.AddWithValue("@valor_filtro", strParametro);
                     cmd.Parameters.AddWithValue("@pagina_inicio", registro_desde);
                     cmd.Parameters.AddWithValue("@cant_registros", registro_hasta);
-                    var total_row = cmd.Parameters.Add("@total_row", SqlDbType.Int);
+                    SqlParameter total_row = new SqlParameter("@total_row", SqlDbType.Int);
                     total_row.Direction = ParameterDirection.Output;
+                    total_row.Value = 0;
+                    cmd.Parameters.Add(total_row);
+                    
                     cmd.Connection.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
                     lst = mapeo(dr);
-                    return lst;
+                        return lst;
                 }
             }
             catch (Exception)
