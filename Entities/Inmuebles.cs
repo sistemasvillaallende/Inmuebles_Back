@@ -144,6 +144,9 @@ namespace Web_Api_Inm.Entities
             LONG = string.Empty;
             DIR_GOOGLE = string.Empty;
             objAuditoria = new AUDITORIA.Auditoria();
+            total_row = 0;
+
+
         }
 
         private static List<Inmuebles> mapeo(SqlDataReader dr)
@@ -288,6 +291,148 @@ namespace Web_Api_Inm.Entities
             }
             return lst;
         }
+
+        private static List<Inmuebles> mapeo2(SqlDataReader dr)
+        {
+            List<Inmuebles> lst = new List<Inmuebles>();
+            Inmuebles obj;
+            if (dr.HasRows)
+            {
+                int circunscripcion = dr.GetOrdinal("circunscripcion");
+                int seccion = dr.GetOrdinal("seccion");
+                int manzana = dr.GetOrdinal("manzana");
+                int parcela = dr.GetOrdinal("parcela");
+                int p_h = dr.GetOrdinal("p_h");
+                int cod_barrio = dr.GetOrdinal("cod_barrio");
+                int nro_bad = dr.GetOrdinal("nro_bad");
+                int Nombre = dr.GetOrdinal("Nombre");
+                int exhimido = dr.GetOrdinal("exhimido");
+                int jubilado = dr.GetOrdinal("jubilado");
+                int cod_barrio_dom_esp = dr.GetOrdinal("cod_barrio_dom_esp");
+                int nom_barrio_dom_esp = dr.GetOrdinal("nom_barrio_dom_esp");
+                int cod_calle_dom_esp = dr.GetOrdinal("cod_calle_dom_esp");
+                int nom_calle_dom_esp = dr.GetOrdinal("nom_calle_dom_esp");
+                int nro_dom_esp = dr.GetOrdinal("nro_dom_esp");
+                int piso_dpto_esp = dr.GetOrdinal("piso_dpto_esp");
+                int ciudad_dom_esp = dr.GetOrdinal("ciudad_dom_esp");
+                int provincia_dom_esp = dr.GetOrdinal("provincia_dom_esp");
+                int pais_dom_esp = dr.GetOrdinal("pais_dom_esp");
+                int union_tributaria = dr.GetOrdinal("union_tributaria");
+                int edificado = dr.GetOrdinal("edificado");
+                int parquizado = dr.GetOrdinal("parquizado");
+                int baldio_sucio = dr.GetOrdinal("baldio_sucio");
+                int construccion = dr.GetOrdinal("construccion");
+                int cod_uso = dr.GetOrdinal("cod_uso");
+                int superficie = dr.GetOrdinal("superficie");
+                int piso_dpto = dr.GetOrdinal("piso_dpto");
+                int cod_calle_pf = dr.GetOrdinal("cod_calle_pf");
+                int nro_dom_pf = dr.GetOrdinal("nro_dom_pf");
+                int cod_postal = dr.GetOrdinal("cod_postal");
+                int ultimo_periodo = dr.GetOrdinal("ultimo_periodo");
+                int fecha_cambio_domicilio = dr.GetOrdinal("fecha_cambio_domicilio");
+                int ocupante = dr.GetOrdinal("ocupante");
+                int emite_cedulon = dr.GetOrdinal("emite_cedulon");
+                int baldio_country = dr.GetOrdinal("baldio_country");
+                int debito_automatico = dr.GetOrdinal("debito_automatico");
+                int nro_secuencia = dr.GetOrdinal("nro_secuencia");
+                int cod_situacion_judicial = dr.GetOrdinal("cod_situacion_judicial");
+                int fecha_alta = dr.GetOrdinal("fecha_alta");
+                int clave_pago = dr.GetOrdinal("clave_pago");
+                int municipal = dr.GetOrdinal("municipal");
+                int email_envio_cedulon = dr.GetOrdinal("email_envio_cedulon");
+                int telefono = dr.GetOrdinal("telefono");
+                int celular = dr.GetOrdinal("celular");
+                int cod_tipo_per_elegido = dr.GetOrdinal("cod_tipo_per_elegido");
+                int con_deuda = dr.GetOrdinal("con_deuda");
+                int saldo_adeudado = dr.GetOrdinal("saldo_adeudado");
+                int superficie_edificada = dr.GetOrdinal("superficie_edificada");
+                int cod_estado = dr.GetOrdinal("cod_estado");
+                int cedulon_digital = dr.GetOrdinal("cedulon_digital");
+                int oculto = dr.GetOrdinal("oculto");
+                int nro_doc_ocupante = dr.GetOrdinal("nro_doc_ocupante");
+                int cuit_ocupante = dr.GetOrdinal("cuit_ocupante");
+                int nro_bad_ocupante = dr.GetOrdinal("nro_bad_ocupante");
+                int cod_categoria_zona_liq = dr.GetOrdinal("cod_categoria_zona_liq");
+                int tipo_ph = dr.GetOrdinal("tipo_ph");
+                int fecha_tipo_ph = dr.GetOrdinal("fecha_tipo_ph");
+                int cuil = dr.GetOrdinal("cuil");
+                int fecha_vecino_digital = dr.GetOrdinal("fecha_vecino_digital");
+                int cuit_vecino_digital = dr.GetOrdinal("cuit_vecino_digital");
+                int LAT = dr.GetOrdinal("LAT");
+                int LONG = dr.GetOrdinal("LONG");
+                int DIR_GOOGLE = dr.GetOrdinal("DIR_GOOGLE");
+               
+                while (dr.Read())
+                {
+                    obj = new Inmuebles();
+                    if (!dr.IsDBNull(circunscripcion)) { obj.circunscripcion = dr.GetInt32(circunscripcion); }
+                    if (!dr.IsDBNull(seccion)) { obj.seccion = dr.GetInt32(seccion); }
+                    if (!dr.IsDBNull(manzana)) { obj.manzana = dr.GetInt32(manzana); }
+                    if (!dr.IsDBNull(parcela)) { obj.parcela = dr.GetInt32(parcela); }
+                    if (!dr.IsDBNull(p_h)) { obj.p_h = dr.GetInt32(p_h); }
+                    if (!dr.IsDBNull(cod_barrio)) { obj.cod_barrio = dr.GetInt32(cod_barrio); }
+                    if (!dr.IsDBNull(nro_bad)) { obj.nro_bad = dr.GetInt32(nro_bad); }
+                    if (!dr.IsDBNull(Nombre)) { obj.Nombre = dr.GetString(Nombre); }
+                    if (!dr.IsDBNull(exhimido)) { obj.exhimido = dr.GetBoolean(exhimido); }
+                    if (!dr.IsDBNull(jubilado)) { obj.jubilado = dr.GetBoolean(jubilado); }
+                    if (!dr.IsDBNull(cod_barrio_dom_esp)) { obj.cod_barrio_dom_esp = dr.GetInt32(cod_barrio_dom_esp); }
+                    if (!dr.IsDBNull(nom_barrio_dom_esp)) { obj.nom_barrio_dom_esp = dr.GetString(nom_barrio_dom_esp); }
+                    if (!dr.IsDBNull(cod_calle_dom_esp)) { obj.cod_calle_dom_esp = dr.GetInt32(cod_calle_dom_esp); }
+                    if (!dr.IsDBNull(nom_calle_dom_esp)) { obj.nom_calle_dom_esp = dr.GetString(nom_calle_dom_esp); }
+                    if (!dr.IsDBNull(nro_dom_esp)) { obj.nro_dom_esp = dr.GetInt32(nro_dom_esp); }
+                    if (!dr.IsDBNull(piso_dpto_esp)) { obj.piso_dpto_esp = dr.GetString(piso_dpto_esp); }
+                    if (!dr.IsDBNull(ciudad_dom_esp)) { obj.ciudad_dom_esp = dr.GetString(ciudad_dom_esp); }
+                    if (!dr.IsDBNull(provincia_dom_esp)) { obj.provincia_dom_esp = dr.GetString(provincia_dom_esp); }
+                    if (!dr.IsDBNull(pais_dom_esp)) { obj.pais_dom_esp = dr.GetString(pais_dom_esp); }
+                    if (!dr.IsDBNull(union_tributaria)) { obj.union_tributaria = dr.GetBoolean(union_tributaria); }
+                    if (!dr.IsDBNull(edificado)) { obj.edificado = dr.GetBoolean(edificado); }
+                    if (!dr.IsDBNull(parquizado)) { obj.parquizado = dr.GetBoolean(parquizado); }
+                    if (!dr.IsDBNull(baldio_sucio)) { obj.baldio_sucio = dr.GetBoolean(baldio_sucio); }
+                    if (!dr.IsDBNull(construccion)) { obj.construccion = dr.GetBoolean(construccion); }
+                    if (!dr.IsDBNull(cod_uso)) { obj.cod_uso = dr.GetInt32(cod_uso); }
+                    if (!dr.IsDBNull(superficie)) { obj.superficie = dr.GetFloat(superficie); }
+                    if (!dr.IsDBNull(piso_dpto)) { obj.piso_dpto = dr.GetString(piso_dpto); }
+                    if (!dr.IsDBNull(cod_calle_pf)) { obj.cod_calle_pf = dr.GetInt32(cod_calle_pf); }
+                    if (!dr.IsDBNull(nro_dom_pf)) { obj.nro_dom_pf = dr.GetInt32(nro_dom_pf); }
+                    if (!dr.IsDBNull(cod_postal)) { obj.cod_postal = dr.GetString(cod_postal); }
+                    if (!dr.IsDBNull(ultimo_periodo)) { obj.ultimo_periodo = dr.GetString(ultimo_periodo); }
+                    if (!dr.IsDBNull(fecha_cambio_domicilio)) { obj.fecha_cambio_domicilio = dr.GetDateTime(fecha_cambio_domicilio); }
+                    if (!dr.IsDBNull(ocupante)) { obj.ocupante = dr.GetString(ocupante); }
+                    if (!dr.IsDBNull(emite_cedulon)) { obj.emite_cedulon = dr.GetBoolean(emite_cedulon); }
+                    if (!dr.IsDBNull(baldio_country)) { obj.baldio_country = dr.GetBoolean(baldio_country); }
+                    if (!dr.IsDBNull(debito_automatico)) { obj.debito_automatico = dr.GetBoolean(debito_automatico); }
+                    if (!dr.IsDBNull(nro_secuencia)) { obj.nro_secuencia = dr.GetInt32(nro_secuencia); }
+                    if (!dr.IsDBNull(cod_situacion_judicial)) { obj.cod_situacion_judicial = dr.GetInt32(cod_situacion_judicial); }
+                    if (!dr.IsDBNull(fecha_alta)) { obj.fecha_alta = dr.GetDateTime(fecha_alta); }
+                    if (!dr.IsDBNull(clave_pago)) { obj.clave_pago = dr.GetString(clave_pago); }
+                    if (!dr.IsDBNull(municipal)) { obj.municipal = dr.GetBoolean(municipal); }
+                    if (!dr.IsDBNull(email_envio_cedulon)) { obj.email_envio_cedulon = dr.GetString(email_envio_cedulon); }
+                    if (!dr.IsDBNull(telefono)) { obj.telefono = dr.GetString(telefono); }
+                    if (!dr.IsDBNull(celular)) { obj.celular = dr.GetString(celular); }
+                    if (!dr.IsDBNull(cod_tipo_per_elegido)) { obj.cod_tipo_per_elegido = dr.GetInt16(cod_tipo_per_elegido); }
+                    if (!dr.IsDBNull(con_deuda)) { obj.con_deuda = dr.GetInt16(con_deuda); }
+                    if (!dr.IsDBNull(saldo_adeudado)) { obj.saldo_adeudado = dr.GetDecimal(saldo_adeudado); }
+                    if (!dr.IsDBNull(superficie_edificada)) { obj.superficie_edificada = dr.GetFloat(superficie_edificada); }
+                    if (!dr.IsDBNull(cod_estado)) { obj.cod_estado = dr.GetInt16(cod_estado); }
+                    if (!dr.IsDBNull(cedulon_digital)) { obj.cedulon_digital = dr.GetInt16(cedulon_digital); }
+                    if (!dr.IsDBNull(oculto)) { obj.oculto = dr.GetInt16(oculto); }
+                    if (!dr.IsDBNull(nro_doc_ocupante)) { obj.nro_doc_ocupante = dr.GetString(nro_doc_ocupante); }
+                    if (!dr.IsDBNull(cuit_ocupante)) { obj.cuit_ocupante = dr.GetString(cuit_ocupante); }
+                    if (!dr.IsDBNull(nro_bad_ocupante)) { obj.nro_bad_ocupante = dr.GetInt32(nro_bad_ocupante); }
+                    if (!dr.IsDBNull(cod_categoria_zona_liq)) { obj.cod_categoria_zona_liq = dr.GetString(cod_categoria_zona_liq); }
+                    if (!dr.IsDBNull(tipo_ph)) { obj.tipo_ph = dr.GetInt32(tipo_ph); }
+                    if (!dr.IsDBNull(fecha_tipo_ph)) { obj.fecha_tipo_ph = dr.GetDateTime(fecha_tipo_ph); }
+                    if (!dr.IsDBNull(cuil)) { obj.cuil = dr.GetString(cuil); }
+                    if (!dr.IsDBNull(fecha_vecino_digital)) { obj.fecha_vecino_digital = dr.GetDateTime(fecha_vecino_digital); }
+                    if (!dr.IsDBNull(cuit_vecino_digital)) { obj.cuit_vecino_digital = dr.GetString(cuit_vecino_digital); }
+                    if (!dr.IsDBNull(LAT)) { obj.LAT = dr.GetString(LAT); }
+                    if (!dr.IsDBNull(LONG)) { obj.LONG = dr.GetString(LONG); }
+                    if (!dr.IsDBNull(DIR_GOOGLE)) { obj.DIR_GOOGLE = dr.GetString(DIR_GOOGLE); }
+                    lst.Add(obj);
+                }
+            }
+            return lst;
+        }
         public static List<Inmuebles> read()
         {
             try
@@ -300,7 +445,7 @@ namespace Web_Api_Inm.Entities
                     cmd.CommandText = "SELECT * FROM Inmuebles";
                     cmd.Connection.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
-                    lst = mapeo(dr);
+                    lst = mapeo2(dr);
                     return lst;
                 }
             }
@@ -333,7 +478,7 @@ namespace Web_Api_Inm.Entities
                     cmd.Parameters.AddWithValue("@p_h", p_h);
                     cmd.Connection.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
-                    List<Inmuebles> lst = mapeo(dr);
+                    List<Inmuebles> lst = mapeo2(dr);
                     if (lst.Count != 0)
                         obj = lst[0];
                 }
