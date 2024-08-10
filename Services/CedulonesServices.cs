@@ -33,7 +33,7 @@ namespace Web_Api_Inm.Services
             long nro_cedulon = 0;
             try
             {
-                using (TransactionScope scope = new())
+                using (TransactionScope scope = new TransactionScope())
                 {
                     nro_cedulon = Cedulones2.InsertCedulonScope(oCedulon);
                     scope.Complete();
