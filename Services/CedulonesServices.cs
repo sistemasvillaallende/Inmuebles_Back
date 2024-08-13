@@ -34,6 +34,7 @@ namespace Web_Api_Inm.Services
              try
             {
                 using (SqlConnection con = DALBase.GetConnectionSIIMVA())
+
                 {
                     con.Open();
                     using (SqlTransaction trx = con.BeginTransaction())

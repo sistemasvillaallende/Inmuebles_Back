@@ -185,7 +185,7 @@ namespace Web_Api_Inm
                 {
                     SqlCommand cmd = con.CreateCommand();
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "SELECT *FROM Ctasctes_inmuebles";
+                    cmd.CommandText = "SELECT * FROM Ctasctes_inmuebles";
                     cmd.Connection.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
                     lst = mapeo(dr);
