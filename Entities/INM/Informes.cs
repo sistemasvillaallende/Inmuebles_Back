@@ -66,16 +66,17 @@ namespace Web_Api_Inm.Entities.INM
             }
             return lst;
         }
-        public static List<Informes> InformeCtaCteSoloDeuda(int cir, int sec, int man, int par, int p_h, int categoria_deuda, int categoria_deuda2, string per)
+        public static List<Informes> InformeCtaCteSoloDeuda(int cir, int sec, int man, int par, int p_h, int categoria_deuda, int categoria_deuda2, string per, SqlConnection con, SqlTransaction trx)
         {
             try
             {
                 List<Informes> lst = new List<Informes>();
-                using (SqlConnection con = GetConnection())
-                {
-                    SqlCommand cmd = con.CreateCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = @"
+                //using (SqlConnection con = GetConnection())
+                //{
+                SqlCommand cmd = con.CreateCommand();
+                cmd.Transaction = trx;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"
                         SELECT 
                             A.vencimiento,
                             A.nro_transaccion,
@@ -149,35 +150,36 @@ namespace Web_Api_Inm.Entities.INM
                            C.NRO_TRANSACCION=A.NRO_TRANSACCION)  > 0
                         ORDER BY
                           A.vencimiento, A.nro_transaccion, des_transaccion, A.periodo";
-                    cmd.Parameters.AddWithValue("@cir", cir);
-                    cmd.Parameters.AddWithValue("@sec", sec);
-                    cmd.Parameters.AddWithValue("@man", man);
-                    cmd.Parameters.AddWithValue("@par", par);
-                    cmd.Parameters.AddWithValue("@p_h", p_h);
-                    cmd.Parameters.AddWithValue("@categoria_deuda", categoria_deuda);
-                    cmd.Parameters.AddWithValue("@categoria_deuda2", categoria_deuda2);
-                    cmd.Parameters.AddWithValue("@per", per);
-                    cmd.Connection.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    lst = mapeo(dr);
-                    return lst;
-                }
+                cmd.Parameters.AddWithValue("@cir", cir);
+                cmd.Parameters.AddWithValue("@sec", sec);
+                cmd.Parameters.AddWithValue("@man", man);
+                cmd.Parameters.AddWithValue("@par", par);
+                cmd.Parameters.AddWithValue("@p_h", p_h);
+                cmd.Parameters.AddWithValue("@categoria_deuda", categoria_deuda);
+                cmd.Parameters.AddWithValue("@categoria_deuda2", categoria_deuda2);
+                cmd.Parameters.AddWithValue("@per", per);
+                //cmd.Connection.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                lst = mapeo(dr);
+                return lst;
+                // }
             }
             catch (Exception)
             {
                 throw;
             }
         }
-        public static List<Informes> InformeCtaCteCompleto(int cir, int sec, int man, int par, int p_h, string per)
+        public static List<Informes> InformeCtaCteCompleto(int cir, int sec, int man, int par, int p_h, string per, SqlConnection con, SqlTransaction trx)
         {
             try
             {
                 List<Informes> lst = new List<Informes>();
-                using (SqlConnection con = GetConnection())
-                {
-                    SqlCommand cmd = con.CreateCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = @"SELECT 
+                //  using (SqlConnection con = GetConnection())
+                //{
+                SqlCommand cmd = con.CreateCommand();
+                cmd.Transaction = trx;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"SELECT 
                                             A.vencimiento,
                                             A.nro_transaccion,
                                             A.tipo_transaccion,
@@ -211,17 +213,17 @@ namespace Web_Api_Inm.Entities.INM
                                         A.periodo>=@per
                                         ORDER BY
                                         A.periodo";
-                    cmd.Parameters.AddWithValue("@cir", cir);
-                    cmd.Parameters.AddWithValue("@sec", sec);
-                    cmd.Parameters.AddWithValue("@man", man);
-                    cmd.Parameters.AddWithValue("@par", par);
-                    cmd.Parameters.AddWithValue("@p_h", p_h);
-                    cmd.Parameters.AddWithValue("@per", per);
-                    cmd.Connection.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    lst = mapeo(dr);
-                    return lst;
-                }
+                cmd.Parameters.AddWithValue("@cir", cir);
+                cmd.Parameters.AddWithValue("@sec", sec);
+                cmd.Parameters.AddWithValue("@man", man);
+                cmd.Parameters.AddWithValue("@par", par);
+                cmd.Parameters.AddWithValue("@p_h", p_h);
+                cmd.Parameters.AddWithValue("@per", per);
+                //cmd.Connection.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                lst = mapeo(dr);
+                return lst;
+                //}
             }
             catch (Exception)
             {
@@ -229,7 +231,7 @@ namespace Web_Api_Inm.Entities.INM
             }
         }
         public static List<Informes> Resumendeuda(int cir, int sec, int man, int par, int p_h,
-          int tipo_consulta, string periodo, int cate_deuda_desde, int cate_deuda_hasta)
+          int tipo_consulta, string periodo, int cate_deuda_desde, int cate_deuda_hasta, SqlConnection con, SqlTransaction trx)
         {
             try
             {
@@ -289,24 +291,25 @@ namespace Web_Api_Inm.Entities.INM
                         (SELECT * FROM CTASCTES_INMUEBLES b WHERE b.tipo_transaccion = 1 AND b.nro_transaccion = a.nro_transaccion AND b.pagado = 1)))");
                     strSQL.AppendLine(@"ORDER BY PERIODO, NRO_TRANSACCION, TIPO_TRANSACCION");
                 }
-                using (SqlConnection con = GetConnectionSIIMVA())
-                {
-                    SqlCommand cmd = con.CreateCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = strSQL.ToString();
-                    cmd.Parameters.AddWithValue("@cir", cir);
-                    cmd.Parameters.AddWithValue("@sec", sec);
-                    cmd.Parameters.AddWithValue("@man", man);
-                    cmd.Parameters.AddWithValue("@par", par);
-                    cmd.Parameters.AddWithValue("@p_h", p_h);
-                    cmd.Parameters.AddWithValue("@categoria_desde", cate_deuda_desde);
-                    cmd.Parameters.AddWithValue("@categoria_hasta", cate_deuda_hasta);
-                    cmd.Parameters.AddWithValue("@periodo", periodo);
-                    cmd.Connection.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    lst = mapeo(dr);
-                    return lst;
-                }
+                //using (SqlConnection con = GetConnectionSIIMVA())
+                //{
+                SqlCommand cmd = con.CreateCommand();
+                cmd.Transaction = trx;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strSQL.ToString();
+                cmd.Parameters.AddWithValue("@cir", cir);
+                cmd.Parameters.AddWithValue("@sec", sec);
+                cmd.Parameters.AddWithValue("@man", man);
+                cmd.Parameters.AddWithValue("@par", par);
+                cmd.Parameters.AddWithValue("@p_h", p_h);
+                cmd.Parameters.AddWithValue("@categoria_desde", cate_deuda_desde);
+                cmd.Parameters.AddWithValue("@categoria_hasta", cate_deuda_hasta);
+                cmd.Parameters.AddWithValue("@periodo", periodo);
+                //cmd.Connection.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                lst = mapeo(dr);
+                return lst;
+                //}
             }
             catch (Exception)
             {

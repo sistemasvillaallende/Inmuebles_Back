@@ -28,28 +28,44 @@ namespace Web_Api_Inm.Services
         }
         public void Confirma_iniciar_ctacte(int circunscripcion, int seccion, int manzana, int parcela, int p_h, List<Ctasctes_inmuebles> lst, Auditoria objA)
         {
+
             try
             {
                 string string_detalle = " Periodos incluidos : ";
-                using (TransactionScope scope = new TransactionScope())
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
                 {
-                    objA.identificacion = Entities.Inmuebles.armoDenominacion3(circunscripcion, seccion, manzana, parcela, p_h);
-                    //string.Format("{0}-{1}-{2}-{3}-{4}", circunscripcion.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
-                    //                 seccion.ToString().PadLeft(2, Convert.ToChar("0")),
-                    //                 manzana.ToString().PadLeft(2, Convert.ToChar("0")),
-                    //                 parcela.ToString().PadLeft(3, Convert.ToChar("0")),
-                    //                 p_h.ToString().PadLeft(3, Convert.ToChar("0")));
-                    objA.proceso = "INICIALIZACION CUENTA INMUEBLES";
-                    objA.detalle = "";
-                    objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                    foreach (var item in lst)
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
                     {
-                        string_detalle += string.Format("Periodo {0} : ", item.periodo);
+                        try
+                        {
+
+                            objA.identificacion = Entities.Inmuebles.armoDenominacion3(circunscripcion, seccion, manzana, parcela, p_h);
+                            //string.Format("{0}-{1}-{2}-{3}-{4}", circunscripcion.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
+                            //                 seccion.ToString().PadLeft(2, Convert.ToChar("0")),
+                            //                 manzana.ToString().PadLeft(2, Convert.ToChar("0")),
+                            //                 parcela.ToString().PadLeft(3, Convert.ToChar("0")),
+                            //                 p_h.ToString().PadLeft(3, Convert.ToChar("0")));
+                            objA.proceso = "INICIALIZACION CUENTA INMUEBLES";
+                            objA.detalle = "";
+                            objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            foreach (var item in lst)
+                            {
+                                string_detalle += string.Format("Periodo {0} : ", item.periodo);
+                            }
+                            objA.detalle += string_detalle;
+                            Ctasctes_inmuebles.Confirma_iniciar_ctacte(circunscripcion, seccion, manzana, parcela, p_h, lst, con, trx);
+                            AuditoriaD.InsertAuditoria(objA, con, trx);
+                            trx.Commit();
+
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+
                     }
-                    objA.detalle += string_detalle;
-                    Ctasctes_inmuebles.Confirma_iniciar_ctacte(circunscripcion, seccion, manzana, parcela, p_h, lst);
-                    AuditoriaD.InsertAuditoria(objA);
-                    scope.Complete();
                 }
             }
             catch (Exception)
@@ -97,23 +113,38 @@ namespace Web_Api_Inm.Services
         {
             try
             {
-                using (TransactionScope scope = new TransactionScope())
+                string string_detalle = "Se Elimino total o parcial: ";
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
                 {
-                    string
-                    string_detalle = "Se Elimino total o parcial: ";
-                    objA.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
-                    objA.proceso = "CANCELACION CUENTA CORRIENTE";
-                    objA.detalle = "";
-                    objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                    Ctasctes_inmuebles.InsertCancelacioMasiva(tipo_transaccion, cir, sec, man, par, p_h, lst);
-                    Ctasctes_inmuebles.MarcopagadalaCtacte(cir, sec, man, par, p_h, lst);
-                    foreach (var item in lst)
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
                     {
-                        string_detalle += string.Format("Periodo {0} : ", item.periodo);
+                        try
+                        {
+
+                            objA.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
+                            objA.proceso = "CANCELACION CUENTA CORRIENTE";
+                            objA.detalle = "";
+                            objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            Ctasctes_inmuebles.InsertCancelacioMasiva(tipo_transaccion, cir, sec, man, par, p_h, lst, con, trx);
+                            Ctasctes_inmuebles.MarcopagadalaCtacte(cir, sec, man, par, p_h, lst, con, trx);
+                            foreach (var item in lst)
+                            {
+                                string_detalle += string.Format("Periodo {0} : ", item.periodo);
+                            }
+                            objA.detalle = string_detalle;
+                            AuditoriaD.InsertAuditoria(objA, con, trx);
+
+                            trx.Commit();
+
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+
                     }
-                    objA.detalle = string_detalle;
-                    AuditoriaD.InsertAuditoria(objA);
-                    scope.Complete();
                 }
             }
             catch (Exception)
@@ -137,33 +168,48 @@ namespace Web_Api_Inm.Services
         {
             try
             {
-                using (TransactionScope scope = new TransactionScope())
+
+                string string_detalle = "Se cancelo total o parcial: ";
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
                 {
-                    string string_detalle = "Se cancelo total o parcial: ";
-                    objA.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
-                    //string.Format("{0}-{1}-{2}-{3}-{4}", cir.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
-                    //                                        sec.ToString().PadLeft(2, Convert.ToChar("0")),
-                    //                                        man.ToString().PadLeft(3, Convert.ToChar("0")),
-                    //                                        par.ToString().PadLeft(3, Convert.ToChar("0")),
-                    //                                        p_h.ToString().PadLeft(3, Convert.ToChar("0")));
-                    objA.proceso = "CANCELACION CUENTA CORRIENTE";
-                    objA.detalle = "";
-                    objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                    Ctasctes_inmuebles.Confirma_elimina_cancelacion(cir, sec, man, par, p_h, lst);
-                    Ctasctes_inmuebles.MarconopagadalaCtacte(cir, sec, man, par, p_h, lst);
-                    foreach (var item in lst)
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
                     {
-                        //Ctasctes_inmuebles.Confirma_elimina_cancelacion(item.nro_transaccion, item);
-                        string_detalle += string.Format("Periodo {0} : ", item.periodo);
+                        try
+                        {
+
+                            objA.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
+                            //string.Format("{0}-{1}-{2}-{3}-{4}", cir.ToString().PadRight(2, Convert.ToChar("0")).Substring(2, 2),
+                            //                                        sec.ToString().PadLeft(2, Convert.ToChar("0")),
+                            //                                        man.ToString().PadLeft(3, Convert.ToChar("0")),
+                            //                                        par.ToString().PadLeft(3, Convert.ToChar("0")),
+                            //                                        p_h.ToString().PadLeft(3, Convert.ToChar("0")));
+                            objA.proceso = "CANCELACION CUENTA CORRIENTE";
+                            objA.detalle = "";
+                            objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            Ctasctes_inmuebles.Confirma_elimina_cancelacion(cir, sec, man, par, p_h, lst, con, trx);
+                            Ctasctes_inmuebles.MarconopagadalaCtacte(cir, sec, man, par, p_h, lst, con, trx);
+                            foreach (var item in lst)
+                            {
+                                //Ctasctes_inmuebles.Confirma_elimina_cancelacion(item.nro_transaccion, item);
+                                string_detalle += string.Format("Periodo {0} : ", item.periodo);
+                            }
+                            objA.detalle = string_detalle;
+                            AuditoriaD.InsertAuditoria(objA, con, trx);
+                            trx.Commit();
+
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+
                     }
-                    objA.detalle = string_detalle;
-                    AuditoriaD.InsertAuditoria(objA);
-                    scope.Complete();
                 }
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -182,23 +228,41 @@ namespace Web_Api_Inm.Services
         public void Confirma_reliquidacion(int circunscripcion, int seccion, int manzana, int parcela, int p_h,
             List<Ctasctes_inmuebles> lst, Auditoria objA)
         {
+
             try
             {
-                using (TransactionScope scope = new TransactionScope())
+
+
+                string string_detalle = "Se Reliquido los : ";
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
                 {
-                    string string_detalle = "Se Reliquido los : ";
-                    objA.identificacion = Entities.Inmuebles.armoDenominacion3(circunscripcion, seccion, manzana, parcela, p_h);
-                    objA.proceso = "RECALCULO DEUDA INMUEBLES";
-                    objA.detalle = "";
-                    objA.observaciones += string.Format(" Fecha auditoria: {0} ", DateTime.Now);
-                    Ctasctes_inmuebles.Confirma_reliquidacion(circunscripcion, seccion, manzana, parcela, p_h, lst);
-                    foreach (var item in lst)
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
                     {
-                        string_detalle += string.Format("Periodo {0} : ", item.periodo);
+                        try
+                        {
+                            objA.identificacion = Entities.Inmuebles.armoDenominacion3(circunscripcion, seccion, manzana, parcela, p_h);
+                            objA.proceso = "RECALCULO DEUDA INMUEBLES";
+                            objA.detalle = "";
+                            objA.observaciones += string.Format(" Fecha auditoria: {0} ", DateTime.Now);
+                            Ctasctes_inmuebles.Confirma_reliquidacion(circunscripcion, seccion, manzana, parcela, p_h, lst);
+                            foreach (var item in lst)
+                            {
+                                string_detalle += string.Format("Periodo {0} : ", item.periodo);
+                            }
+                            objA.detalle = string_detalle;
+                            AuditoriaD.InsertAuditoria(objA, con, trx);
+
+                            trx.Commit();
+
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+
                     }
-                    objA.detalle = string_detalle;
-                    AuditoriaD.InsertAuditoria(objA);
-                    scope.Complete();
                 }
             }
             catch (Exception)
@@ -209,19 +273,34 @@ namespace Web_Api_Inm.Services
         public List<Ctasctes_inmuebles> Reliquidar_periodos(int circunscripcion, int seccion, int manzana, int parcela, int p_h,
             List<Ctasctes_inmuebles> lst)
         {
+
             try
             {
                 List<Ctasctes_inmuebles> lstCtasctes = new();
-                using (TransactionScope scope = new TransactionScope())
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
                 {
-                    lstCtasctes = Ctasctes_inmuebles.Reliquidar_periodos(circunscripcion, seccion, manzana, parcela, p_h, lst);
-                    scope.Complete();
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            lstCtasctes = Ctasctes_inmuebles.Reliquidar_periodos(circunscripcion, seccion, manzana, parcela, p_h, lst);
+                            trx.Commit();
+                            return lstCtasctes;
+
+
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+
+                    }
                 }
-                return lstCtasctes;
             }
             catch (Exception)
             {
-
                 throw;
             }
 

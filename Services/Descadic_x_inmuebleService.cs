@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System.Transactions;
 using Web_Api_Inm.Entities;
 using Web_Api_Inm.Entities.AUDITORIA;
+using System.Data.SqlClient;
 
 namespace Web_Api_Inm.Services
 {
@@ -43,66 +43,116 @@ namespace Web_Api_Inm.Services
         }
         public int insert(Descadic_x_inmueble obj)
         {
-            using (TransactionScope scope = new TransactionScope())
+
+            try
             {
-                int id = 0;
-                obj.objAuditoria.identificacion = Entities.Inmuebles.armoDenominacion3(
-                    obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h);
-                obj.objAuditoria.proceso = "MODIFICACION DE CONCEPTO";
-                obj.objAuditoria.detalle = JsonConvert.SerializeObject(
-                    Entities.Inmuebles.getByPk(
-                    obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h)); 
-                obj.objAuditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                id = Descadic_x_inmueble.insert(obj);
-                AuditoriaD.InsertAuditoria(obj.objAuditoria);
-                scope.Complete();
-                return id;
+                using (SqlConnection con = DALBase.GetConnection())
+                {
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            int id = 0;
+                            obj.objAuditoria.identificacion = Entities.Inmuebles.armoDenominacion3(
+                                obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h);
+                            obj.objAuditoria.proceso = "MODIFICACION DE CONCEPTO";
+                            obj.objAuditoria.detalle = JsonConvert.SerializeObject(
+                                Entities.Inmuebles.getByPk(
+                                obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h));
+                            obj.objAuditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            id = Descadic_x_inmueble.insert(obj, con,trx);
+                            AuditoriaD.InsertAuditoria(obj.objAuditoria, con,trx);
+                            trx.Commit();
+                            return id;
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
         public void update(Descadic_x_inmueble obj)
         {
             try
             {
-                using (TransactionScope scope = new TransactionScope())
+                using (SqlConnection con = DALBase.GetConnection())
                 {
-                    obj.objAuditoria.identificacion = Entities.Inmuebles.armoDenominacion3(
-                        obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h);
-                    obj.objAuditoria.proceso = "MODIFICACION DE CONCEPTO";
-                    obj.objAuditoria.detalle = Entities.Inmuebles.armoDenominacion(
-                        obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h);
-                    obj.objAuditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                    Descadic_x_inmueble.update(obj);
-                    AuditoriaD.InsertAuditoria(obj.objAuditoria);
-                    scope.Complete();
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            obj.objAuditoria.identificacion = Entities.Inmuebles.armoDenominacion3(
+                         obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h);
+                            obj.objAuditoria.proceso = "MODIFICACION DE CONCEPTO";
+                            obj.objAuditoria.detalle = Entities.Inmuebles.armoDenominacion(
+                                obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h);
+                            obj.objAuditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            Descadic_x_inmueble.update(obj, con, trx);
+                            AuditoriaD.InsertAuditoria(obj.objAuditoria, con, trx);
+                            trx.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+
+                    }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
+
         }
         public void delete(Descadic_x_inmueble obj)
         {
             try
             {
-                using (TransactionScope scope = new TransactionScope())
+                using (SqlConnection con = DALBase.GetConnection())
                 {
-                    Auditoria objAuditoria = new Entities.AUDITORIA.Auditoria();
-                    objAuditoria.identificacion = Entities.Inmuebles.armoDenominacion3(
-                        obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h);
-                    objAuditoria.proceso = "BAJA DE CONCEPTO";
-                    objAuditoria.detalle = JsonConvert.SerializeObject(
-                        Entities.Inmuebles.getByPk(
-                        obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h));
-                    objAuditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                    Descadic_x_inmueble.delete(obj);
-                    scope.Complete();
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+
+                            Auditoria objAuditoria = new Entities.AUDITORIA.Auditoria();
+                            objAuditoria.identificacion = Entities.Inmuebles.armoDenominacion3(
+                                obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h);
+                            objAuditoria.proceso = "BAJA DE CONCEPTO";
+                            objAuditoria.detalle = JsonConvert.SerializeObject(
+                                Entities.Inmuebles.getByPk(
+                                obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h));
+                            objAuditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            Descadic_x_inmueble.delete(obj, con, trx);
+                            trx.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+
+                    }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
+
         }
     }
 }
