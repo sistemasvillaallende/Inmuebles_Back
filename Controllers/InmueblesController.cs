@@ -64,13 +64,23 @@ namespace Web_Api_Inm.Controllers
             int _TotalRegistros = 0;
             int _TotalPaginas = 0;
 
-            _Inmueble = _InmueblesService.GetInmueblesPaginado(buscarPor, strParametro, pagina,
-                registros_por_pagina);
+        
+            _TotalRegistros =  _InmueblesService.Count();
+            _TotalPaginas = (int)Math.Ceiling((double)_TotalRegistros / registros_por_pagina);
+
+            if (pagina == 0)
+            {
+                _Inmueble = _InmueblesService.GetInmueblesPaginado(buscarPor, strParametro, pagina, registros_por_pagina);
+            }
+            else
+            {
+                _Inmueble = _InmueblesService.GetInmueblesPaginado(buscarPor, strParametro, (pagina * registros_por_pagina) - registros_por_pagina + 1,
+                                                                            pagina * registros_por_pagina);
+            }
 
             if (_Inmueble != null && _Inmueble.Count() > 0)
             {
-                _TotalRegistros = _Inmueble[0].total_row;
-                _TotalPaginas = (int)Math.Ceiling((double)_TotalRegistros / registros_por_pagina);
+               
                 _PaginadorInmueble = new PaginadorGenerico<Entities.Inmuebles>()
                 {
                     RegistrosPorPagina = registros_por_pagina,

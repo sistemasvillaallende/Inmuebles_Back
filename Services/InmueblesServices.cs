@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Runtime.ConstrainedExecution;
 using System.Transactions;
+using System.Data.SqlClient;
 using Web_Api_Inm.Entities;
 using Web_Api_Inm.Entities.AUDITORIA;
 using Web_Api_Inm.Entities.HELPERS;
@@ -27,23 +28,39 @@ namespace Web_Api_Inm.Services
         {
             try
             {
-                using (TransactionScope scope = new TransactionScope())
+                using (SqlConnection con = DALBase.GetConnection())
                 {
-                    obj.objAuditoria.identificacion = Entities.Inmuebles.armoDenominacion3(obj.circunscripcion, obj.seccion,
-                        obj.manzana, obj.parcela, obj.p_h);
-                    obj.objAuditoria.proceso = "MODIFICACION INMUEBLE";
-                    obj.objAuditoria.detalle = JsonConvert.SerializeObject(Inmuebles.getByPk(obj.circunscripcion, obj.seccion, obj.manzana,
-                        obj.parcela, obj.p_h));
-                    obj.objAuditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                    Inmuebles.update(obj);
-                    AuditoriaD.InsertAuditoria(obj.objAuditoria);
-                    //scope.Complete();
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+
+                            obj.objAuditoria.identificacion = Entities.Inmuebles.armoDenominacion3(obj.circunscripcion, obj.seccion,
+    obj.manzana, obj.parcela, obj.p_h);
+                            obj.objAuditoria.proceso = "MODIFICACION INMUEBLE";
+                            obj.objAuditoria.detalle = JsonConvert.SerializeObject(Inmuebles.getByPk(obj.circunscripcion, obj.seccion, obj.manzana,
+                                obj.parcela, obj.p_h));
+                            obj.objAuditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            Inmuebles.update(obj, con, trx);
+                            AuditoriaD.InsertAuditoria(obj.objAuditoria, con, trx);
+                            trx.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+
+                    }
                 }
             }
             catch (Exception)
             {
                 throw;
             }
+
+
         }
         public List<Inmuebles> GetInmueblesPaginado(string buscarPor, string strParametro, int registro_desde, int registro_hasta)
         {
@@ -104,17 +121,32 @@ namespace Web_Api_Inm.Services
         }
         public List<Informes> InformeCtaCteSoloDeuda(int cir, int sec, int man, int par, int p_h, int categoria_deuda, int categoria_deuda2, string per, Auditoria objA)
         {
+            List<Informes> informesInformeCtaCteSoloDeuda;
             try
             {
-                using (TransactionScope scope = new TransactionScope())
+                using (SqlConnection con = DALBase.GetConnection())
                 {
-                    objA.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
-                    objA.proceso = "IMPRIME_DEUDA_INMUEBLE";
-                    objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                    AuditoriaD.InsertAuditoria(objA);
-                    scope.Complete();
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            objA.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
+                            objA.proceso = "IMPRIME_DEUDA_INMUEBLE";
+                            objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            AuditoriaD.InsertAuditoria(objA, con, trx);
+                            informesInformeCtaCteSoloDeuda = Informes.InformeCtaCteSoloDeuda(cir, sec, man, par, p_h, categoria_deuda, categoria_deuda2, per, con, trx);
+                            trx.Commit();
+                            return informesInformeCtaCteSoloDeuda;
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+
+                    }
                 }
-                return Informes.InformeCtaCteSoloDeuda(cir, sec, man, par, p_h, categoria_deuda, categoria_deuda2, per);
             }
             catch (Exception)
             {
@@ -123,22 +155,38 @@ namespace Web_Api_Inm.Services
         }
         public List<Informes> InformeCtaCteCompleto(int cir, int sec, int man, int par, int p_h, string per, Auditoria objA)
         {
+            List<Informes> informesCtaCte;
             try
             {
 
-                using (TransactionScope scope = new TransactionScope())
+                using (SqlConnection con = DALBase.GetConnection())
                 {
-                    objA.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
-                    objA.proceso = "IMPRIME_DEUDA_INMUEBLE";
-                    objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                    AuditoriaD.InsertAuditoria(objA);
-                    scope.Complete();
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            objA.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
+                            objA.proceso = "IMPRIME_DEUDA_INMUEBLE";
+                            objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            AuditoriaD.InsertAuditoria(objA, con, trx);
+
+                            informesCtaCte = Informes.InformeCtaCteCompleto(cir, sec, man, par, p_h, per, con, trx);
+                            trx.Commit();
+                            return informesCtaCte;
+
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+
+                    }
                 }
-                return Informes.InformeCtaCteCompleto(cir, sec, man, par, p_h, per);
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -157,17 +205,49 @@ namespace Web_Api_Inm.Services
         public List<Informes> Resumendeuda(int cir, int sec, int man, int par, int p_h,
             int tipo_consulta, string periodo, int cate_deuda_desde, int cate_deuda_hasta, Auditoria objA)
         {
+
+                List<Informes> resumen;
             try
             {
-                using (TransactionScope scope = new TransactionScope())
+
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
                 {
-                    objA.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
-                    objA.proceso = "IMPRIME_DEUDA_INMUEBLE";
-                    objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                    AuditoriaD.InsertAuditoria(objA);
-                    scope.Complete();
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            objA.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
+                            objA.proceso = "IMPRIME_DEUDA_INMUEBLE";
+                            objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            AuditoriaD.InsertAuditoria(objA,con,trx);
+                            resumen = Informes.Resumendeuda(cir, sec, man, par, p_h, tipo_consulta, periodo, cate_deuda_desde, cate_deuda_hasta,con,trx);
+                            trx.Commit();
+                            return resumen;
+
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+
+                    }
                 }
-                return Informes.Resumendeuda(cir, sec, man, par, p_h, tipo_consulta, periodo, cate_deuda_desde, cate_deuda_hasta);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public int Count()
+        {
+            try
+            {
+                int count = Entities.Inmuebles.Count();
+                return count;
+                //return Entities.Inmuebles.Count();
             }
             catch (Exception)
             {
@@ -175,7 +255,6 @@ namespace Web_Api_Inm.Services
                 throw;
             }
         }
-
 
     }
 }

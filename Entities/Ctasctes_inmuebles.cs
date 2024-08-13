@@ -511,7 +511,7 @@ namespace Web_Api_Inm
                 throw;
             }
         }
-        public static void Confirma_iniciar_ctacte(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
+        public static void Confirma_iniciar_ctacte(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst, SqlConnection con, SqlTransaction trx)
         {
             try
             {
@@ -582,11 +582,12 @@ namespace Web_Api_Inm
                 sql.AppendLine(", @observaciones");
                 sql.AppendLine(", @nro_cedulon_paypertic");
                 sql.AppendLine(")");
-                using (SqlConnection cn = GetConnectionSIIMVA())
-                {
+                //using (SqlConnection cn = GetConnectionSIIMVA())
+                //{
                     nro_transaccion = GetNroTransaccion(1);
                     UpdateNroTransaccion(1, nro_transaccion + lst.Count);
-                    SqlCommand cmd = cn.CreateCommand();
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.Transaction = trx;
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = sql.ToString();
                     cmd.Parameters.AddWithValue("@tipo_transaccion", 1);
@@ -619,7 +620,7 @@ namespace Web_Api_Inm
                     cmd.Parameters.AddWithValue("@decreto", 0);
                     cmd.Parameters.AddWithValue("@observaciones", string.Empty);
                     cmd.Parameters.AddWithValue("@nro_cedulon_paypertic", 0);
-                    cmd.Connection.Open();
+                    //cmd.Connection.Open();
                     foreach (var item in lst)
                     {
                         nro_transaccion += 1;
@@ -635,7 +636,7 @@ namespace Web_Api_Inm
                         cmd.Parameters["@vencimiento"].Value = item.vencimiento;
                         cmd.ExecuteNonQuery();
                     }
-                }
+               // }
             }
             catch (Exception)
             {
@@ -1034,38 +1035,38 @@ namespace Web_Api_Inm
                         }
                         if (lst.Count > 0)
                             obj = lst[0];
-                        strRetorno.AppendLine("Fecha Transacción: " + Convert.ToString(obj.fecha_transaccion, culturaFecArgentina));
+                        strRetorno.AppendLine("Fecha Transacciï¿½n: " + Convert.ToString(obj.fecha_transaccion, culturaFecArgentina));
                         strRetorno.AppendLine("Vencimiento: " + Convert.ToString(obj.vencimiento, culturaFecArgentina));
                         switch (obj.tipo_transaccion)
                         {
                             case 1:
                                 strRetorno.AppendLine("Mov.Deuda");
-                                strRetorno.AppendLine("Período: " + obj.periodo);
+                                strRetorno.AppendLine("Perï¿½odo: " + obj.periodo);
                                 strRetorno.AppendLine(obj.des_categoria.ToString());
                                 if (obj.pago_parcial)
                                     strRetorno.AppendLine("Deuda con Pago Parcial");
-                                strRetorno.AppendLine("Nro Transacción: " + obj.nro_transaccion.ToString());
+                                strRetorno.AppendLine("Nro Transacciï¿½n: " + obj.nro_transaccion.ToString());
                                 break;
                             case 2:
                                 if (obj.nro_cedulon != 0)
-                                    strRetorno.AppendLine("Mov.Pago con Nº Cedulon:" + obj.nro_cedulon.ToString());
+                                    strRetorno.AppendLine("Mov.Pago con Nï¿½ Cedulon:" + obj.nro_cedulon.ToString());
                                 else
                                     strRetorno.AppendLine("Mov.Pago");
-                                strRetorno.AppendLine("Período:" + obj.periodo.ToString());
+                                strRetorno.AppendLine("Perï¿½odo:" + obj.periodo.ToString());
                                 strRetorno.AppendLine(obj.des_categoria);
                                 if (obj.pago_parcial)
                                     strRetorno.AppendLine("Pago Parcial");
-                                strRetorno.AppendLine("Nro Transacción: " + obj.nro_transaccion.ToString());
+                                strRetorno.AppendLine("Nro Transacciï¿½n: " + obj.nro_transaccion.ToString());
                                 strRetorno.AppendLine("Monto Pagado:" + obj.monto_pagado.ToString());
                                 break;
                             case 3:
                                 strRetorno.AppendLine("Mov.Fin de Plan de Pago");
-                                strRetorno.AppendLine("Plan de Pago Nº:" + obj.nro_plan.ToString());
+                                strRetorno.AppendLine("Plan de Pago Nï¿½:" + obj.nro_plan.ToString());
                                 strRetorno.AppendLine("Nro Transaccion:" + obj.nro_transaccion.ToString());
                                 strRetorno.AppendLine(obj.des_categoria);
                                 break;
                             case 4:
-                                strRetorno.AppendLine("Mov.Bonificación por pago anticipado");
+                                strRetorno.AppendLine("Mov.Bonificaciï¿½n por pago anticipado");
                                 strRetorno.AppendLine("Nro Transaccion:" + obj.nro_transaccion.ToString());
                                 strRetorno.AppendLine(obj.des_categoria);
                                 break;
@@ -1080,18 +1081,18 @@ namespace Web_Api_Inm
                                 strRetorno.AppendLine(obj.des_categoria);
                                 break;
                             case 7:
-                                strRetorno.AppendLine("Mov.Cancelación Operativa");
+                                strRetorno.AppendLine("Mov.Cancelaciï¿½n Operativa");
                                 strRetorno.AppendLine("Nro Transaccion:" + obj.nro_transaccion.ToString());
                                 strRetorno.AppendLine(obj.des_categoria);
                                 break;
                             case 8:
-                                strRetorno.AppendLine("Mov.Decreto o Resolución");
+                                strRetorno.AppendLine("Mov.Decreto o Resoluciï¿½n");
                                 strRetorno.AppendLine("Nro Transaccion:" + obj.nro_transaccion.ToString());
                                 strRetorno.AppendLine(obj.des_categoria);
                                 break;
                             case 9:
                                 strRetorno.AppendLine("Mov.Baja de Plan de Pagos");
-                                strRetorno.AppendLine("Plan de Pago Nº:" + obj.nro_plan.ToString());
+                                strRetorno.AppendLine("Plan de Pago Nï¿½:" + obj.nro_plan.ToString());
                                 strRetorno.AppendLine("Nro Transaccion:" + obj.nro_transaccion.ToString());
                                 strRetorno.AppendLine(obj.des_categoria);
                                 break;
@@ -1312,7 +1313,7 @@ namespace Web_Api_Inm
                 throw;
             }
         }
-        public static void InsertCancelacioMasiva(int tipo_transaccion, int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
+        public static void InsertCancelacioMasiva(int tipo_transaccion, int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst,SqlConnection con, SqlTransaction trx)
         {
             try
             {
@@ -1360,9 +1361,10 @@ namespace Web_Api_Inm
                 sql.AppendLine(", @monto_pagado");
                 sql.AppendLine(", @deuda_activa");
                 sql.AppendLine(")");
-                using (SqlConnection con = GetConnectionSIIMVA())
-                {
+                // using (SqlConnection con = GetConnectionSIIMVA())
+                // {
                     SqlCommand cmd = con.CreateCommand();
+                    cmd.Transaction = trx;
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = sql.ToString();
                     cmd.Parameters.AddWithValue("@tipo_transaccion", tipo_transaccion);
@@ -1384,7 +1386,7 @@ namespace Web_Api_Inm
                     cmd.Parameters.AddWithValue("@categoria_deuda", 0);
                     cmd.Parameters.AddWithValue("@monto_pagado", 0);
                     cmd.Parameters.AddWithValue("@deuda_activa", 1);
-                    cmd.Connection.Open();
+                    //cmd.Connection.Open();
                     foreach (var item in lst)
                     {
                         cmd.Parameters["@nro_transaccion"].Value = item.nro_transaccion;
@@ -1404,14 +1406,14 @@ namespace Web_Api_Inm
                         cmd.Parameters["@deuda_activa"].Value = item.deuda_activa;
                         cmd.ExecuteNonQuery();
                     }
-                }
+               // }
             }
             catch (SqlException ex)
             {
                 throw new Exception("Error en Insertar la Cancelacion en la CtaCte del Inmueble ", ex);
             }
         }
-        public static void MarcopagadalaCtacte(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
+        public static void MarcopagadalaCtacte(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst,SqlConnection con, SqlTransaction trx)
         {
             try
             {
@@ -1425,9 +1427,10 @@ namespace Web_Api_Inm
                 sql.AppendLine("      p_h=@p_h AND ");
                 sql.AppendLine("      tipo_transaccion=1 AND ");
                 sql.AppendLine("      nro_transaccion=@nro_transaccion");
-                using (SqlConnection con = GetConnectionSIIMVA())
-                {
+                // using (SqlConnection con = GetConnectionSIIMVA())
+                // {
                     SqlCommand cmd = con.CreateCommand();
+                    cmd.Transaction = trx;
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = sql.ToString();
                     cmd.Parameters.AddWithValue("@circunscripcion", 0);
@@ -1436,7 +1439,7 @@ namespace Web_Api_Inm
                     cmd.Parameters.AddWithValue("@parcela", 0);
                     cmd.Parameters.AddWithValue("@p_h", 0);
                     cmd.Parameters.AddWithValue("@nro_transaccion", 0);
-                    cmd.Connection.Open();
+                    //cmd.Connection.Open();
                     foreach (var item in lst)
                     {
                         cmd.Parameters["@circunscripcion"].Value = cir;
@@ -1447,14 +1450,14 @@ namespace Web_Api_Inm
                         cmd.Parameters["@nro_transaccion"].Value = item.nro_transaccion;
                         cmd.ExecuteNonQuery();
                     }
-                }
+               // }
             }
             catch (SqlException ex)
             {
                 throw new Exception("Error en la marca de la CtaCte del Inmueble", ex);
             }
         }
-        public static void MarconopagadalaCtacte(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
+        public static void MarconopagadalaCtacte(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst,SqlConnection con, SqlTransaction trx)
         {
             try
             {
@@ -1468,9 +1471,10 @@ namespace Web_Api_Inm
                 sql.AppendLine("      p_h=@p_h AND ");
                 sql.AppendLine("      tipo_transaccion=1 AND ");
                 sql.AppendLine("      nro_transaccion=@nro_transaccion");
-                using (SqlConnection con = GetConnectionSIIMVA())
-                {
+                // using (SqlConnection con = GetConnectionSIIMVA())
+                // {
                     SqlCommand cmd = con.CreateCommand();
+                    cmd.Transaction = trx;
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = sql.ToString();
                     cmd.Parameters.AddWithValue("@circunscripcion", 0);
@@ -1479,7 +1483,7 @@ namespace Web_Api_Inm
                     cmd.Parameters.AddWithValue("@parcela", 0);
                     cmd.Parameters.AddWithValue("@p_h", 0);
                     cmd.Parameters.AddWithValue("@nro_transaccion", 0);
-                    cmd.Connection.Open();
+                    //cmd.Connection.Open();
                     foreach (var item in lst)
                     {
                         cmd.Parameters["@circunscripcion"].Value = cir;
@@ -1490,7 +1494,7 @@ namespace Web_Api_Inm
                         cmd.Parameters["@nro_transaccion"].Value = item.nro_transaccion;
                         cmd.ExecuteNonQuery();
                     }
-                }
+                //}
             }
             catch (SqlException ex)
             {
@@ -1557,7 +1561,7 @@ namespace Web_Api_Inm
                 throw;
             }
         }
-        public static void Confirma_elimina_cancelacion(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
+        public static void Confirma_elimina_cancelacion(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst,SqlConnection con, SqlTransaction trx)
         {
             try
             {
@@ -1570,12 +1574,13 @@ namespace Web_Api_Inm
                                       manzana=@man AND
                                       parcela=@par AND
                                       p_h=@p_h";
-                using (SqlConnection con = GetConnectionSIIMVA())
-                {
+                // using (SqlConnection con = GetConnectionSIIMVA())
+                // {
                     SqlCommand cmd = con.CreateCommand();
+                    cmd.Transaction = trx;
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = strSQL;
-                    cmd.Connection.Open();
+                   // cmd.Connection.Open();
                     cmd.Parameters.AddWithValue("@cir", cir);
                     cmd.Parameters.AddWithValue("@sec", sec);
                     cmd.Parameters.AddWithValue("@man", man);
@@ -1592,7 +1597,7 @@ namespace Web_Api_Inm
                         cmd.Parameters["@nro_transaccion"].Value = item.nro_transaccion;
                         cmd.ExecuteNonQuery();
                     }
-                }
+              //  }
             }
             catch (Exception)
             {

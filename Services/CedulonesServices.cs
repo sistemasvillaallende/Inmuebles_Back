@@ -30,20 +30,33 @@ namespace Web_Api_Inm.Services
         public long InsertCedulonScope(Cedulones2 oCedulon)
         {
 
-            long nro_cedulon = 0;
-            try
+             long nro_cedulon = 0;    
+             try
             {
-                using (TransactionScope scope = new())
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
                 {
-                    nro_cedulon = Cedulones2.InsertCedulonScope(oCedulon);
-                    scope.Complete();
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            nro_cedulon = Cedulones2.InsertCedulonScope(oCedulon,con,trx);
+                            trx.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+                            return nro_cedulon;
+
+                    }
                 }
             }
             catch (Exception)
             {
                 throw;
             }
-            return nro_cedulon;
 
         }
     }

@@ -22,5 +22,7 @@ namespace Web_Api_Inm.Services
         public List<Informes> Resumendeuda(int cir, int sec, int man, int par, int p_h,
             int tipo_consulta, string periodo, int cate_deuda_desde, int cate_deuda_hasta, Auditoria objA);
 
+        public int Count();
+
     }
 }

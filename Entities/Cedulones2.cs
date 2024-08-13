@@ -686,7 +686,7 @@ namespace Web_Api_Inm.Entities
                 throw new Exception("Error en detalle de cedulon! " + e.ToString());
             }
         }
-        public static long InsertCedulonScope(Cedulones2 oCedulon)
+        public static long InsertCedulonScope(Cedulones2 oCedulon,  SqlConnection con, SqlTransaction trx)
         {
             try
             {
@@ -706,9 +706,10 @@ namespace Web_Api_Inm.Entities
                  @nom_calle_dom_esp, @nom_barrio_dom_esp, @ciudad_dom_esp, @provincia_dom_esp, @pais_dom_esp, @codigo_postal_dom_esp, 
                  @nro_badec, @nro_contrib, @nom_badec, @nom_calle_pf, @nro_dom_pf, @dominio, @legajo, @imprime, @tipo_cem, @manzana_cem, 
                  @lote_cem, @parcela_cem, @nivel_cem)");
-                using (SqlConnection cn = GetConnection())
-                {
-                    SqlCommand cmd = cn.CreateCommand();
+               // using (SqlConnection cn = GetConnection())
+                //{
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.Transaction = trx;
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = strSQL.ToString();
                     oCedulon.nro_cedulon = GetMaxID("Cedulones2", "nro_cedulon");
@@ -758,11 +759,11 @@ namespace Web_Api_Inm.Entities
                     cmd.Parameters.AddWithValue("@parcela_cem", oCedulon.parcela_cem);
                     cmd.Parameters.AddWithValue("@nivel_cem", oCedulon.nivel_cem);
                     //
-                    cmd.Connection.Open();
+                    //cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
-                    InsertDetalleCedulonScope(oCedulon);
+                    InsertDetalleCedulonScope(oCedulon, con, trx);
                     return oCedulon.nro_cedulon;
-                }
+               // }
             }
             catch (Exception e)
             {
@@ -771,7 +772,7 @@ namespace Web_Api_Inm.Entities
             }
 
         }
-        public static void InsertDetalleCedulonScope(Cedulones2 oCedulon)
+        public static void InsertDetalleCedulonScope(Cedulones2 oCedulon, SqlConnection con, SqlTransaction trx)
         {
             try
             {
@@ -784,10 +785,11 @@ namespace Web_Api_Inm.Entities
                             DATEADD(dd, 5, GETDATE()), @pago_parcial, @categoria_deuda)";
                 decimal descuento = 0;
                 long nro_cedulon = oCedulon.nro_cedulon;
-                using (SqlConnection cn = GetConnection())
-                {
-                    SqlCommand cmd = cn.CreateCommand();
+               // using (SqlConnection cn = GetConnection())
+               // {
+                    SqlCommand cmd = con.CreateCommand();
                     cmd.CommandType = CommandType.Text;
+                    cmd.Transaction = trx;
                     cmd.CommandText = strSQL.ToString();
                     cmd.Connection.Open();
                     cmd.Parameters.AddWithValue("@nro_cedulon", 0);
@@ -807,7 +809,7 @@ namespace Web_Api_Inm.Entities
                         cmd.Parameters["@categoria_deuda"].Value = item.categoria_deuda;
                         cmd.ExecuteNonQuery();
                     }
-                }
+               // }
             }
             catch (Exception e)
             {

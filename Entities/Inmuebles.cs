@@ -702,7 +702,7 @@ namespace Web_Api_Inm.Entities
                 throw;
             }
         }
-        public static void update(Inmuebles obj)
+        public static void update(Inmuebles obj, SqlConnection con, SqlTransaction trx)
         {
             try
             {
@@ -773,9 +773,10 @@ namespace Web_Api_Inm.Entities
                 sql.AppendLine("AND manzana=@manzana");
                 sql.AppendLine("AND parcela=@parcela");
                 sql.AppendLine("AND p_h=@p_h");
-                using (SqlConnection con = GetConnection())
-                {
+                //using (SqlConnection con = GetConnection())
+                //{
                     SqlCommand cmd = con.CreateCommand();
+                    cmd.Transaction = trx;
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = sql.ToString();
                     cmd.Parameters.AddWithValue("@circunscripcion", obj.circunscripcion);
@@ -842,9 +843,9 @@ namespace Web_Api_Inm.Entities
                     //cmd.Parameters.AddWithValue("@LAT", obj.LAT);
                     //cmd.Parameters.AddWithValue("@LONG", obj.LONG);
                     //cmd.Parameters.AddWithValue("@DIR_GOOGLE", obj.DIR_GOOGLE);
-                    cmd.Connection.Open();
+                    //cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
-                }
+                //}
             }
             catch (Exception)
             {
@@ -884,22 +885,47 @@ namespace Web_Api_Inm.Entities
         }
         /////
         ///
-        public async static Task<int> Count()
+        // public async static Task<int> Count()
+        // {
+        //     try
+        //     {
+        //         int count = 0;
+        //         string sql = @"SELECT count(*) 
+        //                        FROM Inmuebles (nolock)";
+        //         //Where Baja=@baja";
+        //         using (SqlConnection con = GetConnectionSIIMVA())
+        //         {
+        //             SqlCommand cmd = con.CreateCommand();
+        //             cmd.CommandType = CommandType.Text;
+        //             cmd.CommandText = sql;
+        //             //cmd.Parameters.AddWithValue("@baja", baja);
+        //             await cmd.Connection.OpenAsync();
+        //             count = Convert.ToInt32(await cmd.ExecuteScalarAsync());
+        //             return count;
+        //         }
+        //     }
+        //     catch (Exception)
+        //     {
+        //         throw;
+        //     }
+        // }
+        
+     public static int Count()       
         {
             try
             {
                 int count = 0;
-                string sql = @"SELECT count(*) 
+                string sql = @"SELECT count(*)        
                                FROM Inmuebles (nolock)";
-                //Where Baja=@baja";
-                using (SqlConnection con = GetConnectionSIIMVA())
+
+                using (SqlConnection con = GetConnection())
                 {
                     SqlCommand cmd = con.CreateCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = sql;
-                    //cmd.Parameters.AddWithValue("@baja", baja);
-                    await cmd.Connection.OpenAsync();
-                    count = Convert.ToInt32(await cmd.ExecuteScalarAsync());
+                    cmd.Connection.Open();
+                    count = Convert.ToInt32(cmd.ExecuteScalar());
+
                     return count;
                 }
             }

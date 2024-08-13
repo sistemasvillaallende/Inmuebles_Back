@@ -7,7 +7,7 @@ namespace Web_Api_Inm.Entities.AUDITORIA
 {
     public class AuditoriaD : DALBase
     {
-        public static void InsertAuditoria(SqlConnection cn, SqlTransaction trx, Auditoria oAudita)
+        public static void InsertAuditoria(Auditoria oAudita ,SqlConnection cn,SqlTransaction trx)
         {
             try
             {
