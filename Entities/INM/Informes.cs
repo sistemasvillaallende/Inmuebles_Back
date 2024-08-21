@@ -291,8 +291,6 @@ namespace Web_Api_Inm.Entities.INM
                         (SELECT * FROM CTASCTES_INMUEBLES b WHERE b.tipo_transaccion = 1 AND b.nro_transaccion = a.nro_transaccion AND b.pagado = 1)))");
                     strSQL.AppendLine(@"ORDER BY PERIODO, NRO_TRANSACCION, TIPO_TRANSACCION");
                 }
-                //using (SqlConnection con = GetConnectionSIIMVA())
-                //{
                 SqlCommand cmd = con.CreateCommand();
                 cmd.Transaction = trx;
                 cmd.CommandType = CommandType.Text;
@@ -305,11 +303,11 @@ namespace Web_Api_Inm.Entities.INM
                 cmd.Parameters.AddWithValue("@categoria_desde", cate_deuda_desde);
                 cmd.Parameters.AddWithValue("@categoria_hasta", cate_deuda_hasta);
                 cmd.Parameters.AddWithValue("@periodo", periodo);
-                //cmd.Connection.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
                 lst = mapeo(dr);
+                dr.Close();
                 return lst;
-                //}
+
             }
             catch (Exception)
             {

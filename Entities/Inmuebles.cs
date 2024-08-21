@@ -361,7 +361,7 @@ namespace Web_Api_Inm.Entities
                 int LAT = dr.GetOrdinal("LAT");
                 int LONG = dr.GetOrdinal("LONG");
                 int DIR_GOOGLE = dr.GetOrdinal("DIR_GOOGLE");
-               
+
                 while (dr.Read())
                 {
                     obj = new Inmuebles();
@@ -773,78 +773,76 @@ namespace Web_Api_Inm.Entities
                 sql.AppendLine("AND manzana=@manzana");
                 sql.AppendLine("AND parcela=@parcela");
                 sql.AppendLine("AND p_h=@p_h");
-                //using (SqlConnection con = GetConnection())
-                //{
-                    SqlCommand cmd = con.CreateCommand();
-                    cmd.Transaction = trx;
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = sql.ToString();
-                    cmd.Parameters.AddWithValue("@circunscripcion", obj.circunscripcion);
-                    cmd.Parameters.AddWithValue("@seccion", obj.seccion);
-                    cmd.Parameters.AddWithValue("@manzana", obj.manzana);
-                    cmd.Parameters.AddWithValue("@parcela", obj.parcela);
-                    cmd.Parameters.AddWithValue("@p_h", obj.p_h);
-                    cmd.Parameters.AddWithValue("@cod_barrio", obj.cod_barrio);
-                    //cmd.Parameters.AddWithValue("@nro_bad", obj.nro_bad);
-                    //cmd.Parameters.AddWithValue("@Nombre", obj.Nombre);
-                    //cmd.Parameters.AddWithValue("@exhimido", obj.exhimido);
-                    //cmd.Parameters.AddWithValue("@jubilado", obj.jubilado);
-                    cmd.Parameters.AddWithValue("@cod_barrio_dom_esp", obj.cod_barrio_dom_esp);
-                    cmd.Parameters.AddWithValue("@nom_barrio_dom_esp", obj.nom_barrio_dom_esp);
-                    cmd.Parameters.AddWithValue("@cod_calle_dom_esp", obj.cod_calle_dom_esp);
-                    cmd.Parameters.AddWithValue("@nom_calle_dom_esp", obj.nom_calle_dom_esp);
-                    cmd.Parameters.AddWithValue("@nro_dom_esp", obj.nro_dom_esp);
-                    cmd.Parameters.AddWithValue("@piso_dpto_esp", obj.piso_dpto_esp);
-                    cmd.Parameters.AddWithValue("@ciudad_dom_esp", obj.ciudad_dom_esp);
-                    cmd.Parameters.AddWithValue("@provincia_dom_esp", obj.provincia_dom_esp);
-                    cmd.Parameters.AddWithValue("@pais_dom_esp", obj.pais_dom_esp);
-                    //cmd.Parameters.AddWithValue("@union_tributaria", obj.union_tributaria);
-                    //cmd.Parameters.AddWithValue("@edificado", obj.edificado);
-                    //cmd.Parameters.AddWithValue("@parquizado", obj.parquizado);
-                    //cmd.Parameters.AddWithValue("@baldio_sucio", obj.baldio_sucio);
-                    //cmd.Parameters.AddWithValue("@construccion", obj.construccion);
-                    cmd.Parameters.AddWithValue("@cod_uso", obj.cod_uso);
-                    cmd.Parameters.AddWithValue("@superficie", obj.superficie);
-                    cmd.Parameters.AddWithValue("@piso_dpto", obj.piso_dpto);
-                    cmd.Parameters.AddWithValue("@cod_calle_pf", obj.cod_calle_pf);
-                    cmd.Parameters.AddWithValue("@nro_dom_pf", obj.nro_dom_pf);
-                    cmd.Parameters.AddWithValue("@cod_postal", obj.cod_postal);
-                    cmd.Parameters.AddWithValue("@ultimo_periodo", obj.ultimo_periodo);
-                    cmd.Parameters.AddWithValue("@fecha_cambio_domicilio", obj.fecha_cambio_domicilio);
-                    cmd.Parameters.AddWithValue("@ocupante", obj.ocupante);
-                    cmd.Parameters.AddWithValue("@emite_cedulon", obj.emite_cedulon);
-                    //cmd.Parameters.AddWithValue("@baldio_country", obj.baldio_country);
-                    //cmd.Parameters.AddWithValue("@debito_automatico", obj.debito_automatico);
-                    //cmd.Parameters.AddWithValue("@nro_secuencia", obj.nro_secuencia);
-                    //cmd.Parameters.AddWithValue("@cod_situacion_judicial", obj.cod_situacion_judicial);
-                    //cmd.Parameters.AddWithValue("@fecha_alta", obj.fecha_alta);
-                    cmd.Parameters.AddWithValue("@clave_pago", obj.clave_pago);
-                    //cmd.Parameters.AddWithValue("@municipal", obj.municipal);
-                    //cmd.Parameters.AddWithValue("@email_envio_cedulon", obj.email_envio_cedulon);
-                    cmd.Parameters.AddWithValue("@telefono", obj.telefono);
-                    cmd.Parameters.AddWithValue("@celular", obj.celular);
-                    //cmd.Parameters.AddWithValue("@cod_tipo_per_elegido", obj.cod_tipo_per_elegido);
-                    //cmd.Parameters.AddWithValue("@con_deuda", obj.con_deuda);
-                    //cmd.Parameters.AddWithValue("@saldo_adeudado", obj.saldo_adeudado);
-                    //cmd.Parameters.AddWithValue("@superficie_edificada", obj.superficie_edificada);
-                    //cmd.Parameters.AddWithValue("@cod_estado", obj.cod_estado);
-                    cmd.Parameters.AddWithValue("@cedulon_digital", obj.cedulon_digital);
-                    //cmd.Parameters.AddWithValue("@oculto", obj.oculto);
-                    //cmd.Parameters.AddWithValue("@nro_doc_ocupante", obj.nro_doc_ocupante);
-                    //cmd.Parameters.AddWithValue("@cuit_ocupante", obj.cuit_ocupante);
-                    //cmd.Parameters.AddWithValue("@nro_bad_ocupante", obj.nro_bad_ocupante);
-                    cmd.Parameters.AddWithValue("@cod_categoria_zona_liq", obj.cod_categoria_zona_liq);
-                    cmd.Parameters.AddWithValue("@tipo_ph", obj.tipo_ph);
-                    if (obj.fecha_tipo_ph != null)
-                        cmd.Parameters.AddWithValue("@fecha_tipo_ph", obj.fecha_tipo_ph);
-                    cmd.Parameters.AddWithValue("@cuil", obj.cuil);
-                    cmd.Parameters.AddWithValue("@fecha_vecino_digital", obj.fecha_vecino_digital);
-                    cmd.Parameters.AddWithValue("@cuit_vecino_digital", obj.cuit_vecino_digital);
-                    //cmd.Parameters.AddWithValue("@LAT", obj.LAT);
-                    //cmd.Parameters.AddWithValue("@LONG", obj.LONG);
-                    //cmd.Parameters.AddWithValue("@DIR_GOOGLE", obj.DIR_GOOGLE);
-                    //cmd.Connection.Open();
-                    cmd.ExecuteNonQuery();
+
+                SqlCommand cmd = con.CreateCommand();
+                cmd.Transaction = trx;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = sql.ToString();
+                cmd.Parameters.AddWithValue("@circunscripcion", obj.circunscripcion);
+                cmd.Parameters.AddWithValue("@seccion", obj.seccion);
+                cmd.Parameters.AddWithValue("@manzana", obj.manzana);
+                cmd.Parameters.AddWithValue("@parcela", obj.parcela);
+                cmd.Parameters.AddWithValue("@p_h", obj.p_h);
+                cmd.Parameters.AddWithValue("@cod_barrio", obj.cod_barrio);
+                //cmd.Parameters.AddWithValue("@nro_bad", obj.nro_bad);
+                //cmd.Parameters.AddWithValue("@Nombre", obj.Nombre);
+                //cmd.Parameters.AddWithValue("@exhimido", obj.exhimido);
+                //cmd.Parameters.AddWithValue("@jubilado", obj.jubilado);
+                cmd.Parameters.AddWithValue("@cod_barrio_dom_esp", obj.cod_barrio_dom_esp);
+                cmd.Parameters.AddWithValue("@nom_barrio_dom_esp", obj.nom_barrio_dom_esp);
+                cmd.Parameters.AddWithValue("@cod_calle_dom_esp", obj.cod_calle_dom_esp);
+                cmd.Parameters.AddWithValue("@nom_calle_dom_esp", obj.nom_calle_dom_esp);
+                cmd.Parameters.AddWithValue("@nro_dom_esp", obj.nro_dom_esp);
+                cmd.Parameters.AddWithValue("@piso_dpto_esp", obj.piso_dpto_esp);
+                cmd.Parameters.AddWithValue("@ciudad_dom_esp", obj.ciudad_dom_esp);
+                cmd.Parameters.AddWithValue("@provincia_dom_esp", obj.provincia_dom_esp);
+                cmd.Parameters.AddWithValue("@pais_dom_esp", obj.pais_dom_esp);
+                //cmd.Parameters.AddWithValue("@union_tributaria", obj.union_tributaria);
+                //cmd.Parameters.AddWithValue("@edificado", obj.edificado);
+                //cmd.Parameters.AddWithValue("@parquizado", obj.parquizado);
+                //cmd.Parameters.AddWithValue("@baldio_sucio", obj.baldio_sucio);
+                //cmd.Parameters.AddWithValue("@construccion", obj.construccion);
+                cmd.Parameters.AddWithValue("@cod_uso", obj.cod_uso);
+                cmd.Parameters.AddWithValue("@superficie", obj.superficie);
+                cmd.Parameters.AddWithValue("@piso_dpto", obj.piso_dpto);
+                cmd.Parameters.AddWithValue("@cod_calle_pf", obj.cod_calle_pf);
+                cmd.Parameters.AddWithValue("@nro_dom_pf", obj.nro_dom_pf);
+                cmd.Parameters.AddWithValue("@cod_postal", obj.cod_postal);
+                cmd.Parameters.AddWithValue("@ultimo_periodo", obj.ultimo_periodo);
+                cmd.Parameters.AddWithValue("@fecha_cambio_domicilio", obj.fecha_cambio_domicilio ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@ocupante", obj.ocupante);
+                cmd.Parameters.AddWithValue("@emite_cedulon", obj.emite_cedulon);
+                //cmd.Parameters.AddWithValue("@baldio_country", obj.baldio_country);
+                //cmd.Parameters.AddWithValue("@debito_automatico", obj.debito_automatico);
+                //cmd.Parameters.AddWithValue("@nro_secuencia", obj.nro_secuencia);
+                //cmd.Parameters.AddWithValue("@cod_situacion_judicial", obj.cod_situacion_judicial);
+                //cmd.Parameters.AddWithValue("@fecha_alta", obj.fecha_alta);
+                cmd.Parameters.AddWithValue("@clave_pago", obj.clave_pago);
+                //cmd.Parameters.AddWithValue("@municipal", obj.municipal);
+                //cmd.Parameters.AddWithValue("@email_envio_cedulon", obj.email_envio_cedulon);
+                cmd.Parameters.AddWithValue("@telefono", obj.telefono);
+                cmd.Parameters.AddWithValue("@celular", obj.celular);
+                //cmd.Parameters.AddWithValue("@cod_tipo_per_elegido", obj.cod_tipo_per_elegido);
+                //cmd.Parameters.AddWithValue("@con_deuda", obj.con_deuda);
+                //cmd.Parameters.AddWithValue("@saldo_adeudado", obj.saldo_adeudado);
+                //cmd.Parameters.AddWithValue("@superficie_edificada", obj.superficie_edificada);
+                //cmd.Parameters.AddWithValue("@cod_estado", obj.cod_estado);
+                cmd.Parameters.AddWithValue("@cedulon_digital", obj.cedulon_digital);
+                //cmd.Parameters.AddWithValue("@oculto", obj.oculto);
+                //cmd.Parameters.AddWithValue("@nro_doc_ocupante", obj.nro_doc_ocupante);
+                //cmd.Parameters.AddWithValue("@cuit_ocupante", obj.cuit_ocupante);
+                //cmd.Parameters.AddWithValue("@nro_bad_ocupante", obj.nro_bad_ocupante);
+                cmd.Parameters.AddWithValue("@cod_categoria_zona_liq", obj.cod_categoria_zona_liq);
+                cmd.Parameters.AddWithValue("@tipo_ph", obj.tipo_ph);
+                if (obj.fecha_tipo_ph != null)
+                    cmd.Parameters.AddWithValue("@fecha_tipo_ph", obj.fecha_tipo_ph);
+                cmd.Parameters.AddWithValue("@cuil", obj.cuil);
+                cmd.Parameters.AddWithValue("@fecha_vecino_digital", obj.fecha_vecino_digital ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@cuit_vecino_digital", obj.cuit_vecino_digital);
+                //cmd.Parameters.AddWithValue("@LAT", obj.LAT);
+                //cmd.Parameters.AddWithValue("@LONG", obj.LONG);
+                //cmd.Parameters.AddWithValue("@DIR_GOOGLE", obj.DIR_GOOGLE);
+                cmd.ExecuteNonQuery();
                 //}
             }
             catch (Exception)
@@ -909,8 +907,8 @@ namespace Web_Api_Inm.Entities
         //         throw;
         //     }
         // }
-        
-     public static int Count()       
+
+        public static int Count()
         {
             try
             {
@@ -1085,11 +1083,11 @@ namespace Web_Api_Inm.Entities
                     total_row.Direction = ParameterDirection.Output;
                     total_row.Value = 0;
                     cmd.Parameters.Add(total_row);
-                    
+
                     cmd.Connection.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
                     lst = mapeo(dr);
-                        return lst;
+                    return lst;
                 }
             }
             catch (Exception)
