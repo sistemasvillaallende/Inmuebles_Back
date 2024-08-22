@@ -30,7 +30,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(resultado);
         }
 
-        [HttpPost]
+        [HttpPut]
         public ActionResult Updateinmueble(Inmuebles obj)
         {
 
