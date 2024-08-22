@@ -7,12 +7,16 @@
       "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:controllers\\inmueblescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\entities\\inmuebles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:entities\\inmuebles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\services\\ctasctes_inmueblesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:services\\ctasctes_inmueblesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\services\\inmueblesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:services\\inmueblesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\entities\\inmuebles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:entities\\inmuebles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\entities\\helpers\\combo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -54,7 +58,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 22,
+          "SelectedChildIndex": 23,
           "Children": [
             {
               "$type": "Bookmark",
@@ -123,6 +127,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Ctasctes_inmueblesServices.cs",
+              "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Services\\Ctasctes_inmueblesServices.cs",
+              "RelativeDocumentMoniker": "Services\\Ctasctes_inmueblesServices.cs",
+              "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Services\\Ctasctes_inmueblesServices.cs",
+              "RelativeToolTip": "Services\\Ctasctes_inmueblesServices.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAAQwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-14T11:54:04.17Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Inmuebles.cs",
               "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\Inmuebles.cs",
               "RelativeDocumentMoniker": "Entities\\Inmuebles.cs",
@@ -130,8 +147,7 @@
               "RelativeToolTip": "Entities\\Inmuebles.cs",
               "ViewState": "AQIAABEEAAAAAAAAAAAEwCYEAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-25T12:50:20.34Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-25T12:50:20.34Z"
             },
             {
               "$type": "Document",
@@ -141,13 +157,14 @@
               "RelativeDocumentMoniker": "Services\\InmueblesServices.cs",
               "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Services\\InmueblesServices.cs",
               "RelativeToolTip": "Services\\InmueblesServices.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAABEAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-08T01:33:35.406Z"
+              "WhenOpened": "2024-07-08T01:33:35.406Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Combo.cs",
               "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\HELPERS\\Combo.cs",
               "RelativeDocumentMoniker": "Entities\\HELPERS\\Combo.cs",
@@ -159,7 +176,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "AuditoriaD.cs",
               "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\AUDITORIA\\AuditoriaD.cs",
               "RelativeDocumentMoniker": "Entities\\AUDITORIA\\AuditoriaD.cs",
@@ -171,7 +188,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Auditoria.cs",
               "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\AUDITORIA\\Auditoria.cs",
               "RelativeDocumentMoniker": "Entities\\AUDITORIA\\Auditoria.cs",
@@ -183,7 +200,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Ctasctes_inmueblesController.cs",
               "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Controllers\\Ctasctes_inmueblesController.cs",
               "RelativeDocumentMoniker": "Controllers\\Ctasctes_inmueblesController.cs",
@@ -201,14 +218,14 @@
               "RelativeDocumentMoniker": "Controllers\\InmueblesController.cs",
               "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Controllers\\InmueblesController.cs",
               "RelativeToolTip": "Controllers\\InmueblesController.cs",
-              "ViewState": "AQIAAB0AAAAAAAAAAAAUwG0AAAA1AAAA",
+              "ViewState": "AQIAAJAAAAAAAAAAAAAAAKYAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-01T05:15:03.002Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "Cedulones2.cs",
               "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\Cedulones2.cs",
               "RelativeDocumentMoniker": "Entities\\Cedulones2.cs",
@@ -220,7 +237,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Ctasctes_inmuebles.cs",
               "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\Ctasctes_inmuebles.cs",
               "RelativeDocumentMoniker": "Entities\\Ctasctes_inmuebles.cs",
@@ -232,7 +249,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "CedulonesServices.cs",
               "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Services\\CedulonesServices.cs",
               "RelativeDocumentMoniker": "Services\\CedulonesServices.cs",
@@ -244,7 +261,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "DALBase.cs",
               "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\DALBase.cs",
               "RelativeDocumentMoniker": "Entities\\DALBase.cs",

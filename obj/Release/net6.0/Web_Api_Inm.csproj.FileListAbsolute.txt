@@ -78,7 +78,7 @@ D:\Dev\NET2022\Web_Api_Inm\obj\Release\net6.0\staticwebassets\msbuild.buildMulti
 D:\Dev\NET2022\Web_Api_Inm\obj\Release\net6.0\staticwebassets\msbuild.buildTransitive.Web_Api_Inm.props
 D:\Dev\NET2022\Web_Api_Inm\obj\Release\net6.0\staticwebassets.pack.json
 D:\Dev\NET2022\Web_Api_Inm\obj\Release\net6.0\scopedcss\bundle\Web_Api_Inm.styles.css
-D:\Dev\NET2022\Web_Api_Inm\obj\Release\net6.0\Web_Api_Inm.csproj.CopyComplete
+D:\Dev\NET2022\Web_Api_Inm\obj\Release\net6.0\Web_Api_.C2157431.Up2Date
 D:\Dev\NET2022\Web_Api_Inm\obj\Release\net6.0\Web_Api_Inm.dll
 D:\Dev\NET2022\Web_Api_Inm\obj\Release\net6.0\refint\Web_Api_Inm.dll
 D:\Dev\NET2022\Web_Api_Inm\obj\Release\net6.0\Web_Api_Inm.pdb
