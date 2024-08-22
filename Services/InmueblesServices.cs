@@ -220,7 +220,7 @@ namespace Web_Api_Inm.Services
                             objA.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
                             objA.proceso = "IMPRIME_DEUDA_INMUEBLE";
                             objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                            AuditoriaD.InsertAuditoria(objA,con,trx);
+                            AuditoriaD.InsertAuditoria(objA);
                             resumen = Informes.Resumendeuda(cir, sec, man, par, p_h, tipo_consulta, periodo, cate_deuda_desde, cate_deuda_hasta,con,trx);
                             trx.Commit();
                             return resumen;
