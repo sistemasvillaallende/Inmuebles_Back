@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Web_Api_Inm")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20ce4988ba1aeb993c1ed9734018dc14cef1949c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6df50df579ae6b105f9c672852806e7db1c60354")]
 [assembly: System.Reflection.AssemblyProductAttribute("Web_Api_Inm")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Web_Api_Inm")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

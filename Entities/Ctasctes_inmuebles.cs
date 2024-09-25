@@ -597,7 +597,7 @@ namespace Web_Api_Inm
                 cmd.Parameters.AddWithValue("@manzana", 0);
                 cmd.Parameters.AddWithValue("@parcela", 0);
                 cmd.Parameters.AddWithValue("@p_h", 0);
-                cmd.Parameters.AddWithValue("@fecha_transaccion", 0);
+                cmd.Parameters.AddWithValue("@fecha_transaccion", DateTime.Now);
                 cmd.Parameters.AddWithValue("@periodo", string.Empty);
                 cmd.Parameters.AddWithValue("@cedulon_impreso", true);
                 cmd.Parameters.AddWithValue("@nro_pago_parcial", 0);
