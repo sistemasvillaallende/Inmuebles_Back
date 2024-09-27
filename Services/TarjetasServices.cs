@@ -1,7 +1,7 @@
 ﻿using System.Reflection.PortableExecutable;
-using namespace Web_Api_Inm.Entities.TARJETAS;
+using  Web_Api_Inm.Entities.TARJETAS;
 
-namespace namespace Web_Api_Inm.Services
+ namespace Web_Api_Inm.Services
 {
     public class TarjetasServices : ITarjetasServices
     {

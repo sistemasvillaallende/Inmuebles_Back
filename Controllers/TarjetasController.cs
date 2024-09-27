@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using namespace Web_Api_Inm.Entities.TARJETAS;
-using namespace Web_Api_Inm.Services;
+using Web_Api_Inm.Entities.TARJETAS;
+using  Web_Api_Inm.Services;
 
-namespace namespace Web_Api_Inm.Controllers
+namespace Web_Api_Inm.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
