@@ -39,7 +39,10 @@ namespace Web_Api_Inm.Controllers
         public IActionResult UpdateConcepto(Descadic_x_inmueble obj, string usuario)
         {
             //
-            obj.objAuditoria.usuario = usuario;
+            if (obj.objAuditoria != null)
+            {
+                obj.objAuditoria.usuario = usuario;
+            }
             //
 
             _Descadic_x_inmuebleService.update(obj);
@@ -55,7 +58,10 @@ namespace Web_Api_Inm.Controllers
         public IActionResult AddConcepto(Descadic_x_inmueble obj, string usuario)
         {
             //
-            obj.objAuditoria.usuario = usuario;
+            if (obj.objAuditoria != null)
+            {
+                obj.objAuditoria.usuario = usuario;
+            }
             //
             _Descadic_x_inmuebleService.insert(obj);
             var inmueble = _Descadic_x_inmuebleService.getByPk(obj.circunscripcion,
@@ -69,7 +75,10 @@ namespace Web_Api_Inm.Controllers
         [HttpPost]
         public IActionResult DeleteConcepto(Descadic_x_inmueble obj, string usuario)
         {
-            obj.objAuditoria.usuario = usuario;
+            if (obj.objAuditoria != null)
+            {
+                obj.objAuditoria.usuario = usuario;
+            }
             _Descadic_x_inmuebleService.delete(obj);
 
             var inmueble = _Descadic_x_inmuebleService.getByPk(obj.circunscripcion,

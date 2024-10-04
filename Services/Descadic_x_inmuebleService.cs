@@ -53,6 +53,12 @@ namespace Web_Api_Inm.Services
                     {
                         try
                         {
+                            if (obj.objAuditoria == null)
+                            {
+                                Auditoria audit = new Auditoria();
+                                obj.objAuditoria = audit;
+
+                            }
                             int id = 0;
                             obj.objAuditoria.identificacion = Entities.Inmuebles.armoDenominacion3(
                                 obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h);
@@ -61,8 +67,8 @@ namespace Web_Api_Inm.Services
                                 Entities.Inmuebles.getByPk(
                                 obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h));
                             obj.objAuditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                            id = Descadic_x_inmueble.insert(obj, con,trx);
-                            AuditoriaD.InsertAuditoria(obj.objAuditoria, con,trx);
+                            id = Descadic_x_inmueble.insert(obj, con, trx);
+                            AuditoriaD.InsertAuditoria(obj.objAuditoria, con, trx);
                             trx.Commit();
                             return id;
                         }
@@ -91,6 +97,14 @@ namespace Web_Api_Inm.Services
                     {
                         try
                         {
+
+                            if (obj.objAuditoria == null)
+                            {
+                                Auditoria audit = new Auditoria();
+                                obj.objAuditoria = audit;
+
+                            }
+
                             obj.objAuditoria.identificacion = Entities.Inmuebles.armoDenominacion3(
                          obj.circunscripcion, obj.seccion, obj.manzana, obj.parcela, obj.p_h);
                             obj.objAuditoria.proceso = "MODIFICACION DE CONCEPTO";
@@ -127,6 +141,13 @@ namespace Web_Api_Inm.Services
                     {
                         try
                         {
+
+                             if (obj.objAuditoria == null)
+                            {
+                                Auditoria audit = new Auditoria();
+                                obj.objAuditoria = audit;
+
+                            }
 
                             Auditoria objAuditoria = new Entities.AUDITORIA.Auditoria();
                             objAuditoria.identificacion = Entities.Inmuebles.armoDenominacion3(
