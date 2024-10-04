@@ -22,7 +22,7 @@ namespace Web_Api_Inm.Entities
         public string observaciones { get; set; }
         public int anio_desde { get; set; }
         public int anio_hasta { get; set; }
-        public AUDITORIA.Auditoria objAuditoria { get; set; }
+        public AUDITORIA.Auditoria? objAuditoria { get; set; }
         public Descadic_x_inmueble()
         {
             circunscripcion = 0;
