@@ -1455,6 +1455,122 @@ namespace Web_Api_Inm.Entities
 
 
 
+        public static List<FrentesInmueble> FrentesXInmueble(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                List<FrentesInmueble> lst = new List<FrentesInmueble>();
+                FrentesInmueble obj = new();
+
+                string SQL = @"SELECT* FROM FRENTES_X_INMUEBLE
+                   WHERE circunscripcion=@circunscripcion AND
+                   seccion=@seccion AND
+                   manzana=@manzana AND
+                   parcela=@parcela AND
+                   p_h=@p_h";
+
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = SQL;
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            obj = new FrentesInmueble();
+                            if (!dr.IsDBNull(0)) { obj.circunscripcion = dr.GetInt32(0); }
+                            if (!dr.IsDBNull(1)) { obj.seccion = dr.GetInt32(1); }
+                            if (!dr.IsDBNull(2)) { obj.manzana = dr.GetInt32(2); }
+                            if (!dr.IsDBNull(3)) { obj.parcela = dr.GetInt32(3); }
+                            if (!dr.IsDBNull(4)) { obj.p_h = dr.GetInt32(4); }
+                            if (!dr.IsDBNull(5)) { obj.nro_frente = dr.GetInt32(5); }
+                            if (!dr.IsDBNull(6)) { obj.cod_calle = dr.GetInt32(6); }
+                            if (!dr.IsDBNull(7)) { obj.nro_domicilio = dr.GetInt32(7); }
+                            if (!dr.IsDBNull(8)) { obj.metros_frente = dr.GetFloat(8); }
+                            if (!dr.IsDBNull(9)) { obj.cod_zona = dr.GetInt32(9); }
+
+                            lst.Add(obj);
+                        }
+                    }
+                    return lst;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+
+        public static List<Zonas> getZonas(int? cod_zona)
+        {
+            try
+            {
+                List<Zonas> lst = new List<Zonas>();
+                Zonas obj = new();
+
+                string SQL = @"     SELECT * 
+                                    FROM ZONAS 
+                                    WHERE @cod_zona IS NULL OR cod_zona = @cod_zona;";
+
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = SQL;
+
+                    if (cod_zona.HasValue)
+                    {
+                        cmd.Parameters.AddWithValue("@cod_zona", cod_zona);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@cod_zona", DBNull.Value);
+                    }
+                    cmd.Connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            obj = new Zonas();
+                            if (!dr.IsDBNull(0)) { obj.cod_zona = dr.GetInt32(0); }
+                            if (!dr.IsDBNull(1)) { obj.nom_zona = dr.GetString(1); }
+                            if (!dr.IsDBNull(2)) { obj.tasa_basica_edificado = dr.GetDecimal(2); }
+                            if (!dr.IsDBNull(3)) { obj.excedente_edificado = dr.GetDecimal(3); }
+                            if (!dr.IsDBNull(4)) { obj.tasa_basica_baldio = dr.GetDecimal(4); }
+                            if (!dr.IsDBNull(5)) { obj.excedente_baldio = dr.GetDecimal(5); }
+
+                            lst.Add(obj);
+                        }
+                    }
+                    return lst;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+
+
+        
+
+
+
     }
 }
 
