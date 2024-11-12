@@ -3,6 +3,7 @@ using System.Runtime.ConstrainedExecution;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Transactions;
+using Newtonsoft.Json;
 using Web_Api_Inm.Entities;
 using Web_Api_Inm.Entities.AUDITORIA;
 using Web_Api_Inm.Entities.HELPERS;
@@ -482,5 +483,143 @@ namespace Web_Api_Inm.Services
                 throw;
             }
         }
+
+
+        #region Deudas
+        public List<Ctasctes_inmuebles> ListarDeudasXTasa(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                return Ctasctes_inmuebles.ListarDeudas(cir, sec, man, par, p_h);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public List<CateDeudaInm> ListarCategoriaDeudas()
+        {
+            try
+            {
+                return Ctasctes_inmuebles.ListarCategoriaDeudas();
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        public void NuevaDeuda(CtasCtes_Con_Auditoria obj)
+        {
+            try
+            {
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
+                {
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+
+                            var CtaCte = obj.lstCtastes[0];
+                            obj.auditoria.identificacion = Inmuebles.armoDenominacion3(CtaCte.circunscripcion, CtaCte.seccion, CtaCte.manzana, CtaCte.parcela, CtaCte.p_h);
+                            obj.auditoria.proceso = "NUEVA DEUDA INMUEBLE";
+                            obj.auditoria.detalle = JsonConvert.SerializeObject(obj);
+                            obj.auditoria.observaciones = string.Format(" Fecha nueva deuda: {0} ", DateTime.Now);
+
+                            var ultimoRegistro = Ctasctes_inmuebles.ObtenerUltimoNroTransaccion(con, trx);
+                            Ctasctes_inmuebles.InsertNvaDeuda(CtaCte, con, trx, ultimoRegistro + 1);
+
+                            AuditoriaD.InsertAuditoria(obj.auditoria, con, trx);
+                            trx.Commit();
+
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void ModificarDeuda(CtasCtes_Con_Auditoria obj)
+        {
+            try
+            {
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
+                {
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            var CtaCte = obj.lstCtastes[0];
+                            obj.auditoria.identificacion = Inmuebles.armoDenominacion3(CtaCte.circunscripcion, CtaCte.seccion, CtaCte.manzana, CtaCte.parcela, CtaCte.p_h);
+                            obj.auditoria.proceso = "MODIFICACION DEUDA INMUEBLE";
+                            obj.auditoria.detalle = JsonConvert.SerializeObject(obj);
+                            obj.auditoria.observaciones = string.Format(" Fecha modificacion de deuda: {0} ", DateTime.Now);
+                            Ctasctes_inmuebles.UpdateDeuda(CtaCte, con, trx);
+                            AuditoriaD.InsertAuditoria(obj.auditoria, con, trx);
+                            trx.Commit();
+
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public void EliminarDeuda(int cir, int sec, int man, int par, int p_h, int nro_transaccion, Auditoria obj)
+        {
+            try
+            {
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
+                {
+                    con.Open();
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+
+                            obj.identificacion = Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
+                            obj.proceso = "ELIMINA DEUDA INMUEBLE";
+                            obj.detalle = JsonConvert.SerializeObject(Inmuebles.armoDenominacion3(cir, sec, man, par, p_h));
+                            obj.observaciones = string.Format(" Fecha eliminar deuda: {0} ", DateTime.Now);
+                            Ctasctes_inmuebles.deleteDeuda(cir, sec, man, par, p_h, nro_transaccion, con, trx);
+                            AuditoriaD.InsertAuditoria(obj, con, trx);
+                            trx.Commit();
+
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        #endregion
     }
 }

@@ -72,8 +72,8 @@ namespace Web_Api_Inm.Controllers
             int _TotalRegistros = 0;
             int _TotalPaginas = 0;
 
-        
-            _TotalRegistros =  _InmueblesService.Count();
+
+            _TotalRegistros = _InmueblesService.Count();
             _TotalPaginas = (int)Math.Ceiling((double)_TotalRegistros / registros_por_pagina);
 
             if (pagina == 0)
@@ -88,7 +88,7 @@ namespace Web_Api_Inm.Controllers
 
             if (_Inmueble != null && _Inmueble.Count() > 0)
             {
-               
+
                 _PaginadorInmueble = new PaginadorGenerico<Entities.Inmuebles>()
                 {
                     RegistrosPorPagina = registros_por_pagina,
@@ -191,6 +191,60 @@ namespace Web_Api_Inm.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult FrentesXInmueble(int cir, int sec, int man, int par, int p_h)
+        {
+            var lst = _InmueblesService.FrentesXInmueble(cir, sec, man, par, p_h);
+            return Ok(lst);
+        }
+
+        [HttpGet]
+        public IActionResult GetZonas(int? cod_zona)
+        {
+            var lst = _InmueblesService.GetZonas(cod_zona);
+            return Ok(lst);
+        }
+
+        [HttpGet]
+        public IActionResult GetCalle(string? nom_calle)
+        {
+            var lst = _InmueblesService.GetCalle(nom_calle);
+            return Ok(lst);
+        }
+
+        [HttpPost]
+        public IActionResult InsertFrente(Frentes_Con_Auditoria obj)
+        {
+            _InmueblesService.InsertFrente(obj);
+           if ( obj.frente.nro_domicilio < 0)
+            {
+                return BadRequest(new { message = @" Nro de domicilio incorrecto" });
+            }
+            return Ok(new { message = @"Se inserto nuevo frente correctamente."});
+        }
+
+
+        [HttpPut]
+        public IActionResult UpdateFrente(Frentes_Con_Auditoria obj)
+        {
+            _InmueblesService.UpdateFrente(obj);
+            // if (resumen.Count == 0)
+            // {
+            //     return BadRequest(new { message = @"Información, no se encontraron Datos para este Inmueble!!!" });
+            // }
+            return Ok(new { message = @"Se actualizo  frente correctamente."});
+        }
+
+        [HttpPut]
+        public IActionResult DeleteFrente(Frentes_Con_Auditoria obj)
+        {
+            _InmueblesService.DeleteFrente(obj);
+            // if (resumen.Count == 0)
+            // {
+            //     return BadRequest(new { message = @"Información, no se encontraron Datos para este Inmueble!!!" });
+            // }
+            return Ok(new { message = @"Se elimino frente correctamente."});
+        }
 
         //Frentes
 
@@ -234,7 +288,7 @@ namespace Web_Api_Inm.Controllers
         //// Nuevo
         //if operacion='Nuevo' then
         //begin
-        //if (QFrentes_x_InmuebleNro_Domicilio.IsNull=True) or
+        //if (QFrentes_x_InmuebleNro_Domicilio.IsNull=True) or            -----> VALIDACION
         //(QFrentes_x_InmuebleNro_Domicilio.Value< 0) then
         //begin
         //Application.
@@ -374,7 +428,7 @@ namespace Web_Api_Inm.Controllers
         //QCalles_x_Barrio.Open;
         //QCalles_x_Barrio.First;
         //while not QCalles_x_Barrio.Eof do
-        //begin
+        //begin                -------------------------------------------------------------------------------> VALIDACION
         //    if (QFrentes_x_InmuebleNro_Domicilio.Value >= QCalles_x_BarrioDesde.Value) and
         //        (QFrentes_x_InmuebleNro_Domicilio.Value <= (QCalles_x_BarrioHasta.Value + 100)) and
         //        (((power(-1, QFrentes_x_InmuebleNro_Domicilio.Value) > 0) and

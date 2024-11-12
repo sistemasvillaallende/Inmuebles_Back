@@ -24,5 +24,16 @@ namespace Web_Api_Inm.Services
 
         public int Count();
 
+        // FRENTES
+
+        public List<FrentesInmueble> FrentesXInmueble(int cir, int sec, int man, int par, int p_h);
+        public List<Zonas> GetZonas(int? cod_zona);
+        public List<Combo> GetCalle(string? nom_calle);
+        public void InsertFrente(Frentes_Con_Auditoria obj);
+        public void UpdateFrente(Frentes_Con_Auditoria obj);
+        public void DeleteFrente(Frentes_Con_Auditoria obj);
+
+        // FIN FRENTES
+
     }
 }

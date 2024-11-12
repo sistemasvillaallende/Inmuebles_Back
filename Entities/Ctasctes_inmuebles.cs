@@ -28,14 +28,14 @@ namespace Web_Api_Inm
         public bool cedulon_impreso { get; set; }
         public int nro_pago_parcial { get; set; }
         public decimal monto_original { get; set; }
-        public int nro_plan { get; set; }
+        public int? nro_plan { get; set; }
         public bool pagado { get; set; }
         public decimal debe { get; set; }
         public decimal haber { get; set; }
         public bool deuda_activa { get; set; }
         public bool pago_parcial { get; set; }
         public int categoria_deuda { get; set; }
-        public int nro_procuracion { get; set; }
+        public int? nro_procuracion { get; set; }
         public DateTime? vencimiento { get; set; }
         public int nro_cedulon { get; set; }
         public decimal monto_pagado { get; set; }
@@ -636,7 +636,7 @@ namespace Web_Api_Inm
                     cmd.Parameters["@vencimiento"].Value = item.vencimiento ?? (object)DBNull.Value;
                     cmd.ExecuteNonQuery();
                 }
-                
+
             }
             catch (Exception)
             {
@@ -2081,6 +2081,277 @@ namespace Web_Api_Inm
                 throw;
             }
         }
+        #endregion
+
+        #region Deudas
+        public static List<Ctasctes_inmuebles> ListarDeudas(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                List<Ctasctes_inmuebles> lst = new List<Ctasctes_inmuebles>();
+                Ctasctes_inmuebles aux;
+                string strSQL = @"  
+                                      SELECT * FROM CTASCTES_INMUEBLES WHERE
+                                        circunscripcion=@cir AND
+                                        seccion=@sec AND
+                                        manzana=@man AND
+                                        parcela=@par AND
+                                        p_h=@p_h AND
+                                        tipo_transaccion=1 AND pagado=0 AND
+                                        pago_parcial=0 AND nro_plan IS NULL AND
+                                        nro_procuracion IS NULL  
+                                        ORDER BY periodo   ";
+
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strSQL;
+                    cmd.Parameters.AddWithValue("@cir", cir);
+                    cmd.Parameters.AddWithValue("@sec", sec);
+                    cmd.Parameters.AddWithValue("@man", man);
+                    cmd.Parameters.AddWithValue("@par", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            aux = new Ctasctes_inmuebles();
+
+                            if (!dr.IsDBNull(0)) aux.tipo_transaccion = dr.GetInt32(0);
+                            if (!dr.IsDBNull(1)) aux.nro_transaccion = dr.GetInt32(1);
+                            if (!dr.IsDBNull(2)) aux.nro_pago_parcial = dr.GetInt32(2);
+                            if (!dr.IsDBNull(3)) aux.circunscripcion = dr.GetInt32(3);
+                            if (!dr.IsDBNull(4)) aux.seccion = dr.GetInt32(4);
+                            if (!dr.IsDBNull(5)) aux.manzana = dr.GetInt32(5);
+                            if (!dr.IsDBNull(6)) aux.parcela = dr.GetInt32(6);
+                            if (!dr.IsDBNull(7)) aux.p_h = dr.GetInt32(7);
+                            if (!dr.IsDBNull(8)) aux.fecha_transaccion = dr.GetDateTime(8);
+                            if (!dr.IsDBNull(9)) aux.periodo = dr.GetString(9);
+                            if (!dr.IsDBNull(10)) aux.cedulon_impreso = dr.GetBoolean(10);
+                            if (!dr.IsDBNull(11)) aux.monto_original = dr.GetDecimal(11);
+                            if (!dr.IsDBNull(12)) aux.nro_plan = dr.GetInt32(12);
+                            if (!dr.IsDBNull(13)) aux.pagado = dr.GetBoolean(13);
+                            if (!dr.IsDBNull(14)) aux.debe = dr.GetDecimal(14);
+                            if (!dr.IsDBNull(15)) aux.haber = dr.GetDecimal(15);
+                            if (!dr.IsDBNull(16)) aux.deuda_activa = dr.GetBoolean(16);
+                            if (!dr.IsDBNull(17)) aux.pago_parcial = dr.GetBoolean(17);
+                            if (!dr.IsDBNull(18)) aux.categoria_deuda = dr.GetInt32(18);
+                            if (!dr.IsDBNull(19)) aux.nro_procuracion = dr.GetInt32(19);
+                            if (!dr.IsDBNull(20)) aux.vencimiento = dr.GetDateTime(20);
+                            if (!dr.IsDBNull(21)) aux.nro_cedulon = dr.GetInt32(21);
+                            if (!dr.IsDBNull(22)) aux.monto_pagado = dr.GetDecimal(22);
+                            if (!dr.IsDBNull(23)) aux.recargo = dr.GetDecimal(23);
+                            if (!dr.IsDBNull(24)) aux.honorarios = dr.GetDecimal(24);
+                            if (!dr.IsDBNull(25)) aux.iva_hons = dr.GetDecimal(25);
+                            if (!dr.IsDBNull(26)) aux.tipo_deuda = dr.GetInt16(26);
+                            if (!dr.IsDBNull(27)) aux.decreto = dr.GetString(27);
+                            if (!dr.IsDBNull(28)) aux.observaciones = dr.GetString(28);
+                            if (!dr.IsDBNull(29)) aux.nro_cedulon_paypertic = dr.GetInt64(29);
+
+                            lst.Add(aux);
+                        }
+                    }
+                }
+                return lst;
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener lista de deuda", ex);
+            }
+        }
+
+        public static List<CateDeudaInm> ListarCategoriaDeudas()
+        {
+            try
+            {
+                List<CateDeudaInm> lst = new List<CateDeudaInm>();
+                CateDeudaInm aux;
+                string strSQL = @"SELECT * FROM CATE_DEUDA_INMUEBLE ;";
+
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strSQL;
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            aux = new CateDeudaInm();
+                            if (!dr.IsDBNull(0)) aux.cod_categoria = dr.GetInt32(0);
+                            if (!dr.IsDBNull(1)) aux.des_categoria = dr.GetString(1);
+                            if (!dr.IsDBNull(2)) aux.id_subRubro = dr.GetInt32(2);
+                            if (!dr.IsDBNull(3)) aux.tipo_deuda = dr.GetInt32(3);
+
+                            lst.Add(aux);
+                        }
+                    }
+                }
+                return lst;
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener lista de categorias de Deudas", ex);
+            }
+
+        }
+
+        public static int ObtenerUltimoNroTransaccion(SqlConnection con, SqlTransaction trx)
+        {
+            SqlCommand cmd = new SqlCommand(" SELECT ISNULL(MAX(NRO_TRANSACCION), 0) FROM CTASCTES_INMUEBLES ", con, trx);
+            return (int)cmd.ExecuteScalar();
+        }
+
+        public static void InsertNvaDeuda(Ctasctes_inmuebles obj, SqlConnection con, SqlTransaction trx, int ultimoRegistro)
+        {
+            try
+            {
+                string strSQL = @"
+                         INSERT INTO CTASCTES_INMUEBLES(
+                             tipo_transaccion, nro_transaccion, circunscripcion, seccion, manzana, 
+                             parcela, p_h, fecha_transaccion, periodo, cedulon_impreso, nro_pago_parcial, 
+                             monto_original, nro_plan, pagado, debe, haber, deuda_activa, 
+                             pago_parcial, categoria_deuda, nro_procuracion, vencimiento, nro_cedulon, 
+                             monto_pagado, recargo, honorarios, iva_hons, tipo_deuda, decreto, 
+                             observaciones, nro_cedulon_paypertic
+                         ) VALUES (
+                             @tipo_transaccion, @nro_transaccion, @circunscripcion, @seccion, 
+                             @manzana, @parcela, @p_h, @fecha_transaccion, @periodo, 
+                             @cedulon_impreso, @nro_pago_parcial, @monto_original, @nro_plan, 
+                             @pagado, @debe, @haber, @deuda_activa, @pago_parcial, 
+                             @categoria_deuda, @nro_procuracion, @vencimiento, @nro_cedulon, 
+                             @monto_pagado, @recargo, @honorarios, @iva_hons, @tipo_deuda, 
+                             @decreto, @observaciones, @nro_cedulon_paypertic
+                         );";
+
+                SqlCommand cmd = con.CreateCommand();
+                cmd.Transaction = trx;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strSQL;
+
+                cmd.Parameters.AddWithValue("@tipo_transaccion", obj.tipo_transaccion);
+                cmd.Parameters.AddWithValue("@nro_transaccion", obj.nro_transaccion);
+                cmd.Parameters.AddWithValue("@circunscripcion", obj.circunscripcion);
+                cmd.Parameters.AddWithValue("@seccion", obj.seccion);
+                cmd.Parameters.AddWithValue("@manzana", obj.manzana);
+                cmd.Parameters.AddWithValue("@parcela", obj.parcela);
+                cmd.Parameters.AddWithValue("@p_h", obj.p_h);
+                cmd.Parameters.AddWithValue("@fecha_transaccion", obj.fecha_transaccion ?? DateTime.Now);
+                cmd.Parameters.AddWithValue("@periodo", obj.periodo ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@cedulon_impreso", obj.cedulon_impreso);
+                cmd.Parameters.AddWithValue("@nro_pago_parcial", obj.nro_pago_parcial);
+                cmd.Parameters.AddWithValue("@monto_original", obj.monto_original);
+                cmd.Parameters.AddWithValue("@nro_plan", obj.nro_plan ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@pagado", obj.pagado);
+                cmd.Parameters.AddWithValue("@debe", obj.debe);
+                cmd.Parameters.AddWithValue("@haber", obj.haber);
+                cmd.Parameters.AddWithValue("@deuda_activa", obj.deuda_activa);
+                cmd.Parameters.AddWithValue("@pago_parcial", obj.pago_parcial);
+                cmd.Parameters.AddWithValue("@categoria_deuda", obj.categoria_deuda);
+                cmd.Parameters.AddWithValue("@nro_procuracion", obj.nro_procuracion ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@vencimiento", obj.vencimiento ?? DateTime.Now);
+                cmd.Parameters.AddWithValue("@nro_cedulon", obj.nro_cedulon);
+                cmd.Parameters.AddWithValue("@monto_pagado", obj.monto_pagado);
+                cmd.Parameters.AddWithValue("@recargo", obj.recargo);
+                cmd.Parameters.AddWithValue("@honorarios", obj.honorarios);
+                cmd.Parameters.AddWithValue("@iva_hons", obj.iva_hons);
+                cmd.Parameters.AddWithValue("@tipo_deuda", obj.tipo_deuda);
+                cmd.Parameters.AddWithValue("@decreto", obj.decreto ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@observaciones", obj.observaciones ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@nro_cedulon_paypertic", obj.nro_cedulon_paypertic);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al insertar en deuda", ex);
+            }
+
+        }
+
+
+        public static void UpdateDeuda(Ctasctes_inmuebles obj, SqlConnection con, SqlTransaction trx)
+        {
+            try
+            {
+                string query = @"
+            UPDATE CTASCTES_INMUEBLES
+            SET monto_original = @monto_original,
+                debe = @debe,
+                vencimiento = @vencimiento
+            WHERE nro_transaccion = @nro_transaccion AND
+                                        circunscripcion=@cir AND
+                                        seccion=@sec AND
+                                        manzana=@man AND
+                                        parcela=@par AND
+                                        p_h=@p_h ";
+
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.Transaction = trx;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = query;
+
+                    cmd.Parameters.AddWithValue("@monto_original", obj.monto_original);
+                    cmd.Parameters.AddWithValue("@debe", obj.debe);
+                    cmd.Parameters.AddWithValue("@vencimiento", obj.vencimiento ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@nro_transaccion", obj.nro_transaccion);
+                    cmd.Parameters.AddWithValue("@sec", obj.seccion);
+                    cmd.Parameters.AddWithValue("@man", obj.manzana);
+                    cmd.Parameters.AddWithValue("@par", obj.parcela);
+                    cmd.Parameters.AddWithValue("@p_h", obj.p_h);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar la deuda ", ex);
+            }
+        }
+
+
+        public static void deleteDeuda(int cir, int sec, int man, int par, int p_h, int nro_transaccion, SqlConnection con, SqlTransaction trx)
+        {
+            try
+            {
+                string query = @"
+                           DELETE FROM CTASCTES_INMUEBLES
+                           WHERE nro_transaccion = @nro_transaccion AND
+                                        circunscripcion=@cir AND
+                                        seccion=@sec AND
+                                        manzana=@man AND
+                                        parcela=@par AND
+                                        p_h=@p_h";
+
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.Transaction = trx;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = query;
+
+                    cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
+                    cmd.Parameters.AddWithValue("@sec", sec);
+                    cmd.Parameters.AddWithValue("@man", man);
+                    cmd.Parameters.AddWithValue("@par", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar la deuda", ex);
+            }
+        }
+
+
         #endregion
     }
 }

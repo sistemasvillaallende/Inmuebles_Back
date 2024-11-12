@@ -41,5 +41,12 @@ namespace Web_Api_Inm.Services
         public List<LstDeudaTasa> getListDeudaTasaNoVencida(int cir, int sec, int man, int par, int p_h);
         public List<Combo> ListarCategoriasTasa();
 
+        // Deudas
+         public List<Ctasctes_inmuebles> ListarDeudasXTasa(int cir, int sec, int man, int par, int p_h);
+         public List<CateDeudaInm> ListarCategoriaDeudas();
+         public void NuevaDeuda(CtasCtes_Con_Auditoria obj);
+         public void ModificarDeuda(CtasCtes_Con_Auditoria obj);
+         public void EliminarDeuda(int cir, int sec, int man, int par, int p_h, int nro_transaccion, Auditoria obj);
+
     }
 }

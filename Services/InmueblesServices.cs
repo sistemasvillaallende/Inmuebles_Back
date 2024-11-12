@@ -206,7 +206,7 @@ namespace Web_Api_Inm.Services
             int tipo_consulta, string periodo, int cate_deuda_desde, int cate_deuda_hasta, Auditoria objA)
         {
 
-                List<Informes> resumen;
+            List<Informes> resumen;
             try
             {
 
@@ -221,7 +221,7 @@ namespace Web_Api_Inm.Services
                             objA.proceso = "IMPRIME_DEUDA_INMUEBLE";
                             objA.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
                             AuditoriaD.InsertAuditoria(objA);
-                            resumen = Informes.Resumendeuda(cir, sec, man, par, p_h, tipo_consulta, periodo, cate_deuda_desde, cate_deuda_hasta,con,trx);
+                            resumen = Informes.Resumendeuda(cir, sec, man, par, p_h, tipo_consulta, periodo, cate_deuda_desde, cate_deuda_hasta, con, trx);
                             trx.Commit();
                             return resumen;
 
@@ -255,6 +255,155 @@ namespace Web_Api_Inm.Services
                 throw;
             }
         }
+
+        public List<FrentesInmueble> FrentesXInmueble(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                var lst = Inmuebles.FrentesXInmueble(cir, sec, man, par, p_h);
+                return lst;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<Zonas> GetZonas(int? cod_zona)
+        {
+            try
+            {
+                var lst = Inmuebles.GetZonas(cod_zona);
+                return lst;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<Combo> GetCalle(string? nom_calle)
+        {
+            try
+            {
+                var lst = Inmuebles.GetCalle(nom_calle);
+                return lst;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void InsertFrente(Frentes_Con_Auditoria obj)
+        {
+
+            try
+            {
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
+                {
+                    con.Open();
+
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            obj.auditoria.identificacion = "";
+                            obj.auditoria.proceso = "INSERTAR NUEVO FRENTE";
+                            obj.auditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            int nro_frente = Inmuebles.ObtenerUltimoNroFrente(con, trx, obj.frente.circunscripcion, obj.frente.seccion, obj.frente.manzana, obj.frente.parcela, obj.frente.p_h);
+                            Inmuebles.InsertFrente(nro_frente + 1, obj.frente.cod_calle, obj.frente.nro_domicilio, obj.frente.metros_frente, obj.frente.cod_zona, con, trx);
+                            AuditoriaD.InsertAuditoria(obj.auditoria, con, trx);
+                            trx.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        public void UpdateFrente(Frentes_Con_Auditoria obj)
+        {
+
+            try
+            {
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
+                {
+                    con.Open();
+
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            obj.auditoria.identificacion = "";
+                            obj.auditoria.proceso = "MODIFICAR FRENTE";
+                            obj.auditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            Inmuebles.UpdateFrente(obj.frente, con, trx);
+                            AuditoriaD.InsertAuditoria(obj.auditoria, con, trx);
+                            trx.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void DeleteFrente(Frentes_Con_Auditoria obj)
+        {
+
+            try
+            {
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
+                {
+                    con.Open();
+
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            obj.auditoria.identificacion = "";
+                            obj.auditoria.proceso = "ELIMINAR FRENTE";
+                            obj.auditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            Inmuebles.DeleteFrente(obj.frente.circunscripcion,obj.frente.seccion,obj.frente.manzana,obj.frente.parcela,obj.frente.p_h,obj.frente.nro_frente,con,trx);
+                            AuditoriaD.InsertAuditoria(obj.auditoria, con, trx);
+                            trx.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+
+
 
     }
 }

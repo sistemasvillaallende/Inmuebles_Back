@@ -1453,8 +1453,7 @@ namespace Web_Api_Inm.Entities
             }
         }
 
-
-
+        #region Frentes
         public static List<FrentesInmueble> FrentesXInmueble(int cir, int sec, int man, int par, int p_h)
         {
             try
@@ -1512,7 +1511,7 @@ namespace Web_Api_Inm.Entities
         }
 
 
-        public static List<Zonas> getZonas(int? cod_zona)
+        public static List<Zonas> GetZonas(int? cod_zona)
         {
             try
             {
@@ -1565,12 +1564,185 @@ namespace Web_Api_Inm.Entities
 
         }
 
+        public static int ObtenerUltimoNroFrente(SqlConnection con, SqlTransaction trx, int circunscripcion, int seccion, int manzana, int parcela, int p_h)
+        {
+
+            SqlCommand cmd = new SqlCommand(@"
+                                SELECT ISNULL(MAX(nro_frente), 0) 
+                                FROM FRENTES_X_INMUEBLE 
+                                WHERE circunscripcion = @circunscripcion 
+                                  AND seccion = @seccion 
+                                  AND manzana = @manzana 
+                                  AND parcela = @parcela 
+                                  AND p_h = @p_h", con, trx);
+
+            cmd.Parameters.AddWithValue("@circunscripcion", circunscripcion);
+            cmd.Parameters.AddWithValue("@seccion", seccion);
+            cmd.Parameters.AddWithValue("@manzana", manzana);
+            cmd.Parameters.AddWithValue("@parcela", parcela);
+            cmd.Parameters.AddWithValue("@p_h", p_h);
+
+            return (int)cmd.ExecuteScalar();
+        }
 
 
-        
+        public static void InsertFrente(int nro_frente, int cod_calle, int nro_domicilio, float metros_frente, int cod_zona, SqlConnection con, SqlTransaction trx)
+        {
+
+            try
+            {
+                string SQL = @"INSERT INTO FRENTES_X_INMUEBLE 
+                    ( nro_frente, cod_calle, nro_domicilio, metros_frente, cod_zona)
+                   VALUES 
+                    ( @nro_frente, @cod_calle, @nro_domicilio, @metros_frente, @cod_zona)";
 
 
+                SqlCommand cmd = con.CreateCommand();
+                cmd.Transaction = trx;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = SQL;
 
+                cmd.Parameters.AddWithValue("@nro_frente", nro_frente);
+                cmd.Parameters.AddWithValue("@cod_calle", cod_calle);
+                cmd.Parameters.AddWithValue("@nro_domicilio", nro_domicilio);
+                cmd.Parameters.AddWithValue("@metros_frente", metros_frente);
+                cmd.Parameters.AddWithValue("@cod_zona", cod_zona);
+
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al insertar en deuda", ex);
+            }
+        }
+
+
+        public static void UpdateFrente(FrentesInmueble obj, SqlConnection con, SqlTransaction trx)
+        {
+            try
+            {
+                string SQL = @"UPDATE FRENTES_X_INMUEBLE 
+                       SET cod_calle = @cod_calle, 
+                           nro_domicilio = @nro_domicilio, 
+                           metros_frente = @metros_frente, 
+                           cod_zona = @cod_zona 
+                       WHERE nro_frente = @nro_frente
+                         AND circunscripcion = @circunscripcion
+                         AND seccion = @seccion
+                         AND manzana = @manzana
+                         AND parcela = @parcela
+                         AND p_h = @p_h";
+
+                SqlCommand cmd = con.CreateCommand();
+                cmd.Transaction = trx;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = SQL;
+
+                cmd.Parameters.AddWithValue("@cod_calle", obj.cod_calle);
+                cmd.Parameters.AddWithValue("@nro_domicilio", obj.nro_domicilio);
+                cmd.Parameters.AddWithValue("@metros_frente", obj.metros_frente);
+                cmd.Parameters.AddWithValue("@cod_zona", obj.cod_zona);
+
+                cmd.Parameters.AddWithValue("@nro_frente", obj.nro_frente);
+                cmd.Parameters.AddWithValue("@circunscripcion", obj.circunscripcion);
+                cmd.Parameters.AddWithValue("@seccion", obj.seccion);
+                cmd.Parameters.AddWithValue("@manzana", obj.manzana);
+                cmd.Parameters.AddWithValue("@parcela", obj.parcela);
+                cmd.Parameters.AddWithValue("@p_h", obj.p_h);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar el frente en FRENTES_X_INMUEBLE", ex);
+            }
+        }
+
+
+        public static void DeleteFrente(int circunscripcion, int seccion, int manzana, int parcela, int p_h, int nro_frente, SqlConnection con, SqlTransaction trx)
+        {
+            try
+            {
+                string query = @"DELETE FROM FRENTES_X_INMUEBLE 
+                         WHERE circunscripcion = @circunscripcion 
+                           AND seccion = @seccion 
+                           AND manzana = @manzana 
+                           AND parcela = @parcela 
+                           AND p_h = @p_h 
+                           AND nro_frente = @nro_frente";
+
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.Transaction = trx;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = query;
+
+                    cmd.Parameters.AddWithValue("@circunscripcion", circunscripcion);
+                    cmd.Parameters.AddWithValue("@seccion", seccion);
+                    cmd.Parameters.AddWithValue("@manzana", manzana);
+                    cmd.Parameters.AddWithValue("@parcela", parcela);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Parameters.AddWithValue("@nro_frente", nro_frente);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar el frente en FRENTES_X_INMUEBLE", ex);
+            }
+        }
+
+
+        public static List<Combo> GetCalle(string? nomcalle)
+        {
+            try
+            {
+                string strSQL = @"	SELECT
+                            cod_calle,
+                            nom_calle
+                          FROM Calles
+                          WHERE
+                             (@nomcalle IS NULL OR @nomcalle = '' OR nom_calle LIKE @nomcalle + '%')
+                          ORDER BY
+                              nom_calle";
+                List<Combo> lst = new List<Combo>();
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strSQL;
+                    cmd.Parameters.AddWithValue("@nomcalle", nomcalle + "%");
+                    cmd.Connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    Combo? obj;
+                    obj = new Combo();
+                    obj.text = "TODAS LAS CALLES";
+                    obj.value = "0";
+                    lst.Add(obj);
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            obj = new();
+                            if (!dr.IsDBNull(0)) { obj.value = Convert.ToString(dr.GetInt32(0)); }
+                            if (!dr.IsDBNull(1)) { obj.text = Convert.ToString(dr.GetString(1)); }
+                            lst.Add(obj);
+                        }
+                    }
+                    return lst;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        #endregion
     }
 }
 
