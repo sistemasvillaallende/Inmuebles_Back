@@ -72,14 +72,14 @@ namespace Web_Api_Inm
             cedulon_impreso = false;
             nro_pago_parcial = 0;
             monto_original = 0;
-            nro_plan = 0;
+            nro_plan = null;
             pagado = false;
             debe = 0;
             haber = 0;
             deuda_activa = false;
             pago_parcial = false;
             categoria_deuda = 0;
-            nro_procuracion = 0;
+            nro_procuracion = null;
             vencimiento = null;// DateTime.Now;
             nro_cedulon = 0;
             monto_pagado = 0;
@@ -2122,15 +2122,15 @@ namespace Web_Api_Inm
 
                             if (!dr.IsDBNull(0)) aux.tipo_transaccion = dr.GetInt32(0);
                             if (!dr.IsDBNull(1)) aux.nro_transaccion = dr.GetInt32(1);
-                            if (!dr.IsDBNull(2)) aux.nro_pago_parcial = dr.GetInt32(2);
-                            if (!dr.IsDBNull(3)) aux.circunscripcion = dr.GetInt32(3);
-                            if (!dr.IsDBNull(4)) aux.seccion = dr.GetInt32(4);
-                            if (!dr.IsDBNull(5)) aux.manzana = dr.GetInt32(5);
-                            if (!dr.IsDBNull(6)) aux.parcela = dr.GetInt32(6);
-                            if (!dr.IsDBNull(7)) aux.p_h = dr.GetInt32(7);
-                            if (!dr.IsDBNull(8)) aux.fecha_transaccion = dr.GetDateTime(8);
-                            if (!dr.IsDBNull(9)) aux.periodo = dr.GetString(9);
-                            if (!dr.IsDBNull(10)) aux.cedulon_impreso = dr.GetBoolean(10);
+                            if (!dr.IsDBNull(2)) aux.circunscripcion = dr.GetInt32(2);
+                            if (!dr.IsDBNull(3)) aux.seccion = dr.GetInt32(3);
+                            if (!dr.IsDBNull(4)) aux.manzana = dr.GetInt32(4);
+                            if (!dr.IsDBNull(5)) aux.parcela = dr.GetInt32(5);
+                            if (!dr.IsDBNull(6)) aux.p_h = dr.GetInt32(6);
+                            if (!dr.IsDBNull(7)) aux.fecha_transaccion = dr.GetDateTime(7);
+                            if (!dr.IsDBNull(8)) aux.periodo = dr.GetString(8);
+                            if (!dr.IsDBNull(9)) aux.cedulon_impreso = dr.GetBoolean(9);
+                            if (!dr.IsDBNull(10)) aux.nro_pago_parcial = dr.GetInt32(10);
                             if (!dr.IsDBNull(11)) aux.monto_original = dr.GetDecimal(11);
                             if (!dr.IsDBNull(12)) aux.nro_plan = dr.GetInt32(12);
                             if (!dr.IsDBNull(13)) aux.pagado = dr.GetBoolean(13);
@@ -2150,6 +2150,7 @@ namespace Web_Api_Inm
                             if (!dr.IsDBNull(27)) aux.decreto = dr.GetString(27);
                             if (!dr.IsDBNull(28)) aux.observaciones = dr.GetString(28);
                             if (!dr.IsDBNull(29)) aux.nro_cedulon_paypertic = dr.GetInt64(29);
+
 
                             lst.Add(aux);
                         }
@@ -2186,8 +2187,8 @@ namespace Web_Api_Inm
                             aux = new CateDeudaInm();
                             if (!dr.IsDBNull(0)) aux.cod_categoria = dr.GetInt32(0);
                             if (!dr.IsDBNull(1)) aux.des_categoria = dr.GetString(1);
-                            if (!dr.IsDBNull(2)) aux.id_subRubro = dr.GetInt32(2);
-                            if (!dr.IsDBNull(3)) aux.tipo_deuda = dr.GetInt32(3);
+                            if (!dr.IsDBNull(2)) aux.id_subRubro = dr.GetInt16(2);
+                            if (!dr.IsDBNull(3)) aux.tipo_deuda = dr.GetInt16(3);
 
                             lst.Add(aux);
                         }
@@ -2237,7 +2238,7 @@ namespace Web_Api_Inm
                 cmd.CommandText = strSQL;
 
                 cmd.Parameters.AddWithValue("@tipo_transaccion", obj.tipo_transaccion);
-                cmd.Parameters.AddWithValue("@nro_transaccion", obj.nro_transaccion);
+                cmd.Parameters.AddWithValue("@nro_transaccion", ultimoRegistro);
                 cmd.Parameters.AddWithValue("@circunscripcion", obj.circunscripcion);
                 cmd.Parameters.AddWithValue("@seccion", obj.seccion);
                 cmd.Parameters.AddWithValue("@manzana", obj.manzana);
@@ -2248,14 +2249,14 @@ namespace Web_Api_Inm
                 cmd.Parameters.AddWithValue("@cedulon_impreso", obj.cedulon_impreso);
                 cmd.Parameters.AddWithValue("@nro_pago_parcial", obj.nro_pago_parcial);
                 cmd.Parameters.AddWithValue("@monto_original", obj.monto_original);
-                cmd.Parameters.AddWithValue("@nro_plan", obj.nro_plan ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@nro_plan", (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@pagado", obj.pagado);
                 cmd.Parameters.AddWithValue("@debe", obj.debe);
                 cmd.Parameters.AddWithValue("@haber", obj.haber);
                 cmd.Parameters.AddWithValue("@deuda_activa", obj.deuda_activa);
                 cmd.Parameters.AddWithValue("@pago_parcial", obj.pago_parcial);
                 cmd.Parameters.AddWithValue("@categoria_deuda", obj.categoria_deuda);
-                cmd.Parameters.AddWithValue("@nro_procuracion", obj.nro_procuracion ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@nro_procuracion", (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@vencimiento", obj.vencimiento ?? DateTime.Now);
                 cmd.Parameters.AddWithValue("@nro_cedulon", obj.nro_cedulon);
                 cmd.Parameters.AddWithValue("@monto_pagado", obj.monto_pagado);
@@ -2303,6 +2304,7 @@ namespace Web_Api_Inm
                     cmd.Parameters.AddWithValue("@debe", obj.debe);
                     cmd.Parameters.AddWithValue("@vencimiento", obj.vencimiento ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@nro_transaccion", obj.nro_transaccion);
+                    cmd.Parameters.AddWithValue("@cir", obj.circunscripcion);
                     cmd.Parameters.AddWithValue("@sec", obj.seccion);
                     cmd.Parameters.AddWithValue("@man", obj.manzana);
                     cmd.Parameters.AddWithValue("@par", obj.parcela);
@@ -2338,6 +2340,7 @@ namespace Web_Api_Inm
                     cmd.CommandText = query;
 
                     cmd.Parameters.AddWithValue("@nro_transaccion", nro_transaccion);
+                    cmd.Parameters.AddWithValue("@cir", cir);
                     cmd.Parameters.AddWithValue("@sec", sec);
                     cmd.Parameters.AddWithValue("@man", man);
                     cmd.Parameters.AddWithValue("@par", par);

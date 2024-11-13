@@ -1586,37 +1586,38 @@ namespace Web_Api_Inm.Entities
         }
 
 
-        public static void InsertFrente(int nro_frente, int cod_calle, int nro_domicilio, float metros_frente, int cod_zona, SqlConnection con, SqlTransaction trx)
+        public static void InsertFrente(int circunscripcion, int seccion, int manzana, int parcela, int p_h, int nro_frente, int cod_calle, int nro_domicilio, float metros_frente, int cod_zona, SqlConnection con, SqlTransaction trx)
         {
-
             try
             {
                 string SQL = @"INSERT INTO FRENTES_X_INMUEBLE 
-                    ( nro_frente, cod_calle, nro_domicilio, metros_frente, cod_zona)
-                   VALUES 
-                    ( @nro_frente, @cod_calle, @nro_domicilio, @metros_frente, @cod_zona)";
-
+                       (circunscripcion, seccion, manzana, parcela, p_h, nro_frente, cod_calle, nro_domicilio, metros_frente, cod_zona)
+                       VALUES 
+                       (@circunscripcion, @seccion, @manzana, @parcela, @p_h, @nro_frente, @cod_calle, @nro_domicilio, @metros_frente, @cod_zona)";
 
                 SqlCommand cmd = con.CreateCommand();
                 cmd.Transaction = trx;
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = SQL;
 
+                cmd.Parameters.AddWithValue("@circunscripcion", circunscripcion);
+                cmd.Parameters.AddWithValue("@seccion", seccion);
+                cmd.Parameters.AddWithValue("@manzana", manzana);
+                cmd.Parameters.AddWithValue("@parcela", parcela);
+                cmd.Parameters.AddWithValue("@p_h", p_h);
                 cmd.Parameters.AddWithValue("@nro_frente", nro_frente);
                 cmd.Parameters.AddWithValue("@cod_calle", cod_calle);
                 cmd.Parameters.AddWithValue("@nro_domicilio", nro_domicilio);
                 cmd.Parameters.AddWithValue("@metros_frente", metros_frente);
                 cmd.Parameters.AddWithValue("@cod_zona", cod_zona);
 
-
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al insertar en deuda", ex);
+                throw new Exception("Error al insertar en FRENTES_X_INMUEBLE", ex);
             }
         }
-
 
         public static void UpdateFrente(FrentesInmueble obj, SqlConnection con, SqlTransaction trx)
         {
@@ -1743,6 +1744,65 @@ namespace Web_Api_Inm.Entities
         }
 
         #endregion
+
+
+        public static DatosConexionAgua GetDatosConexionAgua(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                DatosConexionAgua obj = new DatosConexionAgua();
+
+                string SQL = @"                      
+                            select i.Nombre, i.circunscripcion, i.seccion, i.manzana, i.parcela, i.p_h
+                            , c.NOM_CALLE, i.nro_dom_pf, b.NOM_BARRIO, ca.Manzana_Oficial, ca.Lote_Oficial, ca.Superficie
+                            , domicilio= c.NOM_CALLE + ' Nº ' + cast(i.nro_dom_pf as varchar(10)) + ' de Barrio ' + b.NOM_BARRIO
+                            from INMUEBLES i left join CALLES c on c.COD_CALLE= i.cod_calle_pf
+                            left join BARRIOS b  on b.COD_BARRIO= i.cod_barrio
+                            left join CATASTRO ca on ca.Circunscripcion= i.circunscripcion and ca.seccion= i.seccion
+                            and ca.manzana= i.manzana and ca.parcela= i.parcela and ca.P_H= i.p_h
+                            where i.circunscripcion= @circunscripcion and i.seccion= @seccion
+                            and i.manzana= @manzana and i.parcela= @parcela and i.p_h = @p_h";
+
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = SQL;
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows && dr.Read())
+                    {
+                        if (!dr.IsDBNull(0)) obj.nombre = dr.GetString(0);
+                        if (!dr.IsDBNull(1)) obj.circunscripcion = dr.GetInt32(1);
+                        if (!dr.IsDBNull(2)) obj.seccion = dr.GetInt32(2);
+                        if (!dr.IsDBNull(3)) obj.manzana = dr.GetInt32(3);
+                        if (!dr.IsDBNull(4)) obj.parcela = dr.GetInt32(4);
+                        if (!dr.IsDBNull(5)) obj.p_h = dr.GetInt32(5);
+                        if (!dr.IsDBNull(6)) obj.nom_calle = dr.GetString(6);
+                        if (!dr.IsDBNull(7)) obj.nro_dom_pf = dr.GetInt32(7);
+                        if (!dr.IsDBNull(8)) obj.nom_barrio = dr.GetString(8);
+                        if (!dr.IsDBNull(9)) obj.manzana_oficial = dr.GetString(9);
+                        if (!dr.IsDBNull(10)) obj.lote_oficial = dr.GetString(10);
+                        if (!dr.IsDBNull(11)) obj.superficie = dr.GetFloat(11);
+                        if (!dr.IsDBNull(12)) obj.domicilio = dr.GetString(12);
+                    }
+
+                    return obj;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener datos de conexion de agua", ex);
+            }
+
+        }
+
     }
 }
 

@@ -216,11 +216,11 @@ namespace Web_Api_Inm.Controllers
         public IActionResult InsertFrente(Frentes_Con_Auditoria obj)
         {
             _InmueblesService.InsertFrente(obj);
-           if ( obj.frente.nro_domicilio < 0)
+            if (obj.frente.nro_domicilio < 0)
             {
                 return BadRequest(new { message = @" Nro de domicilio incorrecto" });
             }
-            return Ok(new { message = @"Se inserto nuevo frente correctamente."});
+            return Ok(new { message = @"Se inserto nuevo frente correctamente." });
         }
 
 
@@ -232,18 +232,20 @@ namespace Web_Api_Inm.Controllers
             // {
             //     return BadRequest(new { message = @"Información, no se encontraron Datos para este Inmueble!!!" });
             // }
-            return Ok(new { message = @"Se actualizo  frente correctamente."});
+            return Ok(new { message = @"Se actualizo  frente correctamente." });
         }
 
-        [HttpPut]
+        [HttpDelete]
         public IActionResult DeleteFrente(Frentes_Con_Auditoria obj)
         {
+
+            if (obj.frente.nro_frente == 1)
+            {
+                return BadRequest(new { message = @"No se puede eliminar el frente nro 1" });
+            }
+
             _InmueblesService.DeleteFrente(obj);
-            // if (resumen.Count == 0)
-            // {
-            //     return BadRequest(new { message = @"Información, no se encontraron Datos para este Inmueble!!!" });
-            // }
-            return Ok(new { message = @"Se elimino frente correctamente."});
+            return Ok(new { message = @"Se elimino frente correctamente." });
         }
 
         //Frentes
@@ -691,15 +693,27 @@ namespace Web_Api_Inm.Controllers
         //////////////////////////////////////////////////////////////////////////////////////////////
         ///Permiso de Conexion de Agua
         ///
-        //select i.Nombre, i.circunscripcion, i.seccion, i.manzana, i.parcela, i.p_h
-        //, c.NOM_CALLE, i.nro_dom_pf, b.NOM_BARRIO, ca.Manzana_Oficial, ca.Lote_Oficial, ca.Superficie
-        //, domicilio= c.NOM_CALLE + ' Nº ' + cast(i.nro_dom_pf as varchar(10)) + ' de Barrio ' + b.NOM_BARRIO
-        //from INMUEBLES i left join CALLES c on c.COD_CALLE= i.cod_calle_pf
-        //left join BARRIOS b  on b.COD_BARRIO= i.cod_barrio
-        //left join CATASTRO ca on ca.Circunscripcion= i.circunscripcion and ca.seccion= i.seccion
-        //and ca.manzana= i.manzana and ca.parcela= i.parcela and ca.P_H= i.p_h
-        //where i.circunscripcion= :circunscripcion and i.seccion= :seccion
-        //and i.manzana= :manzana and i.parcela= :parcela and i.p_h = :p_h
+        // select i.Nombre, i.circunscripcion, i.seccion, i.manzana, i.parcela, i.p_h
+        // , c.NOM_CALLE, i.nro_dom_pf, b.NOM_BARRIO, ca.Manzana_Oficial, ca.Lote_Oficial, ca.Superficie
+        // , domicilio= c.NOM_CALLE + ' Nº ' + cast(i.nro_dom_pf as varchar(10)) + ' de Barrio ' + b.NOM_BARRIO
+        // from INMUEBLES i left join CALLES c on c.COD_CALLE= i.cod_calle_pf
+        // left join BARRIOS b  on b.COD_BARRIO= i.cod_barrio
+        // left join CATASTRO ca on ca.Circunscripcion= i.circunscripcion and ca.seccion= i.seccion
+        // and ca.manzana= i.manzana and ca.parcela= i.parcela and ca.P_H= i.p_h
+        // where i.circunscripcion= :circunscripcion and i.seccion= :seccion
+        // and i.manzana= :manzana and i.parcela= :parcela and i.p_h = :p_h
+
+
+        [HttpGet]
+        public IActionResult GetDatosConexionAgua(int cir, int sec, int man, int par, int p_h)
+        {
+            var datos = _InmueblesService.GetDatos(cir,sec,man,par,p_h);
+
+            return Ok(datos);
+        }
+
+
+
 
         //procedure TNotaAgua.ppDetailBand1BeforePrint(Sender: TObject);
 

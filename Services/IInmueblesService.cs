@@ -34,6 +34,6 @@ namespace Web_Api_Inm.Services
         public void DeleteFrente(Frentes_Con_Auditoria obj);
 
         // FIN FRENTES
-
+        public DatosConexionAgua GetDatos(int cir, int sec, int man, int par, int p_h);
     }
 }

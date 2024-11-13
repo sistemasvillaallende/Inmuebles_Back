@@ -8,6 +8,7 @@ using Web_Api_Inm.Entities.HELPERS;
 using Web_Api_Inm.Entities.INM;
 using WSAfip;
 using static System.Collections.Specialized.BitVector32;
+using Web_Api_Inm.Helpers;
 
 namespace Web_Api_Inm.Services
 {
@@ -314,7 +315,7 @@ namespace Web_Api_Inm.Services
                             obj.auditoria.proceso = "INSERTAR NUEVO FRENTE";
                             obj.auditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
                             int nro_frente = Inmuebles.ObtenerUltimoNroFrente(con, trx, obj.frente.circunscripcion, obj.frente.seccion, obj.frente.manzana, obj.frente.parcela, obj.frente.p_h);
-                            Inmuebles.InsertFrente(nro_frente + 1, obj.frente.cod_calle, obj.frente.nro_domicilio, obj.frente.metros_frente, obj.frente.cod_zona, con, trx);
+                            Inmuebles.InsertFrente(obj.frente.circunscripcion, obj.frente.seccion, obj.frente.manzana, obj.frente.parcela, obj.frente.p_h, nro_frente + 1, obj.frente.cod_calle, obj.frente.nro_domicilio, obj.frente.metros_frente, obj.frente.cod_zona, con, trx);
                             AuditoriaD.InsertAuditoria(obj.auditoria, con, trx);
                             trx.Commit();
                         }
@@ -383,7 +384,7 @@ namespace Web_Api_Inm.Services
                             obj.auditoria.identificacion = "";
                             obj.auditoria.proceso = "ELIMINAR FRENTE";
                             obj.auditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                            Inmuebles.DeleteFrente(obj.frente.circunscripcion,obj.frente.seccion,obj.frente.manzana,obj.frente.parcela,obj.frente.p_h,obj.frente.nro_frente,con,trx);
+                            Inmuebles.DeleteFrente(obj.frente.circunscripcion, obj.frente.seccion, obj.frente.manzana, obj.frente.parcela, obj.frente.p_h, obj.frente.nro_frente, con, trx);
                             AuditoriaD.InsertAuditoria(obj.auditoria, con, trx);
                             trx.Commit();
                         }
@@ -402,7 +403,24 @@ namespace Web_Api_Inm.Services
         }
 
 
+        public DatosConexionAgua GetDatos(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                FechaHelper date = new FechaHelper();
+                var datos = Inmuebles.GetDatosConexionAgua(cir, sec, man, par, p_h);
 
+                datos.dia_actual = date.ObtenerNumeroDia();
+                datos.mes_actual = date.ObtenerMesTexto();
+                datos.anio_actual = date.ObtenerNumeroAnio();
+
+                return datos;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
 
     }

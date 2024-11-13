@@ -220,7 +220,7 @@ namespace Web_Api_Inm.Controllers
         }
 
           [HttpGet]
-        public IActionResult ListarDeudasXLegajo(int cir, int sec, int man, int par, int p_h)
+        public IActionResult ListarDeudasXTasa(int cir, int sec, int man, int par, int p_h)
         {
             var lst = _Ctasctes_inmueblesServices.ListarDeudasXTasa(cir, sec, man, par, p_h);
 
