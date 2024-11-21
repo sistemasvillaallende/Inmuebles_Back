@@ -23,6 +23,12 @@ namespace Web_Api_Inm.Controllers
             try
             {
 
+                var debito = _DebitoInmuebleService.GetDebitoByInm(obj.debito.circunscripcion,obj.debito.seccion,obj.debito.manzana,obj.debito.parcela,obj.debito.p_h);
+
+                if(debito != null){
+                     return BadRequest(new { message = "El inmueble ya posee debito automatico" });
+                }
+
                 if (string.IsNullOrEmpty(obj.debito.nombre))
                 {
                     return BadRequest(new { message = "No ingresó el nombre del titular de la tarjeta " });

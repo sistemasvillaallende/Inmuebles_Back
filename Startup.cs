@@ -1,4 +1,5 @@
-﻿using Web_Api_Inm.Services;
+﻿using Web_Api_Auto.Services;
+using Web_Api_Inm.Services;
 using Web_Api_Inm.Services.LOGIN;
 
 namespace Web_Api_Inm
@@ -25,6 +26,8 @@ namespace Web_Api_Inm
             services.AddScoped<ITarjetasServices, TarjetasServices>();
             services.AddScoped<IDescadic_x_inmuebleService, Descadic_x_inmuebleService>();
             services.AddScoped<IInmueblesService, InmueblesServices>();
+            services.AddScoped<ITarjetasDebitoService, TarjetasDebitoService>();
+            services.AddScoped<IDebitosInmuebleService, DebitosInmuebleService>();
             //
             services.AddCors();
 

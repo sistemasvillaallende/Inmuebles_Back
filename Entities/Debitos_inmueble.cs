@@ -56,7 +56,11 @@ namespace Web_Api_Inm.Entities
             {
                 string strSQL = @"
              SELECT 
-                dominio,
+                circunscripcion, 
+                seccion, 
+                manzana, 
+                parcela, 
+                p_h,
                 nombre,
                 nro_documento,
                 telefono,
@@ -76,10 +80,11 @@ namespace Web_Api_Inm.Entities
                 {
                     SqlCommand cmd = con.CreateCommand();
                     cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
-                    cmd.Parameters.AddWithValue("@seccion", sec);
-                    cmd.Parameters.AddWithValue("@manzana", man);
-                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.CommandText = strSQL;
+                    cmd.Parameters.AddWithValue("@cir", cir);
+                    cmd.Parameters.AddWithValue("@sec", sec);
+                    cmd.Parameters.AddWithValue("@man", man);
+                    cmd.Parameters.AddWithValue("@par", par);
                     cmd.Parameters.AddWithValue("@p_h", p_h);
 
                     con.Open();
@@ -112,7 +117,7 @@ namespace Web_Api_Inm.Entities
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al obtener información del vehículo", ex);
+                throw new ApplicationException("Error al obtener información del inmueble", ex);
             }
 
             return debito;
@@ -144,11 +149,11 @@ namespace Web_Api_Inm.Entities
                 per_pendiente_debitar,
                 id_paypertic
             ) VALUES (
-                circunscripcion, 
-                seccion, 
-                manzana, 
-                parcela, 
-                p_h,
+                @circunscripcion, 
+                @seccion, 
+                @manzana, 
+                @parcela, 
+                @p_h,
                 @nombre,
                 @nro_documento,
                 @telefono,
@@ -226,10 +231,10 @@ namespace Web_Api_Inm.Entities
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = query;
 
-                    cmd.Parameters.AddWithValue("@circunscripcion", obj.circunscripcion);
-                    cmd.Parameters.AddWithValue("@seccion", obj.seccion);
-                    cmd.Parameters.AddWithValue("@manzana", obj.manzana);
-                    cmd.Parameters.AddWithValue("@parcela", obj.parcela);
+                    cmd.Parameters.AddWithValue("@cir", obj.circunscripcion);
+                    cmd.Parameters.AddWithValue("@sec", obj.seccion);
+                    cmd.Parameters.AddWithValue("@man", obj.manzana);
+                    cmd.Parameters.AddWithValue("@par", obj.parcela);
                     cmd.Parameters.AddWithValue("@p_h", obj.p_h);
                     cmd.Parameters.AddWithValue("@nombre", obj.nombre);
                     cmd.Parameters.AddWithValue("@nro_documento", obj.nro_documento);
@@ -271,10 +276,10 @@ namespace Web_Api_Inm.Entities
                     cmd.Transaction = trx;
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = query;
-                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
-                    cmd.Parameters.AddWithValue("@seccion", sec);
-                    cmd.Parameters.AddWithValue("@manzana", man);
-                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@cir", cir);
+                    cmd.Parameters.AddWithValue("@sec", sec);
+                    cmd.Parameters.AddWithValue("@man", man);
+                    cmd.Parameters.AddWithValue("@par", par);
                     cmd.Parameters.AddWithValue("@p_h", p_h);
                     cmd.ExecuteNonQuery();
                 }
@@ -306,10 +311,10 @@ namespace Web_Api_Inm.Entities
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = query;
 
-                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
-                    cmd.Parameters.AddWithValue("@seccion", sec);
-                    cmd.Parameters.AddWithValue("@manzana", man);
-                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@cir", cir);
+                    cmd.Parameters.AddWithValue("@sec", sec);
+                    cmd.Parameters.AddWithValue("@man", man);
+                    cmd.Parameters.AddWithValue("@par", par);
                     cmd.Parameters.AddWithValue("@p_h", p_h);
                     cmd.Parameters.AddWithValue("@debito_automatico", valor);
 

@@ -62,7 +62,7 @@ namespace Web_Api_Inm.Entities
                 {
                     SqlCommand cmd = con.CreateCommand();
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "SELECT *FROM TARJETAS_DEBITOS";
+                    cmd.CommandText = "SELECT * FROM TARJETAS_DEBITOS";
                     cmd.Connection.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
                     lst = mapeo(dr);
