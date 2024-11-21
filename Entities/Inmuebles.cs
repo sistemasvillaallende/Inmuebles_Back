@@ -881,6 +881,42 @@ namespace Web_Api_Inm.Entities
                 throw ex;
             }
         }
+
+        public static void delete(int cir, int sec, int man, int par, int p_h, SqlConnection con, SqlTransaction trx)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.AppendLine("DELETE FROM Inmuebles");
+                sql.AppendLine("WHERE");
+                sql.AppendLine("circunscripcion = @circunscripcion");
+                sql.AppendLine("AND seccion = @seccion");
+                sql.AppendLine("AND manzana = @manzana");
+                sql.AppendLine("AND parcela = @parcela");
+                sql.AppendLine("AND p_h = @p_h");
+
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.Transaction = trx;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = sql.ToString();
+
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar el inmueble", ex);
+            }
+        }
+
+
         /////
         ///
         // public async static Task<int> Count()
@@ -1743,6 +1779,58 @@ namespace Web_Api_Inm.Entities
             }
         }
 
+        public static List<Barrios> GetBarrios(string? barrio)
+        {
+            try
+            {
+                string strSQL = @"	
+                                SELECT 
+                                COD_BARRIO, 
+                                NOM_BARRIO, 
+                                BarrioCerrado 
+                            FROM 
+                                BARRIOS b 
+                            WHERE 
+                                (@nom_barrio IS NULL OR @nom_barrio = '' OR NOM_BARRIO LIKE '%' + @nom_barrio + '%');";
+                List<Barrios> lst = new List<Barrios>();
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strSQL;
+                    if (string.IsNullOrEmpty(barrio))
+                    {
+                        cmd.Parameters.AddWithValue("@nom_barrio", DBNull.Value);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@nom_barrio", barrio);
+                    }
+                    cmd.Connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    Barrios obj;
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            obj = new Barrios();
+                            if (!dr.IsDBNull(0)) { obj.cod_barrio = dr.GetInt32(0); }
+                            if (!dr.IsDBNull(1)) { obj.nom_barrio = dr.GetString(1); }
+                            if (!dr.IsDBNull(2)) { obj.BarrioCerrado = dr.GetInt16(2); }
+                            lst.Add(obj);
+                        }
+                    }
+                    return lst;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         #endregion
 
 
@@ -1803,6 +1891,314 @@ namespace Web_Api_Inm.Entities
 
         }
 
+        #region Domicilio Postal
+        public static DatosDomicilio DatosDomicilioPostal(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                DatosDomicilio obj = new DatosDomicilio();
+
+                string SQL = @"  SELECT  
+                                 nom_calle_dom_esp, 
+                                 cod_calle_dom_esp, 
+                                 piso_dpto_esp, 
+                                 cod_barrio_dom_esp, 
+                                 nom_barrio_dom_esp, 
+                                 ciudad_dom_esp, 
+                                 provincia_dom_esp, 
+                                 pais_dom_esp, 
+                                 cod_postal, 
+                                 email_envio_cedulon, 
+                                 telefono, 
+                                 celular, 
+                                 cuit_ocupante, 
+                                 fecha_cambio_domicilio,
+                                 nro_bad,
+                                 nro_dom_esp
+                             FROM 
+                                 INMUEBLES 
+                             WHERE 
+                                 circunscripcion = @circunscripcion 
+                                 AND seccion = @seccion
+                                 AND manzana = @manzana 
+                                 AND parcela = @parcela 
+                                 AND p_h = @p_h;";
+
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = SQL;
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows && dr.Read())
+                    {
+                        if (!dr.IsDBNull(0)) obj.nom_calle_dom_esp = dr.GetString(0);
+                        if (!dr.IsDBNull(1)) obj.cod_calle_dom_esp = dr.GetInt32(1);
+                        if (!dr.IsDBNull(2)) obj.piso_dpto_esp = dr.GetString(2);
+                        if (!dr.IsDBNull(3)) obj.cod_barrio_dom_esp = dr.GetInt32(3);
+                        if (!dr.IsDBNull(4)) obj.nom_barrio_dom_esp = dr.GetString(4);
+                        if (!dr.IsDBNull(5)) obj.ciudad_dom_esp = dr.GetString(5);
+                        if (!dr.IsDBNull(6)) obj.provincia_dom_esp = dr.GetString(6);
+                        if (!dr.IsDBNull(7)) obj.pais_dom_esp = dr.GetString(7);
+                        if (!dr.IsDBNull(8)) obj.cod_postal = dr.GetString(8);
+                        if (!dr.IsDBNull(9)) obj.email_envio_cedulon = dr.GetString(9);
+                        if (!dr.IsDBNull(10)) obj.telefono = dr.GetString(10);
+                        if (!dr.IsDBNull(11)) obj.celular = dr.GetString(11);
+                        if (!dr.IsDBNull(12)) obj.cuit_ocupante = dr.GetString(12);
+                        if (!dr.IsDBNull(13)) obj.fecha_cambio_domicilio = dr.GetDateTime(13);
+                        if (!dr.IsDBNull(14)) obj.nro_bad = dr.GetInt32(14);
+                        if (!dr.IsDBNull(15)) obj.nro_dom_esp = dr.GetInt32(15);
+                    }
+
+                    return obj;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener datos de domicilio posta", ex);
+            }
+
+        }
+
+
+        public static void ModificarBadec(string telefono, string email, string cuit, string celular, int nro_bad, SqlConnection con, SqlTransaction trx)
+        {
+            {
+                try
+                {
+                    string SQL = @"UPDATE BADEC
+                       SET TELEFONO = @telefono, 
+                           E_MAIL = @email, 
+                           CUIT = @cuit, 
+                           CELULAR = @celular 
+                       WHERE NRO_BAD = @nro_bad ";
+
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.Transaction = trx;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = SQL;
+
+                    cmd.Parameters.AddWithValue("@telefono", telefono);
+                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@cuit", cuit);
+                    cmd.Parameters.AddWithValue("@celular", celular);
+                    cmd.Parameters.AddWithValue("@nro_bad", nro_bad);
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al actualizar datos de contacto en badec", ex);
+                }
+            }
+        }
+
+        public static void ActualizarDatosDomicilio(int cir, int sec, int man, int par, int p_h, DatosDomicilio datos, SqlConnection con, SqlTransaction trx)
+        {
+            try
+            {
+                string SQL = @"UPDATE INMUEBLES 
+                       SET 
+                           nom_calle_dom_esp = @nom_calle_dom_esp, 
+                           cod_calle_dom_esp = @cod_calle_dom_esp, 
+                           piso_dpto_esp = @piso_dpto_esp, 
+                           cod_barrio_dom_esp = @cod_barrio_dom_esp, 
+                           nom_barrio_dom_esp = @nom_barrio_dom_esp, 
+                           ciudad_dom_esp = @ciudad_dom_esp, 
+                           provincia_dom_esp = @provincia_dom_esp, 
+                           pais_dom_esp = @pais_dom_esp, 
+                           cod_postal = @cod_postal, 
+                           email_envio_cedulon = @email_envio_cedulon, 
+                           telefono = @telefono, 
+                           celular = @celular, 
+                           cuit_ocupante = @cuit_ocupante, 
+                           fecha_cambio_domicilio = @fecha_cambio_domicilio, 
+                           nro_bad = @nro_bad,
+                           nro_dom_esp =@nro_dom_esp
+                           
+                       WHERE 
+                           circunscripcion = @circunscripcion 
+                           AND seccion = @seccion
+                           AND manzana = @manzana 
+                           AND parcela = @parcela 
+                           AND p_h = @p_h;";
+
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = SQL;
+                cmd.Transaction = trx;
+
+                cmd.Parameters.AddWithValue("@nom_calle_dom_esp", datos.nom_calle_dom_esp ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@cod_calle_dom_esp", datos.cod_calle_dom_esp);
+                cmd.Parameters.AddWithValue("@piso_dpto_esp", datos.piso_dpto_esp ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@cod_barrio_dom_esp", datos.cod_barrio_dom_esp);
+                cmd.Parameters.AddWithValue("@nom_barrio_dom_esp", datos.nom_barrio_dom_esp ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@ciudad_dom_esp", datos.ciudad_dom_esp ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@provincia_dom_esp", datos.provincia_dom_esp ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@pais_dom_esp", datos.pais_dom_esp ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@cod_postal", datos.cod_postal ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@email_envio_cedulon", datos.email_envio_cedulon ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@telefono", datos.telefono ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@celular", datos.celular ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@cuit_ocupante", datos.cuit_ocupante ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@fecha_cambio_domicilio", DateTime.Now);
+                cmd.Parameters.AddWithValue("@nro_bad", datos.nro_bad);
+                cmd.Parameters.AddWithValue("@nro_dom_esp", datos.nro_dom_esp);
+
+                cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                cmd.Parameters.AddWithValue("@seccion", sec);
+                cmd.Parameters.AddWithValue("@manzana", man);
+                cmd.Parameters.AddWithValue("@parcela", par);
+                cmd.Parameters.AddWithValue("@p_h", p_h);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar los datos de domicilio", ex);
+            }
+        }
+
+
+
+        public static Combo GetBarrioXCalle(int cod_calle, int nro_dom) //, SqlConnection con, SqlTransaction trx)
+        {
+            try
+            {
+                Combo obj = null;
+                string SQL = @"
+                                 SELECT 
+                                     b.COD_BARRIO, 
+                                     b.NOM_BARRIO 
+                                 FROM 
+                                     CALLES_X_BARRIO cxb
+                                 INNER JOIN 
+                                     BARRIOS b ON cxb.COD_BARRIO = b.COD_BARRIO
+                                 WHERE 
+                                     cxb.COD_CALLE = @cod_calle 
+                                     AND @nro_dom BETWEEN cxb.desde AND cxb.hasta;";
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = SQL;
+                    cmd.Parameters.AddWithValue("@cod_calle", cod_calle);
+                    cmd.Parameters.AddWithValue("@nro_dom", nro_dom);
+                    cmd.Connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.HasRows && dr.Read())
+                    {
+
+                        obj = new Combo();
+                        if (!dr.IsDBNull(0)) { obj.value = Convert.ToString(dr.GetInt32(0)); }
+                        if (!dr.IsDBNull(1)) { obj.text = Convert.ToString(dr.GetString(1)); }
+
+                    }
+                    return obj;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Ocurrió un error al intentar obtener el barrio por calle.", ex);
+            }
+        }
+
+
+        #endregion
+
+        public static decimal MontoDeuda(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+
+                decimal monto = 0;
+                string SQL = @"   SELECT SUM(DEBE)-SUM(HABER)
+                                         FROM CTASCTES_INMUEBLES
+                                         WHERE
+                                         CIRCUNSCRIPCION =@circunscripcion AND
+                                         SECCION=@seccion AND
+                                         MANZANA=@manzana AND
+                                         PARCELA=@parcela AND
+                                         P_H=@p_h;";
+
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = SQL;
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Connection.Open();
+                    var result = cmd.ExecuteScalar();
+
+                    if (result != DBNull.Value && result != null)
+                    {
+                        monto = Convert.ToDecimal(result);
+                    }
+
+                    return monto;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener monto deuda", ex);
+            }
+
+        }
+
+
+        public static void EliminarParcelaXInmueble(int cir, int sec, int man, int par, int p_h, SqlConnection con, SqlTransaction trx)
+        {
+            {
+                try
+                {
+                    string query = @"  DELETE
+                                          FROM Parcelas_x_Inmueble
+                                          WHERE
+                                              circunscripcion = @cir AND
+                                              seccion = @sec AND
+                                              manzana = @man AND
+                                              parcela_unificada = @par AND
+                                              p_h_unificado = @p_h;";
+
+                    using (SqlCommand cmd = con.CreateCommand())
+                    {
+                        cmd.Transaction = trx;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = query;
+
+                        cmd.Parameters.AddWithValue("@cir", cir);
+                        cmd.Parameters.AddWithValue("@sec", sec);
+                        cmd.Parameters.AddWithValue("@man", man);
+                        cmd.Parameters.AddWithValue("@par", par);
+                        cmd.Parameters.AddWithValue("@p_h", p_h);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al eliminar el frente en Parcela por Inmueble", ex);
+                }
+
+
+            }
+
+        }
     }
+
 }
 

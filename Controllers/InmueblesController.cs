@@ -212,8 +212,16 @@ namespace Web_Api_Inm.Controllers
             return Ok(lst);
         }
 
+        [HttpGet]
+        public IActionResult GetBarrios(string? barrio)
+        {
+            var lst = _InmueblesService.GetBarrios(barrio);
+            return Ok(lst);
+        }
+
+
         [HttpPost]
-        public IActionResult InsertFrente(Frentes_Con_Auditoria obj)
+        public IActionResult NuevoFrente(Frentes_Con_Auditoria obj)
         {
             _InmueblesService.InsertFrente(obj);
             if (obj.frente.nro_domicilio < 0)
@@ -225,26 +233,23 @@ namespace Web_Api_Inm.Controllers
 
 
         [HttpPut]
-        public IActionResult UpdateFrente(Frentes_Con_Auditoria obj)
+        public IActionResult ModificarFrente(Frentes_Con_Auditoria obj)
         {
             _InmueblesService.UpdateFrente(obj);
-            // if (resumen.Count == 0)
-            // {
-            //     return BadRequest(new { message = @"Información, no se encontraron Datos para este Inmueble!!!" });
-            // }
+
             return Ok(new { message = @"Se actualizo  frente correctamente." });
         }
 
         [HttpDelete]
-        public IActionResult DeleteFrente(Frentes_Con_Auditoria obj)
+        public IActionResult EliminarFrente(int cir, int sec, int man, int par, int p_h, int nro_frente, Auditoria obj)
         {
 
-            if (obj.frente.nro_frente == 1)
+            if (nro_frente == 1)
             {
                 return BadRequest(new { message = @"No se puede eliminar el frente nro 1" });
             }
 
-            _InmueblesService.DeleteFrente(obj);
+            _InmueblesService.DeleteFrente(cir, sec, man, par, p_h, nro_frente, obj);
             return Ok(new { message = @"Se elimino frente correctamente." });
         }
 
@@ -705,13 +710,12 @@ namespace Web_Api_Inm.Controllers
 
 
         [HttpGet]
-        public IActionResult GetDatosConexionAgua(int cir, int sec, int man, int par, int p_h)
+        public IActionResult GetDatosConexionAgua(int cir, int sec, int man, int par, int p_h, string? nombre_titular)
         {
-            var datos = _InmueblesService.GetDatos(cir,sec,man,par,p_h);
+            var datos = _InmueblesService.GetDatos(cir, sec, man, par, p_h, nombre_titular);
 
             return Ok(datos);
         }
-
 
 
 
@@ -751,13 +755,74 @@ namespace Web_Api_Inm.Controllers
         //    end;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        [HttpGet]
+        public IActionResult DatosDomicilioPostal(int cir, int sec, int man, int par, int p_h)
+        {
+            var datos = _InmueblesService.DatosDomicilioPostal(cir, sec, man, par, p_h);
+
+            return Ok(datos);
+        }
+
+
+        [HttpPut]
+        public IActionResult ActualizarDomicilioPostal(int cir, int sec, int man, int par, int p_h, DatosDomicilio_Con_Auditoria obj)
+        {
+
+            try
+            {
+
+                _InmueblesService.ActualizarDatosDomicilio(cir, sec, man, par, p_h, obj);
+                return Ok(new { message = "Se ha actualizado domicilio postal correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al actualizar domicilio postal.", error = ex.Message });
+            }
+        }
+
+
+        [HttpGet]
+        public IActionResult GetBarrioXCalle(int cod_calle, int nro_dom)
+        {
+            var barrio = _InmueblesService.GetBarrioXCalle(cod_calle, nro_dom);
+
+            return Ok(barrio);
+        }
+
+
+
+        [HttpDelete]
+        public IActionResult BajaInmueble(int cir, int sec, int man, int par, int p_h, Auditoria obj)
+        {
+            try
+            {
+                decimal monto = _InmueblesService.MontoDeuda(cir, sec, man, par, p_h);
+
+                if (monto > 0)
+                {
+                    return BadRequest(new { message = "No se puede dar de baja por tener deudas." });
+                }
+
+                _InmueblesService.EliminarParcelaXInmueble(cir, sec, man, par, p_h, obj);
+                return Ok(new { message = "Se ha dado de baja correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error al intentar dar de baja el inmueble.", error = ex.Message });
+            }
+        }
+
+
         ///Domicilio Postal
         ///tiene permiso
         //procedure TGestInm.DpostalClick(Sender: TObject);
         //var
         //        permiso:smallint;
         //    begin
-        //    permiso:=Verificar_Permiso_v2(PriTasa.usuario,'DOESPEC');
+        //    permiso:=Verificar_Permiso_v2(PriTasa.usuario,'DOESPEC'); ------------------------------> PERMISO
         //    if permiso=0 then
         //    begin
         //    Application.MessageBox('Acceso Denegado.','SIIMVA-Error',MB_ICONERROR + MB_OK);
@@ -898,6 +963,8 @@ namespace Web_Api_Inm.Controllers
         //  if aux_cod_postal<> Inmueblescod_postal.Value then
         //    cambio_domicilio:=True;
 
+        // MODIFICAR
+
         //  if cambio_domicilio=True then
         //  begin
 
@@ -916,7 +983,7 @@ namespace Web_Api_Inm.Controllers
         //    begin
         //      Autoriza.Free;
         //    Exit;
-        //    end;
+        //    end; ----------------------------------------------------------> MODIFICA BADEC
         //    sqlUpdBadec.SQL.Add(' UPDATE BADEC  SET      '+
         //             	        '  TELEFONO ='+ QuotedStr(Inmueblestelefono.AsString) +' , '+
         //            	        '  E_MAIL = '+ QuotedStr(Inmueblesemail_envio_cedulon.AsString) +' ,     '+
@@ -1136,6 +1203,21 @@ namespace Web_Api_Inm.Controllers
         //  BuscaBarrio.Enabled:=False;
         //end;
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
         ///BAJA
         ///
         //    procedure TGestInm.BajaClick(Sender: TObject);
@@ -1204,14 +1286,14 @@ namespace Web_Api_Inm.Controllers
         //end;
 
         //Query_deuda
-        //SELECT SUM(DEBE)-SUM(HABER)
-        //FROM CTASCTES_INMUEBLES
-        //WHERE
-        //CIRCUNSCRIPCION =:circunscripcion AND
-        //SECCION=:seccion AND
-        //MANZANA=:manzana AND
-        //PARCELA=:parcela AND
-        //P_H=:p_h
+        // SELECT SUM(DEBE)-SUM(HABER)
+        // FROM CTASCTES_INMUEBLES
+        // WHERE
+        // CIRCUNSCRIPCION =:circunscripcion AND
+        // SECCION=:seccion AND
+        // MANZANA=:manzana AND
+        // PARCELA=:parcela AND
+        // P_H=:p_h
 
         //procedure TGestInm.Elimina_parcela_x_inmueble();
         //begin
@@ -1228,15 +1310,15 @@ namespace Web_Api_Inm.Controllers
 
         //end;
 
-        //sqlElimina_Parcelas_x_Inmueble
-        //delete
-        //from Parcelas_x_Inmueble
-        //where
-        //circunscripcion=:cir and
-        //seccion=:sec and
-        //manzana=:man and
-        //parcela_unificada=:par AND
-        //p_h_unificado=:p_h
+        // sqlElimina_Parcelas_x_Inmueble
+        // delete
+        // from Parcelas_x_Inmueble
+        // where
+        // circunscripcion=:cir and
+        // seccion=:sec and
+        // manzana=:man and
+        // parcela_unificada=:par AND
+        // p_h_unificado=:p_h
 
 
 

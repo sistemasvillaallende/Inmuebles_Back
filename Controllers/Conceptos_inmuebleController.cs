@@ -35,7 +35,7 @@ namespace Web_Api_Inm.Controllers
 
             return Ok(conceptos);
         }
-        [HttpPost]
+        [HttpPut]
         public IActionResult UpdateConcepto(Descadic_x_inmueble obj, string usuario)
         {
             //
@@ -72,7 +72,7 @@ namespace Web_Api_Inm.Controllers
             }
             return Ok(inmueble);
         }
-        [HttpPost]
+        [HttpDelete]
         public IActionResult DeleteConcepto(Descadic_x_inmueble obj, string usuario)
         {
             if (obj.objAuditoria != null)

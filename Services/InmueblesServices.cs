@@ -298,6 +298,21 @@ namespace Web_Api_Inm.Services
             }
         }
 
+        
+        public List<Barrios> GetBarrios(string? barrio)
+        {
+            try
+            {
+                var lst = Inmuebles.GetBarrios(barrio);
+                return lst;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public void InsertFrente(Frentes_Con_Auditoria obj)
         {
 
@@ -311,7 +326,7 @@ namespace Web_Api_Inm.Services
                     {
                         try
                         {
-                            obj.auditoria.identificacion = "";
+                            obj.auditoria.identificacion = Entities.Inmuebles.armoDenominacion3(obj.frente.circunscripcion, obj.frente.seccion, obj.frente.manzana, obj.frente.parcela, obj.frente.p_h); ;
                             obj.auditoria.proceso = "INSERTAR NUEVO FRENTE";
                             obj.auditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
                             int nro_frente = Inmuebles.ObtenerUltimoNroFrente(con, trx, obj.frente.circunscripcion, obj.frente.seccion, obj.frente.manzana, obj.frente.parcela, obj.frente.p_h);
@@ -347,7 +362,7 @@ namespace Web_Api_Inm.Services
                     {
                         try
                         {
-                            obj.auditoria.identificacion = "";
+                            obj.auditoria.identificacion = Entities.Inmuebles.armoDenominacion3(obj.frente.circunscripcion, obj.frente.seccion, obj.frente.manzana, obj.frente.parcela, obj.frente.p_h);
                             obj.auditoria.proceso = "MODIFICAR FRENTE";
                             obj.auditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
                             Inmuebles.UpdateFrente(obj.frente, con, trx);
@@ -368,7 +383,7 @@ namespace Web_Api_Inm.Services
             }
         }
 
-        public void DeleteFrente(Frentes_Con_Auditoria obj)
+        public void DeleteFrente(int cir, int sec, int man, int par, int p_h, int nro_frente, Auditoria obj)
         {
 
             try
@@ -381,10 +396,84 @@ namespace Web_Api_Inm.Services
                     {
                         try
                         {
-                            obj.auditoria.identificacion = "";
-                            obj.auditoria.proceso = "ELIMINAR FRENTE";
-                            obj.auditoria.observaciones += string.Format(" Fecha auditoria: {0}", DateTime.Now);
-                            Inmuebles.DeleteFrente(obj.frente.circunscripcion, obj.frente.seccion, obj.frente.manzana, obj.frente.parcela, obj.frente.p_h, obj.frente.nro_frente, con, trx);
+                            obj.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h); ;
+                            obj.proceso = "ELIMINAR FRENTE";
+                            obj.observaciones = string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            Inmuebles.DeleteFrente(cir, sec, man, par, p_h, nro_frente, con, trx);
+                            AuditoriaD.InsertAuditoria(obj, con, trx);
+                            trx.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        public DatosConexionAgua GetDatos(int cir, int sec, int man, int par, int p_h, string? nombre_titular)
+        {
+            try
+            {
+                FechaHelper date = new FechaHelper();
+                var datos = Inmuebles.GetDatosConexionAgua(cir, sec, man, par, p_h);
+
+                datos.dia_actual = date.ObtenerNumeroDia();
+                datos.mes_actual = date.ObtenerMesTexto();
+                datos.anio_actual = date.ObtenerNumeroAnio();
+
+                if (!string.IsNullOrEmpty(nombre_titular))
+                {
+                    datos.nombre = nombre_titular;
+                }
+
+                return datos;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public DatosDomicilio DatosDomicilioPostal(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                var datos = Inmuebles.DatosDomicilioPostal(cir, sec, man, par, p_h);
+                return datos;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void ActualizarDatosDomicilio(int cir, int sec, int man, int par, int p_h, DatosDomicilio_Con_Auditoria obj)
+        {
+            try
+            {
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
+                {
+                    con.Open();
+
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            var datos = obj.datosDomicilio;
+
+                            obj.auditoria.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h);
+                            obj.auditoria.proceso = "MODIF. DOMICILIO POSTAL DE INMUEBLE";
+                            obj.auditoria.observaciones = string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            Inmuebles.ActualizarDatosDomicilio(cir, sec, man, par, p_h, obj.datosDomicilio, con, trx);
+                            Inmuebles.ModificarBadec(datos.telefono, datos.email_envio_cedulon, datos.cuit_ocupante, datos.celular, datos.nro_bad, con, trx);
                             AuditoriaD.InsertAuditoria(obj.auditoria, con, trx);
                             trx.Commit();
                         }
@@ -403,18 +492,60 @@ namespace Web_Api_Inm.Services
         }
 
 
-        public DatosConexionAgua GetDatos(int cir, int sec, int man, int par, int p_h)
+        public Combo GetBarrioXCalle(int cod_calle, int nro_dom)
         {
             try
             {
-                FechaHelper date = new FechaHelper();
-                var datos = Inmuebles.GetDatosConexionAgua(cir, sec, man, par, p_h);
+                var barrio = Inmuebles.GetBarrioXCalle(cod_calle, nro_dom);
+                return barrio;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
-                datos.dia_actual = date.ObtenerNumeroDia();
-                datos.mes_actual = date.ObtenerMesTexto();
-                datos.anio_actual = date.ObtenerNumeroAnio();
 
-                return datos;
+        public decimal MontoDeuda(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                decimal monto = Inmuebles.MontoDeuda(cir, sec, man, par, p_h);
+                return monto;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void EliminarParcelaXInmueble(int cir, int sec, int man, int par, int p_h, Auditoria obj)
+        {
+            try
+            {
+                using (SqlConnection con = DALBase.GetConnectionSIIMVA())
+                {
+                    con.Open();
+
+                    using (SqlTransaction trx = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            obj.identificacion = Entities.Inmuebles.armoDenominacion3(cir, sec, man, par, p_h); ;
+                            obj.proceso = "BAJA DE INMUEBLE";
+                            obj.observaciones = string.Format(" Fecha auditoria: {0}", DateTime.Now);
+                            Inmuebles.EliminarParcelaXInmueble(cir, sec, man, par, p_h, con, trx);
+                            Inmuebles.delete(cir, sec, man, par, p_h, con, trx);
+                            AuditoriaD.InsertAuditoria(obj, con, trx);
+                            trx.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            trx.Rollback();
+                            throw;
+                        }
+                    }
+                }
             }
             catch (Exception)
             {

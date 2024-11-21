@@ -29,11 +29,20 @@ namespace Web_Api_Inm.Services
         public List<FrentesInmueble> FrentesXInmueble(int cir, int sec, int man, int par, int p_h);
         public List<Zonas> GetZonas(int? cod_zona);
         public List<Combo> GetCalle(string? nom_calle);
+        public List<Barrios> GetBarrios(string? barrio);
         public void InsertFrente(Frentes_Con_Auditoria obj);
         public void UpdateFrente(Frentes_Con_Auditoria obj);
-        public void DeleteFrente(Frentes_Con_Auditoria obj);
-
+        public void DeleteFrente(int cir, int sec, int man, int par, int p_h, int nro_frente, Auditoria obj);
         // FIN FRENTES
-        public DatosConexionAgua GetDatos(int cir, int sec, int man, int par, int p_h);
+        public DatosConexionAgua GetDatos(int cir, int sec, int man, int par, int p_h, string? nombre_titular);
+
+        // DOMICILIO POSTAL
+        public DatosDomicilio DatosDomicilioPostal(int cir, int sec, int man, int par, int p_h);
+        public void ActualizarDatosDomicilio( int cir, int sec, int man, int par, int p_h, DatosDomicilio_Con_Auditoria obj);
+
+        public Combo GetBarrioXCalle(int cod_calle, int nro_dom);
+
+        public void EliminarParcelaXInmueble(int cir, int sec, int man, int par, int p_h, Auditoria obj);
+        public decimal MontoDeuda(int cir, int sec, int man, int par, int p_h);
     }
 }
