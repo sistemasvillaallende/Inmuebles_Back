@@ -44,5 +44,10 @@ namespace Web_Api_Inm.Services
 
         public void EliminarParcelaXInmueble(int cir, int sec, int man, int par, int p_h, Auditoria obj);
         public decimal MontoDeuda(int cir, int sec, int man, int par, int p_h);
+
+        // DATOS BALDIO
+        public DatosBaldio GetDatosBaldio(int cir, int sec, int man, int par, int p_h);
+
+        public List<Datos_Inm_Concepto> GetInmueblesByConcepto(int cod_concepto);
     }
 }

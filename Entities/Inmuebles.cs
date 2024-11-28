@@ -2198,6 +2198,192 @@ namespace Web_Api_Inm.Entities
             }
 
         }
+
+
+
+        public static DatosBaldio GetDatosBaldios(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                DatosBaldio obj = new DatosBaldio();
+
+                string SQL = @"   select
+                                  Nombre = Convert(char(25), b.nombre),
+                                  nro_bad = b.nro_bad,
+                                  cir = RIGHT('00' + CAST(i.circunscripcion AS VARCHAR(2)), 2),
+                                  sec = RIGHT('00' + CAST(i.seccion AS VARCHAR(2)), 2),
+                                  man = RIGHT('000' + CAST(i.manzana AS VARCHAR(3)), 3),
+                                  par = RIGHT('000' + CAST(i.parcela AS VARCHAR(3)), 3),
+                                  p_h = RIGHT('000' + CAST(i.p_h AS VARCHAR(3)), 3),
+                                  calle = CONVERT(CHAR(20), c.nom_calle),
+                                  nro = i.nro_dom_pf,
+                                  barrio = ' Bº ' + Convert(varchar(20), Ltrim(Rtrim(i.nom_barrio_dom_esp))),
+                                  cod_postal = i.cod_postal,
+                                  ISNULL(Convert(varchar(20),Ltrim(Rtrim(i.nom_calle_dom_esp))) ,' ')  + ' ' +
+                                  ISNULL(Convert(varchar(5),i.nro_dom_esp) ,' ') + ' ' +
+                                  ISNULL(i.piso_dpto,'') + ' - Bº ' + ISNULL(Convert(varchar(20),Ltrim(Rtrim(i.nom_barrio_dom_esp))),' ') as Domicilio,
+                                  ISNULL(i.ciudad_dom_esp,'') + ' - CP. ' + isnull(i.cod_postal,' ') as ciudad ,
+                                  i.provincia_dom_esp,
+                                  i.pais_dom_esp
+                                  FROM inmuebles i, badec b, barrios a, calles c
+                                  WHERE
+                                  i.nro_bad=b.nro_bad and
+                                  i.cod_barrio=a.cod_barrio and
+                                  i.cod_calle_pf=c.cod_calle and
+                                  i.circunscripcion=@cir and
+                                  i.seccion=@sec and
+                                  i.manzana=@man and
+                                  i.parcela=@par and
+                                  i.p_h=@p_h
+                                  order by
+                                  i.cod_postal,
+                                  i.nom_calle_dom_esp,
+                                  i.nro_dom_esp";
+
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = SQL;
+                    cmd.Parameters.AddWithValue("@cir", cir);
+                    cmd.Parameters.AddWithValue("@sec", sec);
+                    cmd.Parameters.AddWithValue("@man", man);
+                    cmd.Parameters.AddWithValue("@par", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows && dr.Read())
+                    {
+                        if (!dr.IsDBNull(0)) obj.nombre = dr.GetString(0);
+                        if (!dr.IsDBNull(1)) obj.nro_bad = dr.GetInt32(1);
+                        if (!dr.IsDBNull(2)) obj.circunscripcion = int.Parse(dr.GetString(2));
+                        if (!dr.IsDBNull(3)) obj.seccion = int.Parse(dr.GetString(3));
+                        if (!dr.IsDBNull(4)) obj.manzana = int.Parse(dr.GetString(4));
+                        if (!dr.IsDBNull(5)) obj.parcela = int.Parse(dr.GetString(5));
+                        if (!dr.IsDBNull(6)) obj.p_h = int.Parse(dr.GetString(6));
+                        if (!dr.IsDBNull(7)) obj.calle = dr.GetString(7);
+                        if (!dr.IsDBNull(8)) obj.nro = dr.GetInt32(8);
+                        if (!dr.IsDBNull(9)) obj.barrio = dr.GetString(9);
+                        if (!dr.IsDBNull(10)) obj.cod_postal = dr.GetString(10);
+                        if (!dr.IsDBNull(11)) obj.domicilio = dr.GetString(11);
+                        if (!dr.IsDBNull(12)) obj.ciudad = dr.GetString(12);
+                        if (!dr.IsDBNull(13)) obj.provincia_dom_esp = dr.GetString(13);
+                        if (!dr.IsDBNull(14)) obj.pais_dom_esp = dr.GetString(14);
+
+                    }
+
+                    return obj;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener datos Baldio", ex);
+            }
+
+        }
+
+        public static List<Datos_Inm_Concepto> GetInmueblesByConcepto(int cod_concepto)
+        {
+            try
+            {
+                List<Datos_Inm_Concepto> lst = new List<Datos_Inm_Concepto>();
+                Datos_Inm_Concepto obj = null;
+
+                string SQL = @"  SELECT 
+                                ci.cod_concepto_inmueble,
+                                ci.des_concepto_inmueble,
+                                i.circunscripcion,
+                                i.seccion,
+                                i.manzana,
+                                i.parcela,
+                                i.p_h,
+                                di.porcentaje,
+                                di.monto,
+                                c.NOM_CALLE,
+                                i.nro_dom_pf,
+                                i.nro_bad,
+                                b.NOMBRE,
+                                di.activo,
+                                di.fecha_alta_registro,
+                                di.anio_desde,
+                                di.anio_hasta
+                            FROM 
+                                INMUEBLES i
+                            LEFT JOIN 
+                                DESCADIC_X_INMUEBLE di
+                                ON i.circunscripcion = di.circunscripcion
+                                AND i.seccion = di.seccion
+                                AND i.manzana = di.manzana
+                                AND i.parcela = di.parcela
+                                AND i.p_h = di.p_h
+                            LEFT JOIN 
+                               CONCEPTOS_INMUEBLE ci
+                               ON di.cod_concepto_inmueble = ci.cod_concepto_inmueble
+                            LEFT JOIN 
+                               BADEC b
+                               ON i.nro_bad = b.NRO_BAD
+                            LEFT JOIN 
+                               CALLES c
+                                  ON i.cod_calle_pf = c.COD_CALLE
+                            WHERE 
+                               di.cod_concepto_inmueble IN (@cod_concepto)
+                            ORDER BY 
+                               ci.cod_concepto_inmueble,
+                               i.circunscripcion,
+                               i.seccion,
+                                  i.manzana,
+                                  i.parcela,
+                                  i.p_h;";
+
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = SQL;
+                    cmd.Parameters.AddWithValue("@cod_concepto", cod_concepto);
+                    cmd.Connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows && dr.Read())
+                    {
+                        while (dr.Read())
+                        {
+
+                            obj = new();
+                            if (!dr.IsDBNull(0)) obj.cod_concepto_inmueble = dr.GetInt32(0);
+                            if (!dr.IsDBNull(1)) obj.des_concepto_inmueble = dr.GetString(1);
+                            if (!dr.IsDBNull(2)) obj.circunscripcion = dr.GetInt32(2);
+                            if (!dr.IsDBNull(3)) obj.seccion = dr.GetInt32(3);
+                            if (!dr.IsDBNull(4)) obj.manzana = dr.GetInt32(4);
+                            if (!dr.IsDBNull(5)) obj.parcela = dr.GetInt32(5);
+                            if (!dr.IsDBNull(6)) obj.p_h = dr.GetInt32(6);
+                            if (!dr.IsDBNull(7)) obj.porcentaje = dr.GetDecimal(7);
+                            if (!dr.IsDBNull(8)) obj.monto = dr.GetDecimal(8);
+                            if (!dr.IsDBNull(9)) obj.nom_calle = dr.GetString(9);
+                            if (!dr.IsDBNull(10)) obj.nro_dom_pf = dr.GetInt32(10);
+                            if (!dr.IsDBNull(11)) obj.nro_bad = dr.GetInt32(11);
+                            if (!dr.IsDBNull(12)) obj.nombre = dr.GetString(12);
+                            if (!dr.IsDBNull(13)) obj.activo = Convert.ToBoolean(dr.GetInt16(13));
+                            if (!dr.IsDBNull(14)) obj.fecha_alta_registro = dr.GetDateTime(14);
+                            if (!dr.IsDBNull(15)) obj.anio_desde = dr.GetInt32(15);
+                            if (!dr.IsDBNull(16)) obj.anio_hasta = dr.GetInt32(16);
+
+                            lst.Add(obj);
+                        }
+
+                    }
+
+                    return lst;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener datos de Inmuebles por concepto", ex);
+            }
+
+        }
+
     }
 
 }

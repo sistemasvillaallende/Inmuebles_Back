@@ -1,4 +1,5 @@
 ﻿using Web_Api_Inm.Entities;
+using Web_Api_Inm.Entities.HELPERS;
 
 namespace Web_Api_Inm.Services
 {
@@ -59,6 +60,19 @@ namespace Web_Api_Inm.Services
                 throw ex;
             }
         }
+
+         public List<ConceptoXInm> GetAllConceptos(){
+            try
+            {
+                
+                return Conceptos_inmueble.GetAllConceptos();
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+         }
     }
 }
 

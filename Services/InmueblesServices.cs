@@ -298,7 +298,7 @@ namespace Web_Api_Inm.Services
             }
         }
 
-        
+
         public List<Barrios> GetBarrios(string? barrio)
         {
             try
@@ -553,6 +553,32 @@ namespace Web_Api_Inm.Services
             }
         }
 
+
+
+        public DatosBaldio GetDatosBaldio(int cir, int sec, int man, int par, int p_h)
+        {
+            try
+            {
+                DatosBaldio datos = Inmuebles.GetDatosBaldios(cir, sec, man, par, p_h);
+                return datos;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<Datos_Inm_Concepto> GetInmueblesByConcepto(int cod_concepto){
+            try
+            {
+                return Inmuebles.GetInmueblesByConcepto(cod_concepto);
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+        }
 
     }
 }

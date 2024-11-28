@@ -1,4 +1,5 @@
 ﻿using Web_Api_Inm.Entities;
+using Web_Api_Inm.Entities.HELPERS;
 namespace Web_Api_Inm.Services
 
 {
@@ -9,5 +10,7 @@ namespace Web_Api_Inm.Services
         public int insert(Conceptos_inmueble obj);
         public void update(Conceptos_inmueble obj);
         public void delete(Conceptos_inmueble obj);
+        public List<ConceptoXInm> GetAllConceptos();
+
     }
 }

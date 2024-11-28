@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Web_Api_Inm.Entities.HELPERS;
 namespace Web_Api_Inm.Entities
 {
     public class Conceptos_inmueble : DALBase
@@ -193,6 +194,54 @@ namespace Web_Api_Inm.Entities
             {
                 throw ex;
             }
+        }
+
+
+        public static List<ConceptoXInm> GetAllConceptos()
+        {
+            try
+            {
+                List<ConceptoXInm> lst = new List<ConceptoXInm>();
+                ConceptoXInm obj = null;
+
+                string SQL = @"    SELECT codigo = ci.cod_concepto_inmueble,
+                                      descripcion = ci.des_concepto_inmueble,
+                                      CASE ci.suma
+                                      WHEN 0 THEN 'Descuento'
+                                      WHEN 1 THEN 'Recargo'
+                                      END AS Tipo
+                                      FROM CONCEPTOS_INMUEBLE ci
+                                  ";
+
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = SQL;
+                    cmd.Connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows && dr.Read())
+                    {
+                        while (dr.Read())
+                        {
+                            obj = new();
+                            if (!dr.IsDBNull(0)) obj.codigo = dr.GetInt32(0);
+                            if (!dr.IsDBNull(1)) obj.descripcion = dr.GetString(1);
+                            if (!dr.IsDBNull(2)) obj.tipo = dr.GetString(2);
+
+                            lst.Add(obj);
+                        }
+                    }
+
+                    return lst;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener conceptos", ex);
+            }
+
         }
 
     }

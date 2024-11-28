@@ -2,6 +2,7 @@
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using Web_Api_Inm.Services;
 using Web_Api_Inm.Entities;
+using Web_Api_Inm.Entities.HELPERS;
 
 namespace Web_Api_Inm.Controllers
 {
@@ -83,12 +84,29 @@ namespace Web_Api_Inm.Controllers
 
             var inmueble = _Descadic_x_inmuebleService.getByPk(obj.circunscripcion,
                 obj.seccion, obj.manzana, obj.parcela, obj.p_h, obj.cod_concepto_inmueble);
-            /*if (inmueble != null)
-            {
-                return Ok(new { message = "Error no se pudo eliminar el concepto." });
-            }*/
+
             return Ok(inmueble);
         }
+
+        [HttpGet]
+        public ActionResult<List<ConceptoXInm>> GetAllConceptos()
+        {
+            try
+            {
+                var conceptos = _Conceptos_inmuebleService.GetAllConceptos();
+
+                if (conceptos == null || !conceptos.Any())
+                {
+                    return NotFound("No se encontraron conceptos en la base de datos.");
+                }
+                return Ok(conceptos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrió un error inesperado al procesar la solicitud en Conceptos.");
+            }
+        }
+
 
     }
 }
