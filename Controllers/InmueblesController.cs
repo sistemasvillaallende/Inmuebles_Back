@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Data;
 using System.Globalization;
 using System.Reflection;
@@ -1319,6 +1320,135 @@ namespace Web_Api_Inm.Controllers
         // manzana=:man and
         // parcela_unificada=:par AND
         // p_h_unificado=:p_h
+
+
+        //28/11/24
+        //Nota Baldio
+
+        //select
+        //Nombre = Convert(char(25), b.nombre),
+        //nro_bad = b.nro_bad,
+        //cir = RIGHT('00' + CAST(i.circunscripcion AS VARCHAR(2)), 2),
+        //sec = RIGHT('00' + CAST(i.seccion AS VARCHAR(2)), 2),
+        //man = RIGHT('000' + CAST(i.manzana AS VARCHAR(3)), 3),
+        //par = RIGHT('000' + CAST(i.parcela AS VARCHAR(3)), 3),
+        //p_h = RIGHT('000' + CAST(i.p_h AS VARCHAR(3)), 3),
+        //calle = CONVERT(CHAR(20), c.nom_calle),
+        //nro = i.nro_dom_pf,
+        //barrio = ' Bº ' + Convert(varchar(20), Ltrim(Rtrim(i.nom_barrio_dom_esp))),
+        //cod_postal = i.cod_postal,
+        //ISNULL(Convert(varchar(20),Ltrim(Rtrim(i.nom_calle_dom_esp))) ,' ')  + ' ' +
+        //ISNULL(Convert(varchar(5),i.nro_dom_esp) ,' ') + ' ' +
+        //ISNULL(i.piso_dpto,'') + ' - Bº ' + ISNULL(Convert(varchar(20),Ltrim(Rtrim(i.nom_barrio_dom_esp))),' ') as Domicilio,
+        //ISNULL(i.ciudad_dom_esp,'') + ' - CP. ' + isnull(i.cod_postal,' ') as ciudad ,
+        //i.provincia_dom_esp,
+        //i.pais_dom_esp
+        //FROM inmuebles i, badec b, barrios a, calles c
+        //WHERE
+        //i.nro_bad=b.nro_bad and
+        //i.cod_barrio=a.cod_barrio and
+        //i.cod_calle_pf=c.cod_calle and
+        //i.circunscripcion=:cir and
+        //i.seccion=:sec and
+        //i.manzana=:man and
+        //i.parcela=:par and
+        //i.p_h=:p_h
+        //order by
+        //i.cod_postal,
+        //i.nom_calle_dom_esp,
+        //i.nro_dom_esp
+
+
+        //procedure TRNBaldios2.ReporteBeforePrint(Sender: TCustomQuickRep;
+        //var PrintReport: Boolean);
+        //var
+
+        //auxdia, auxmes, auxanio : word;
+        //auxmes1          : string;
+        //begin
+        //DecodeDate(Date, auxanio, auxmes, auxdia);
+        //auxmes1:=mes(auxmes);
+        //qrlblFecha.Caption:='Villa Allende, ' + IntToStr(auxdia) + ' de ' + auxmes1 + ' de ' + IntToStr(auxanio);
+        //QRMemo2.Lines.Add('             La Dirección de Ambiente de la Municipalidad de Villa Allende se dirige a Ud. con motivo '+
+        //' de informarle que continúa en vigencia la Ord. 89/73 donde "establece la obligación de los propietarios de '+
+        //' los terrenos ubicados en las zonas urbanizadas y residenciales de la Villa, como así también sus veredas, '+
+        //' a mantenerlos permanente limpios, libres de residuos, malezas y de animales e insectos que transmiten '+
+        //' enfermedades infecto-contagiosa". Esto deberá ser realizado por cuenta y cargo del propietario del inmueble. ');
+        //QRMemo2.Lines.Add(
+        //'             Además la Ord. N° 575/85 establece que "el infractor de la presente norma será emplazado por los inspectores '+
+        //' municipales al labrarse el acta de constatación para que la cumpla dentro del plazo perentorio de diez (10) '+
+        //' días bajo apercibimiento de aplicar multa (…)".  ');
+        //QRMemo2.Lines.Add(
+        //'             En este sentido, le solicitamos realice el mantenimiento y desmalezado del lote designado catastralmente '+
+        //QDatos_Inmueblecir.AsString +'-'+ QDatos_Inmueblesec.AsString+'-'+ QDatos_Inmuebleman.AsString+'-'+
+        //QDatos_Inmueblepar.AsString+'-'+QDatos_Inmueblep_h.AsString+
+        //' ubicado en '+ QDatos_Inmueblecalle.AsString +' '+ QDatos_Inmueblenro.AsString  +' de barrio '+ QDatos_Inmueblebarrio.AsString+
+        //', para así lograr que nuestra ciudad se convierta en un lugar que merezca  ser vivido.    ');
+
+        //QRMemo2.Lines.Add('             Sin otro particular lo saluda atentamente. ');
+        //qrlblReferencia.Caption:='Ref: BALDIO SUCIO Nom. Cat. '+ QDatos_Inmueblecir.AsString +'-'+ QDatos_Inmueblesec.AsString+'-'+ QDatos_Inmuebleman.AsString+'-'+
+        //QDatos_Inmueblepar.AsString+'-'+QDatos_Inmueblep_h.AsString;
+
+        //end;
+
+
+        //*****************Concepos x Inmuebles************************
+
+        //SELECT codigo = ci.cod_concepto_inmueble,
+        //descripcion = ci.des_concepto_inmueble,
+        //CASE ci.suma
+        //WHEN 0 THEN 'Descuento'
+        //WHEN 1 THEN 'Recargo'
+        //END AS Tipo
+        //FROM CONCEPTOS_INMUEBLE ci
+
+
+        //procedure TConsultaInmxConcepto.ImprimeClick(Sender: TObject);
+        //begin
+        //    sqlConceptosInm.Close();
+        //sqlConceptosInm.SQL.Clear();
+        //sqlConceptosInm.SQL.Add(' SELECT ci.cod_concepto_inmueble,     ');
+        //sqlConceptosInm.SQL.Add('     ci.des_concepto_inmueble,        ');
+        //sqlConceptosInm.SQL.Add('     i.circunscripcion,               ');
+        //sqlConceptosInm.SQL.Add('     i.seccion,                       ');
+        //sqlConceptosInm.SQL.Add('     i.manzana,                       ');
+        //sqlConceptosInm.SQL.Add('     i.parcela,                       ');
+        //sqlConceptosInm.SQL.Add('     i.p_h,                           ');
+        //sqlConceptosInm.SQL.Add('     di.porcentaje,                   ');
+        //sqlConceptosInm.SQL.Add('     di.monto,                        ');
+        //sqlConceptosInm.SQL.Add('     c.NOM_CALLE,                     ');
+        //sqlConceptosInm.SQL.Add('     i.nro_dom_pf,                    ');
+        //sqlConceptosInm.SQL.Add('     i.nro_bad,                       ');
+        //sqlConceptosInm.SQL.Add('     b.NOMBRE,                        ');
+        //sqlConceptosInm.SQL.Add('     di.activo,                       ');
+        //sqlConceptosInm.SQL.Add('     di.fecha_alta_registro,          ');
+        //sqlConceptosInm.SQL.Add('     di.anio_desde,                   ');
+        //sqlConceptosInm.SQL.Add('     di.anio_hasta                    ');
+
+        //sqlConceptosInm.SQL.Add(' FROM INMUEBLES i                     ');
+        //sqlConceptosInm.SQL.Add('  LEFT JOIN DESCADIC_X_INMUEBLE di    ');
+        //sqlConceptosInm.SQL.Add('  ON i.circunscripcion= di.circunscripcion       ');
+        //sqlConceptosInm.SQL.Add('   AND i.seccion = di.seccion                    ');
+        //sqlConceptosInm.SQL.Add('   AND i.manzana= di.manzana                     ');
+        //sqlConceptosInm.SQL.Add('   AND i.parcela=di.parcela                      ');
+        //sqlConceptosInm.SQL.Add('   AND i.p_h=di.p_h                              ');
+        //sqlConceptosInm.SQL.Add(' LEFT JOIN CONCEPTOS_INMUEBLE ci                 ');
+        //sqlConceptosInm.SQL.Add('  ON di.cod_concepto_inmueble= ci.cod_concepto_inmueble        ');
+        //sqlConceptosInm.SQL.Add(' LEFT JOIN BADEC b ON i.nro_bad=b.NRO_BAD                      ');
+        //sqlConceptosInm.SQL.Add(' LEFT JOIN CALLES c ON i.cod_calle_pf=c.COD_CALLE              ');
+        //sqlConceptosInm.SQL.Add(' WHERE di.cod_concepto_inmueble IN ('+ CadenaConceptos +')     ');
+        //sqlConceptosInm.SQL.Add(' ORDER BY ci.cod_concepto_inmueble,                            ');
+        //sqlConceptosInm.SQL.Add('     i.circunscripcion,                                        ');
+        //sqlConceptosInm.SQL.Add('     i.seccion,                                                ');
+        //sqlConceptosInm.SQL.Add('     i.manzana,                                                ');
+        //sqlConceptosInm.SQL.Add('     i.parcela,                                                ');
+        //sqlConceptosInm.SQL.Add('     i.p_h                                                     ');
+        //sqlConceptosInm.Open;
+        //pprConceptos.PrintReport();
+
+        //end;
+
+
 
 
 
