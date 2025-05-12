@@ -49,5 +49,6 @@ namespace Web_Api_Inm.Services
         public DatosBaldio GetDatosBaldio(int cir, int sec, int man, int par, int p_h);
 
         public List<Datos_Inm_Concepto> GetInmueblesByConcepto(int cod_concepto);
+        public List<DatosOcupantes> GetOcupantesPorNombre(string nombre);
     }
 }

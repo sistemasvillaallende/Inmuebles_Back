@@ -197,20 +197,22 @@ namespace Web_Api_Inm.Entities
         }
 
 
-        public static List<ConceptoXInm> GetAllConceptos()
+        public static List<ConceptoXInm> GetAllConceptos(string? filterConcepto)
         {
             try
             {
                 List<ConceptoXInm> lst = new List<ConceptoXInm>();
                 ConceptoXInm obj = null;
 
-                string SQL = @"    SELECT codigo = ci.cod_concepto_inmueble,
-                                      descripcion = ci.des_concepto_inmueble,
-                                      CASE ci.suma
-                                      WHEN 0 THEN 'Descuento'
-                                      WHEN 1 THEN 'Recargo'
-                                      END AS Tipo
-                                      FROM CONCEPTOS_INMUEBLE ci
+                string SQL = @"   SELECT 
+                                   codigo = ci.cod_concepto_inmueble,
+                                   descripcion = ci.des_concepto_inmueble,
+                                   CASE ci.suma
+                                       WHEN 0 THEN 'Descuento'
+                                       WHEN 1 THEN 'Recargo'
+                                   END AS Tipo
+                                   FROM CONCEPTOS_INMUEBLE ci
+                                      WHERE (@des_concepto_inmueble IS NULL or @des_concepto_inmueble = '' OR ci.des_concepto_inmueble  LIKE '%' + @des_concepto_inmueble + '%')
                                   ";
 
                 using (SqlConnection con = GetConnectionSIIMVA())
@@ -218,6 +220,15 @@ namespace Web_Api_Inm.Entities
                     SqlCommand cmd = con.CreateCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = SQL;
+                    
+                    if (string.IsNullOrEmpty(filterConcepto))
+                    {
+                        cmd.Parameters.AddWithValue("@des_concepto_inmueble", DBNull.Value);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@des_concepto_inmueble", filterConcepto);
+                    }
                     cmd.Connection.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
 

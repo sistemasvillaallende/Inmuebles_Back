@@ -1348,7 +1348,7 @@ namespace Web_Api_Inm.Controllers
         }
 
 
-         [HttpGet]
+        [HttpGet]
         public IActionResult GetInmueblesByConcepto(int cod_concepto)
         {
             try
@@ -1372,6 +1372,29 @@ namespace Web_Api_Inm.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult GetOcupantePorNombre(string nombre)
+        {
+            try
+            {
+                var ocupantes = _InmueblesService.GetOcupantesPorNombre(nombre);
+
+                if (ocupantes.Count() == 0)
+                {
+                    return NotFound(new { message = "No se encontraron ocupantes con ese nombre." });
+                }
+
+                return Ok(ocupantes);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = "Ocurrió un error al obtener los datos de Ocupantes por nombre.",
+                    error = ex.Message
+                });
+            }
+        }
 
 
 

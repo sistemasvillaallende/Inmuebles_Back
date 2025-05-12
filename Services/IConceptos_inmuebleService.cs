@@ -10,7 +10,7 @@ namespace Web_Api_Inm.Services
         public int insert(Conceptos_inmueble obj);
         public void update(Conceptos_inmueble obj);
         public void delete(Conceptos_inmueble obj);
-        public List<ConceptoXInm> GetAllConceptos();
+        public List<ConceptoXInm> GetAllConceptos(string? filterConcepto);
 
     }
 }

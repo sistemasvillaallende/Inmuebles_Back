@@ -116,8 +116,10 @@ namespace Web_Api_Inm
                 switch (subsistema)
                 {
                     case 1:
-                        strSQL = @"SELECT ISNULL(MAX(nro_tran_inmueble),0) as nro_transaccion
-                                   FROM Numeros_Claves";
+                        // strSQL = @"SELECT ISNULL(MAX(nro_tran_inmueble),0) as nro_transaccion
+                        //            FROM Numeros_Claves";
+                         strSQL = @"  SELECT ISNULL(MAX(nro_transaccion),0) as nro_transaccion
+                                   FROM CTASCTES_INMUEBLES ";
                         break;
                     case 2:
                         break;

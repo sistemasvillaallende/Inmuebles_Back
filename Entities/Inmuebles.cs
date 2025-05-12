@@ -1840,12 +1840,23 @@ namespace Web_Api_Inm.Entities
             {
                 DatosConexionAgua obj = new DatosConexionAgua();
 
+                // se modifico de i.cod_calle_pf a i.cod_calle_dom_esp 
+                // string SQL = @"                      
+                //             select i.Nombre, i.circunscripcion, i.seccion, i.manzana, i.parcela, i.p_h
+                //             , c.NOM_CALLE, i.nro_dom_pf, b.NOM_BARRIO, ca.Manzana_Oficial, ca.Lote_Oficial, ca.Superficie
+                //             , domicilio= c.NOM_CALLE + ' Nº ' + cast(i.nro_dom_pf as varchar(10)) + ' de Barrio ' + b.NOM_BARRIO
+                //             from INMUEBLES i left join CALLES c on c.COD_CALLE= i.cod_calle_dom_esp 
+                //             left join BARRIOS b  on b.COD_BARRIO= i.cod_barrio
+                //             left join CATASTRO ca on ca.Circunscripcion= i.circunscripcion and ca.seccion= i.seccion
+                //             and ca.manzana= i.manzana and ca.parcela= i.parcela and ca.P_H= i.p_h
+                //             where i.circunscripcion= @circunscripcion and i.seccion= @seccion
+                //             and i.manzana= @manzana and i.parcela= @parcela and i.p_h = @p_h";
                 string SQL = @"                      
                             select i.Nombre, i.circunscripcion, i.seccion, i.manzana, i.parcela, i.p_h
-                            , c.NOM_CALLE, i.nro_dom_pf, b.NOM_BARRIO, ca.Manzana_Oficial, ca.Lote_Oficial, ca.Superficie
-                            , domicilio= c.NOM_CALLE + ' Nº ' + cast(i.nro_dom_pf as varchar(10)) + ' de Barrio ' + b.NOM_BARRIO
-                            from INMUEBLES i left join CALLES c on c.COD_CALLE= i.cod_calle_pf
-                            left join BARRIOS b  on b.COD_BARRIO= i.cod_barrio
+                            , c.NOM_CALLE, i.nro_dom_esp, b.NOM_BARRIO, ca.Manzana_Oficial, ca.Lote_Oficial, ca.Superficie
+                            , domicilio= c.NOM_CALLE + ' Nº ' + cast(i.nro_dom_esp as varchar(10)) + ' de Barrio ' + b.NOM_BARRIO
+                            from INMUEBLES i left join CALLES c on c.COD_CALLE= i.cod_calle_dom_esp 
+                            left join BARRIOS b  on b.COD_BARRIO= i.cod_barrio_dom_esp
                             left join CATASTRO ca on ca.Circunscripcion= i.circunscripcion and ca.seccion= i.seccion
                             and ca.manzana= i.manzana and ca.parcela= i.parcela and ca.P_H= i.p_h
                             where i.circunscripcion= @circunscripcion and i.seccion= @seccion
@@ -2206,6 +2217,7 @@ namespace Web_Api_Inm.Entities
             try
             {
                 DatosBaldio obj = new DatosBaldio();
+                // se modifico de i.cod_calle_pf a i.cod_calle_dom_esp 
 
                 string SQL = @"   select
                                   Nombre = Convert(char(25), b.nombre),
@@ -2216,7 +2228,7 @@ namespace Web_Api_Inm.Entities
                                   par = RIGHT('000' + CAST(i.parcela AS VARCHAR(3)), 3),
                                   p_h = RIGHT('000' + CAST(i.p_h AS VARCHAR(3)), 3),
                                   calle = CONVERT(CHAR(20), c.nom_calle),
-                                  nro = i.nro_dom_pf,
+                                  nro = i.nro_dom_esp,
                                   barrio = ' Bº ' + Convert(varchar(20), Ltrim(Rtrim(i.nom_barrio_dom_esp))),
                                   cod_postal = i.cod_postal,
                                   ISNULL(Convert(varchar(20),Ltrim(Rtrim(i.nom_calle_dom_esp))) ,' ')  + ' ' +
@@ -2228,8 +2240,8 @@ namespace Web_Api_Inm.Entities
                                   FROM inmuebles i, badec b, barrios a, calles c
                                   WHERE
                                   i.nro_bad=b.nro_bad and
-                                  i.cod_barrio=a.cod_barrio and
-                                  i.cod_calle_pf=c.cod_calle and
+                                  i.cod_barrio_dom_esp=a.cod_barrio and
+                                  i.cod_calle_dom_esp=c.cod_calle and
                                   i.circunscripcion=@cir and
                                   i.seccion=@sec and
                                   i.manzana=@man and
@@ -2383,6 +2395,74 @@ namespace Web_Api_Inm.Entities
             }
 
         }
+
+        public static List<DatosOcupantes> GetOcupantesPorNombre(string nombre)
+        {
+            try
+            {
+                List<DatosOcupantes> lst = new List<DatosOcupantes>();
+                DatosOcupantes obj = null;
+
+                string SQL = @" SELECT 
+                                     LTRIM(RTRIM(i.ocupante)) AS ocupante, 
+                                     i.nro_bad, 
+                                     b.NOMBRE, 
+                                     i.circunscripcion, 
+                                 i.seccion, 
+                                     i.manzana, 
+                                     i.parcela, 
+                                     i.p_h
+                                 FROM 
+                                     INMUEBLES i
+                                 JOIN 
+                                     BADEC b ON i.nro_bad = b.NRO_BAD
+                                 WHERE 
+                                     LEN(LTRIM(RTRIM(i.ocupante))) > 0 
+                                     AND LTRIM(RTRIM(i.ocupante)) LIKE '%' + @nom + '%'
+                                 ORDER BY 
+                                     i.ocupante;";
+
+                using (SqlConnection con = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = SQL;
+                    cmd.Parameters.AddWithValue("@nom", nombre);
+                    cmd.Connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows && dr.Read())
+                    {
+                        while (dr.Read())
+                        {
+
+                            obj = new();
+                            if (!dr.IsDBNull(0)) obj.ocupante = dr.GetString(0);
+                            if (!dr.IsDBNull(1)) obj.nro_bad = dr.GetInt32(1);
+                            if (!dr.IsDBNull(2)) obj.nombre = dr.GetString(2);
+                            if (!dr.IsDBNull(3)) obj.circunscripcion = dr.GetInt32(3);
+                            if (!dr.IsDBNull(4)) obj.seccion = dr.GetInt32(4);
+                            if (!dr.IsDBNull(5)) obj.manzana = dr.GetInt32(5);
+                            if (!dr.IsDBNull(6)) obj.parcela = dr.GetInt32(6);
+                            if (!dr.IsDBNull(7)) obj.p_h = dr.GetInt32(7);
+
+                            lst.Add(obj);
+                        }
+
+                    }
+
+                    return lst;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener Ocupantes por nombre", ex);
+            }
+
+        }
+
+
+
 
     }
 

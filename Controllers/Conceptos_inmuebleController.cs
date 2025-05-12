@@ -89,11 +89,11 @@ namespace Web_Api_Inm.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<ConceptoXInm>> GetAllConceptos()
+        public ActionResult<List<ConceptoXInm>> GetAllConceptos(string? filterConcepto)
         {
             try
             {
-                var conceptos = _Conceptos_inmuebleService.GetAllConceptos();
+                var conceptos = _Conceptos_inmuebleService.GetAllConceptos(filterConcepto);
 
                 if (conceptos == null || !conceptos.Any())
                 {

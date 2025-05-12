@@ -61,11 +61,11 @@ namespace Web_Api_Inm.Services
             }
         }
 
-         public List<ConceptoXInm> GetAllConceptos(){
+         public List<ConceptoXInm> GetAllConceptos(string? filterConcepto){
             try
             {
                 
-                return Conceptos_inmueble.GetAllConceptos();
+                return Conceptos_inmueble.GetAllConceptos(filterConcepto);
             }
             catch (System.Exception)
             {

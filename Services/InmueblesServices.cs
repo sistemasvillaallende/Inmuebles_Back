@@ -580,5 +580,16 @@ namespace Web_Api_Inm.Services
             }
         }
 
+         public List<DatosOcupantes> GetOcupantesPorNombre(string nombre){
+            try
+            {
+                return Inmuebles.GetOcupantesPorNombre(nombre);
+            }
+            catch (System.Exception)
+            { 
+                throw;
+            }
+        }
+
     }
 }

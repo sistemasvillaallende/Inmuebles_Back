@@ -1774,7 +1774,7 @@ namespace Web_Api_Inm
             try
             {
                 string strSQL = @"DELETE
-                                  FROM DETALLE_DEUDA_INM
+                                  FROM DETALLE_DEUDA_INMUEBLE
                                   WHERE nro_transaccion =@nro_transaccion";
                 using (SqlConnection cn = GetConnectionSIIMVA())
                 {
@@ -1796,9 +1796,9 @@ namespace Web_Api_Inm
         {
             try
             {
-                string strSQL = @"INSERT into DETALLE_DEUDA_INM
+                string strSQL = @"INSERT into DETALLE_DEUDA_INMUEBLE
                                   SELECT *
-                                  FROM AUX_DETALLE_DEUDA_INM_RECALCULO
+                                  FROM AUX_DETALLE_DEUDA_INMUEBLE_RECALCULO
                                   WHERE nro_transaccion=@nro_transaccion";
                 using (SqlConnection cn = GetConnectionSIIMVA())
                 {
@@ -1915,45 +1915,364 @@ namespace Web_Api_Inm
                 throw;
             }
         }
-        public static List<Ctasctes_inmuebles> Reliquidar_periodos(int cir, int sec, int man, int par, int p_h,
-      List<Ctasctes_inmuebles> lst)
+
+        //         if anio = 2017 then
+        //   begin
+        //     total := 0;
+        //     if tipo_per = 4 then
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_anual.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_anual.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_anual.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_anual.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_anual.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       dm_Recalculo.sp_Recalculo_anual.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_anual.Params[0].Value;
+        //     end
+        //     else
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_mensual.ParamByName('@circunscripcion')
+        //         .Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_mensual.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       dm_Recalculo.sp_Recalculo_mensual.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_mensual.Params[0].Value;
+
+        //     end;
+        //   end;
+
+        //   if anio = 2018 then
+        //   begin
+        //     total := 0;
+        //     if tipo_per = 4 then
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_anual_2018.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2018.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2018.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2018.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2018.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2018.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_anual_2018.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       dm_Recalculo.sp_Recalculo_anual_2018.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_anual_2018.Params[0].Value;
+        //     end
+        //     else
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_mensual_2018.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2018.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2018.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2018.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2018.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2018.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_mensual_2018.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       dm_Recalculo.sp_Recalculo_mensual_2018.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_mensual_2018.Params[0].Value;
+        //     end;
+        //   end;
+
+        //   if anio = 2019 then
+        //   begin
+        //     total := 0;
+        //     if tipo_per = 4 then
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_anual_2019.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2019.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2019.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2019.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2019.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2019.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_anual_2019.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       dm_Recalculo.sp_Recalculo_anual_2019.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_anual_2019.Params[0].Value;
+        //     end
+        //     else
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_mensual_2019.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2019.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2019.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2019.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2019.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2019.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_mensual_2019.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       dm_Recalculo.sp_Recalculo_mensual_2019.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_mensual_2019.Params[0].Value;
+        //     end;
+        //   end;
+        //   if anio = 2020 then
+        //   begin
+        //     total := 0;
+        //     if tipo_per = 4 then
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_anual_2020.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2020.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2020.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2020.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2020.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2020.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_anual_2020.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       dm_Recalculo.sp_Recalculo_anual_2020.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_anual_2020.Params[0].Value;
+        //     end
+        //     else
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_mensual_2020.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2020.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2020.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2020.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2020.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2020.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_mensual_2020.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       dm_Recalculo.sp_Recalculo_mensual_2020.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_mensual_2020.Params[0].Value;
+        //     end;
+        //   end;
+
+        //   if anio = 2021 then
+        //   begin
+        //     total := 0;
+        //     if tipo_per = 4 then
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_anual_2021.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2021.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2021.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2021.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2021.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2021.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_anual_2021.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       if (chkVencimiento_1.Checked = true) then
+        //         dm_Recalculo.sp_Recalculo_anual_2021.ParamByName('@al1ervencimiento').Value := 1
+        //       else
+        //         dm_Recalculo.sp_Recalculo_anual_2021.ParamByName('@al1ervencimiento').Value := 0;
+        //       dm_Recalculo.sp_Recalculo_anual_2021.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_anual_2021.Params[0].Value;
+        //     end
+        //     else
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_mensual_2021.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2021.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2021.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2021.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2021.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2021.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_mensual_2021.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       dm_Recalculo.sp_Recalculo_mensual_2021.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_mensual_2021.Params[0].Value;
+        //     end;
+        //   end;
+
+        //   if anio = 2022 then
+        //   begin
+        //     total := 0;
+        //     if tipo_per = 4 then
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_anual_2022.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2022.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2022.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2022.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2022.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2022.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_anual_2022.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       if (chkVencimiento_1.Checked = true) then
+        //         dm_Recalculo.sp_Recalculo_anual_2022.ParamByName('@al1ervencimiento').Value := 1
+        //       else
+        //         dm_Recalculo.sp_Recalculo_anual_2022.ParamByName('@al1ervencimiento').Value := 0;
+        //       dm_Recalculo.sp_Recalculo_anual_2022.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_anual_2022.Params[0].Value;
+        //     end
+        //     else
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_mensual_2022.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2022.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2022.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2022.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2022.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2022.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_mensual_2022.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       dm_Recalculo.sp_Recalculo_mensual_2022.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_mensual_2022.Params[0].Value;
+        //     end;
+        //   end;
+
+        //   if anio = 2023 then
+        //   begin
+        //     total := 0;
+        //     if tipo_per = 4 then
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_anual_2023.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2023.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2023.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2023.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2023.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2023.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_anual_2023.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       if (chkVencimiento_1.Checked = true) then
+        //         dm_Recalculo.sp_Recalculo_anual_2023.ParamByName('@al1ervencimiento').Value := 1
+        //       else
+        //         dm_Recalculo.sp_Recalculo_anual_2023.ParamByName('@al1ervencimiento').Value := 0;
+        //       dm_Recalculo.sp_Recalculo_anual_2023.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_anual_2023.Params[0].Value;
+        //     end
+        //     else
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_mensual_2023.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2023.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2023.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2023.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2023.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2023.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_mensual_2023.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       dm_Recalculo.sp_Recalculo_mensual_2023.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_mensual_2023.Params[0].Value;
+        //     end;
+        //   end;
+        //   if anio = 2024 then
+        //   begin
+        //     total := 0;
+        //     if tipo_per = 4 then
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_anual_2024.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2024.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2024.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2024.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2024.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2024.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_anual_2024.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       if (chkVencimiento_1.Checked = true) then
+        //         dm_Recalculo.sp_Recalculo_anual_2024.ParamByName('@al1ervencimiento').Value := 1
+        //       else
+        //         dm_Recalculo.sp_Recalculo_anual_2024.ParamByName('@al1ervencimiento').Value := 0;
+        //       dm_Recalculo.sp_Recalculo_anual_2024.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_anual_2024.Params[0].Value;
+        //     end
+        //     else
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_mensual_2024.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2024.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2024.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2024.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2024.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2024.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_mensual_2024.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       dm_Recalculo.sp_Recalculo_mensual_2024.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_mensual_2024.Params[0].Value;
+        //     end;
+        //   end;
+        //   if anio = 2025 then
+        //   begin
+        //     total := 0;
+        //     if tipo_per = 4 then
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_anual_2025.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2025.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2025.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2025.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2025.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_anual_2025.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_anual_2025.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       if (chkVencimiento_1.Checked = true) then
+        //         dm_Recalculo.sp_Recalculo_anual_2025.ParamByName('@al1ervencimiento').Value := 1
+        //       else
+        //         dm_Recalculo.sp_Recalculo_anual_2025.ParamByName('@al1ervencimiento').Value := 0;
+        //       dm_Recalculo.sp_Recalculo_anual_2025.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_anual_2025.Params[0].Value;
+        //     end
+        //     else
+        //     begin
+        //       dm_Recalculo.sp_Recalculo_mensual_2025.ParamByName('@circunscripcion').Value := Data_Tasa.InmueblesCircunscripcion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2025.ParamByName('@seccion').Value := Data_Tasa.InmueblesSeccion.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2025.ParamByName('@manzana').Value := Data_Tasa.InmueblesManzana.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2025.ParamByName('@parcela').Value := Data_Tasa.InmueblesParcela.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2025.ParamByName('@p_h').Value := Data_Tasa.InmueblesP_H.Value;
+        //       dm_Recalculo.sp_Recalculo_mensual_2025.ParamByName('@periodo').Value := periodo;
+        //       dm_Recalculo.sp_Recalculo_mensual_2025.ParamByName('@cod_tipo_liquidacion').Value := tipo_per;
+        //       dm_Recalculo.sp_Recalculo_mensual_2025.ExecProc;
+        //       total := dm_Recalculo.sp_Recalculo_mensual_2025.Params[0].Value;
+        //     end;
+        //   end;
+        //     public static List<Ctasctes_inmuebles> Reliquidar_periodos(int cir, int sec, int man, int par, int p_h,
+        //   List<Ctasctes_inmuebles> lst)
+        //     {
+        //         //Parametros que vienen como item en la la lst
+        //         //string periodo, int nro_transaccion, int tipo_per
+        //         try
+        //         {
+        //             int anio = 0;
+        //             double auxmonto_original = 0;
+        //             double auxdebe = 0;
+        //             double valor = 1.125;
+        //             foreach (var item in lst)
+        //             {
+        //                 anio = Convert.ToInt32(item.periodo.Substring(0, 4));
+        //                 if (anio >= 2020)
+        //                 {
+        //                     if (item.cod_tipo_per == 1) //Periodo Mensual
+        //                     {
+        //                         auxmonto_original = sp_RECALCULO_INMUEBLES_2023(item.circunscripcion, item.seccion, item.manzana,
+        //                             item.parcela, item.p_h, item.periodo, item.cod_tipo_per);
+        //                         auxdebe = auxmonto_original + Calcula_Interes(auxmonto_original, item.vencimiento);
+        //                         item.monto_original = Convert.ToDecimal(auxmonto_original);
+        //                         item.debe = Convert.ToDecimal(auxdebe);
+        //                     }
+        //                     else
+        //                     {
+        //                         auxmonto_original = sp_RECALCULO_INMUEBLES_ANUAL_2023(item.circunscripcion, item.seccion, item.manzana,
+        //                             item.parcela, item.p_h, item.periodo, item.cod_tipo_per);
+        //                         if (item.vencimiento > DateTime.Now)
+        //                             auxdebe = auxmonto_original * valor;
+        //                         else
+        //                             auxdebe = auxmonto_original;
+        //                         //auxdebe = auxmonto_original + Calcula_Interes(cn, auxmonto_original, item.vencimiento);
+        //                         item.monto_original = Convert.ToDecimal(auxmonto_original);
+        //                         item.debe = Convert.ToDecimal(auxdebe);
+        //                     }
+        //                 }
+        //             }
+        //             return lst;
+        //         }
+        //         catch (Exception)
+        //         {
+        //             throw;
+        //         }
+        //     }
+
+        public static List<Ctasctes_inmuebles> Reliquidar_periodos(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
         {
-            //Parametros que vienen como item en la la lst
-            //string periodo, int nro_transaccion, int tipo_per
+
             try
             {
                 int anio = 0;
                 double auxmonto_original = 0;
                 double auxdebe = 0;
                 double valor = 1.125;
+
                 foreach (var item in lst)
                 {
                     anio = Convert.ToInt32(item.periodo.Substring(0, 4));
-                    if (anio >= 2020)
+                    Console.WriteLine($"anio es ${anio}");
+                    auxmonto_original = RecalcularSegunAnio(cir, sec, man, par, p_h, item.periodo, item.cod_tipo_per, anio);
+
+                    if (item.cod_tipo_per == 4) // Anual
                     {
-                        if (item.cod_tipo_per == 1) //Periodo Mensual
-                        {
-                            //sp_LIQUIDA_TASA_PROP_MENSUAL_SUP_RECALCULO_2023
-                            auxmonto_original = sp_RECALCULO_INMUEBLES_2023(item.circunscripcion, item.seccion, item.manzana,
-                                item.parcela, item.p_h, item.periodo, item.cod_tipo_per);
-                            auxdebe = auxmonto_original + Calcula_Interes(auxmonto_original, item.vencimiento);
-                            item.monto_original = Convert.ToDecimal(auxmonto_original);
-                            item.debe = Convert.ToDecimal(auxdebe);
-                        }
+                        if (item.vencimiento > DateTime.Now)
+                            auxdebe = auxmonto_original * valor;
                         else
-                        {
-                            auxmonto_original = sp_RECALCULO_INMUEBLES_ANUAL_2023(item.circunscripcion, item.seccion, item.manzana,
-                                item.parcela, item.p_h, item.periodo, item.cod_tipo_per);
-                            if (item.vencimiento > DateTime.Now)
-                                auxdebe = auxmonto_original * valor;
-                            else
-                                auxdebe = auxmonto_original;
-                            //auxdebe = auxmonto_original + Calcula_Interes(cn, auxmonto_original, item.vencimiento);
-                            item.monto_original = Convert.ToDecimal(auxmonto_original);
-                            item.debe = Convert.ToDecimal(auxdebe);
-                        }
+                            auxdebe = auxmonto_original;
                     }
+                    else
+                    {
+                        auxdebe = auxmonto_original + Calcula_Interes(auxmonto_original, item.vencimiento);
+                    }
+
+                    item.monto_original = Convert.ToDecimal(auxmonto_original);
+                    item.debe = Convert.ToDecimal(auxdebe);
                 }
+
                 return lst;
             }
             catch (Exception)
@@ -1961,6 +2280,91 @@ namespace Web_Api_Inm
                 throw;
             }
         }
+
+        private static double RecalcularSegunAnio(int cir, int sec, int man, int par, int p_h, string periodo, int tipo_per, int anio)
+        {
+            double total = 0;
+            try
+            {
+
+                switch (anio)
+                {
+                    case 2017:
+                        if (tipo_per == 4)
+                            total = sp_RECALCULO_INMUEBLES_ANUAL_2017(cir, sec, man, par, p_h, periodo, tipo_per);
+                        else
+                            total = sp_RECALCULO_INMUEBLES_2017(cir, sec, man, par, p_h, periodo, tipo_per);
+                        break;
+
+                    case 2018:
+                        if (tipo_per == 4)
+                            total = sp_RECALCULO_INMUEBLES_ANUAL_2018(cir, sec, man, par, p_h, periodo, tipo_per);
+                        else
+                            total = sp_RECALCULO_INMUEBLES_2018(cir, sec, man, par, p_h, periodo, tipo_per);
+                        break;
+
+                    case 2019:
+                        if (tipo_per == 4)
+                            total = sp_RECALCULO_INMUEBLES_ANUAL_2019(cir, sec, man, par, p_h, periodo, tipo_per);
+                        else
+                            total = sp_RECALCULO_INMUEBLES_2019(cir, sec, man, par, p_h, periodo, tipo_per);
+                        break;
+
+                    case 2020:
+                        if (tipo_per == 4)
+                            total = sp_RECALCULO_INMUEBLES_ANUAL_2020(cir, sec, man, par, p_h, periodo, tipo_per);
+                        else
+                            total = sp_RECALCULO_INMUEBLES_2020(cir, sec, man, par, p_h, periodo, tipo_per);
+                        break;
+
+                    case 2021:
+                        if (tipo_per == 4)
+                            total = sp_RECALCULO_INMUEBLES_ANUAL_2021(cir, sec, man, par, p_h, periodo, tipo_per);
+                        else
+                            total = sp_RECALCULO_INMUEBLES_2021(cir, sec, man, par, p_h, periodo, tipo_per);
+                        break;
+
+                    case 2022:
+                        if (tipo_per == 4)
+                            total = sp_RECALCULO_INMUEBLES_ANUAL_2022(cir, sec, man, par, p_h, periodo, tipo_per);
+                        else
+                            total = sp_RECALCULO_INMUEBLES_2022(cir, sec, man, par, p_h, periodo, tipo_per);
+                        break;
+
+                    case 2023:
+                        if (tipo_per == 4)
+                            total = sp_RECALCULO_INMUEBLES_ANUAL_2023(cir, sec, man, par, p_h, periodo, tipo_per);
+                        else
+                            total = sp_RECALCULO_INMUEBLES_2023(cir, sec, man, par, p_h, periodo, tipo_per);
+                        break;
+
+                    case 2024:
+                        if (tipo_per == 4)
+                            total = sp_RECALCULO_INMUEBLES_ANUAL_2024(cir, sec, man, par, p_h, periodo, tipo_per);
+                        else
+                            total = sp_RECALCULO_INMUEBLES_2024(cir, sec, man, par, p_h, periodo, tipo_per);
+                        break;
+
+                    case 2025:
+                        if (tipo_per == 4)
+                            total = sp_RECALCULO_INMUEBLES_ANUAL_2025(cir, sec, man, par, p_h, periodo, tipo_per);
+                        else
+                            total = sp_RECALCULO_INMUEBLES_2025(cir, sec, man, par, p_h, periodo, tipo_per);
+                        break;
+
+                    default:
+                        throw new Exception($"No hay implementación de recálculo para el año {anio}");
+                }
+
+                return total;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
         public static void Confirma_reliquidacion(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
         {
             try
@@ -2019,7 +2423,70 @@ namespace Web_Api_Inm
                 throw;
             }
         }
-        private static double sp_RECALCULO_INMUEBLES_2023(int cir, int sec, int man, int par, int p_h,
+
+        private static double sp_RECALCULO_INMUEBLES_2017(int cir, int sec, int man, int par, int p_h,
+          string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_Recalculo_mensual";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    //cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static double sp_RECALCULO_INMUEBLES_ANUAL_2017(int cir, int sec, int man, int par, int p_h, string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_Recalculo_anual";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        private static double sp_RECALCULO_INMUEBLES_2018(int cir, int sec, int man, int par, int p_h,
             string periodo, int tipo_per)
         {
             try
@@ -2029,7 +2496,228 @@ namespace Web_Api_Inm
                 {
                     SqlCommand cmd = cn.CreateCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "sp_LIQUIDA_TASA_PROP_MENSUAL_SUP_RECALCULO_2023";
+                    cmd.CommandText = "sp_Recalculo_mensual_2018";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    //cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static double sp_RECALCULO_INMUEBLES_ANUAL_2018(int cir, int sec, int man, int par, int p_h, string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_Recalculo_anual_2018";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static double sp_RECALCULO_INMUEBLES_2019(int cir, int sec, int man, int par, int p_h,
+    string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_Recalculo_mensual_2019";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    //cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static double sp_RECALCULO_INMUEBLES_ANUAL_2019(int cir, int sec, int man, int par, int p_h, string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_Recalculo_anual_2019";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static double sp_RECALCULO_INMUEBLES_2020(int cir, int sec, int man, int par, int p_h,
+    string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_Recalculo_mensual_2020";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    //cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static double sp_RECALCULO_INMUEBLES_ANUAL_2020(int cir, int sec, int man, int par, int p_h, string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_Recalculo_anual_2020";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static double sp_RECALCULO_INMUEBLES_2021(int cir, int sec, int man, int par, int p_h,
+string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_Recalculo_mensual_2021";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    //cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static double sp_RECALCULO_INMUEBLES_ANUAL_2021(int cir, int sec, int man, int par, int p_h, string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_Recalculo_anual_2021";
                     cmd.Connection.Open();
                     cmd.Parameters.AddWithValue("@periodo", periodo);
                     cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
@@ -2050,7 +2738,40 @@ namespace Web_Api_Inm
                 throw;
             }
         }
-        private static double sp_RECALCULO_INMUEBLES_ANUAL_2023(int cir, int sec, int man, int par, int p_h, string periodo, int tipo_per)
+
+        private static double sp_RECALCULO_INMUEBLES_2022(int cir, int sec, int man, int par, int p_h,
+string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_Recalculo_mensual_2022";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    //cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static double sp_RECALCULO_INMUEBLES_ANUAL_2022(int cir, int sec, int man, int par, int p_h, string periodo, int tipo_per)
         {
             try
             {
@@ -2058,6 +2779,75 @@ namespace Web_Api_Inm
                 using (SqlConnection cn = GetConnectionSIIMVA())
                 {
 
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_Recalculo_anual_2022";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static double sp_RECALCULO_INMUEBLES_2023(int cir, int sec, int man, int par, int p_h,
+    string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_LIQUIDA_TASA_PROP_MENSUAL_SUP_RECALCULO_2023";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    //total = Convert.ToDouble(cmd.ExecuteScalar());
+                    //cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
+                    //cmd.ExecuteNonQueryAsync();
+
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        total = Convert.ToDouble(result);
+                    }
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        private static double sp_RECALCULO_INMUEBLES_ANUAL_2023(int cir, int sec, int man, int par, int p_h, string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
 
                     SqlCommand cmd = cn.CreateCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -2070,6 +2860,135 @@ namespace Web_Api_Inm
                     cmd.Parameters.AddWithValue("@manzana", man);
                     cmd.Parameters.AddWithValue("@parcela", par);
                     cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static double sp_RECALCULO_INMUEBLES_2024(int cir, int sec, int man, int par, int p_h,
+string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_Recalculo_mensual_2024";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    //cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static double sp_RECALCULO_INMUEBLES_ANUAL_2024(int cir, int sec, int man, int par, int p_h, string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "ssp_Recalculo_anual_2024";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static double sp_RECALCULO_INMUEBLES_2025(int cir, int sec, int man, int par, int p_h,
+string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_Recalculo_mensual_2025";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    //cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
+                    //cmd.ExecuteNonQueryAsync();
+                    total = Convert.ToDouble(cmd.ExecuteScalar());
+                }
+                return total;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static double sp_RECALCULO_INMUEBLES_ANUAL_2025(int cir, int sec, int man, int par, int p_h, string periodo, int tipo_per)
+        {
+            try
+            {
+                double total = 0;
+                using (SqlConnection cn = GetConnectionSIIMVA())
+                {
+
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "ssp_Recalculo_anual_2025";
+                    cmd.Connection.Open();
+                    cmd.Parameters.AddWithValue("@periodo", periodo);
+                    cmd.Parameters.AddWithValue("@cod_tipo_liquidacion", tipo_per);
+                    cmd.Parameters.AddWithValue("@circunscripcion", cir);
+                    cmd.Parameters.AddWithValue("@seccion", sec);
+                    cmd.Parameters.AddWithValue("@manzana", man);
+                    cmd.Parameters.AddWithValue("@parcela", par);
+                    cmd.Parameters.AddWithValue("@p_h", p_h);
+                    cmd.Parameters.AddWithValue("@al1ervencimiento", 0);
                     //cmd.ExecuteNonQueryAsync();
                     total = Convert.ToDouble(cmd.ExecuteScalar());
                 }
