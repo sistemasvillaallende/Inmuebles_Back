@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Web_Api_Inm.Entities.TARJETAS;
 using  Web_Api_Inm.Services;
 
@@ -14,6 +15,8 @@ namespace Web_Api_Inm.Controllers
         {
             _TarjetasServices = TarjetasServices;
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult getTarjetasWeb()
         {
@@ -24,6 +27,8 @@ namespace Web_Api_Inm.Controllers
             }
             return Ok(lst);
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult getTarjetasDesktop()
         {
@@ -34,6 +39,8 @@ namespace Web_Api_Inm.Controllers
             }
             return Ok(lst);
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult getTarjetasByPk(int pk)
         {
@@ -44,6 +51,7 @@ namespace Web_Api_Inm.Controllers
             }
             return Ok(lst);
         }
+        [Authorize]
         [HttpGet]
         public ActionResult getTarjetasByCodPayPerTic(int pk)
         {
@@ -54,6 +62,8 @@ namespace Web_Api_Inm.Controllers
             }
             return Ok(lst);
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult readPlanes()
         {
@@ -64,6 +74,7 @@ namespace Web_Api_Inm.Controllers
             }
             return Ok(lst);
         }
+        [Authorize]
         [HttpGet]
         public ActionResult getPlanBySubsistema(int subsistema, decimal deuda, int cod_tarjeta)
         {
@@ -74,6 +85,7 @@ namespace Web_Api_Inm.Controllers
             }
             return Ok(lst);
         }
+        [Authorize]
         [HttpGet]
         public ActionResult getPlanByPk(int cod_plan)
         {

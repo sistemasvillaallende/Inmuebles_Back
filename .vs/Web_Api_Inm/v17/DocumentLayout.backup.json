@@ -1,54 +1,86 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Dev\\NET2022\\Web_Api_Inm\\",
+  "WorkspaceRootPath": "C:\\Vecino-Va\\Inmuebles_Back\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\controllers\\inmueblescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\controllers\\conceptos_inmueblecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:controllers\\conceptos_inmueblecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\controllers\\tarjetasdebitocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:controllers\\tarjetasdebitocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\controllers\\tarjetascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:controllers\\tarjetascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\controllers\\inmueblescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:controllers\\inmueblescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\entities\\inmuebles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:entities\\inmuebles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\controllers\\debitoinmueblecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:controllers\\debitoinmueblecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\controllers\\ctasctes_inmueblescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\controllers\\ctasctes_inmueblescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:controllers\\ctasctes_inmueblescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\entities\\ctasctes_inmuebles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\entities\\dalbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:entities\\dalbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\entities\\inmuebles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:entities\\inmuebles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\entities\\ctasctes_inmuebles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:entities\\ctasctes_inmuebles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\services\\ctasctes_inmueblesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\services\\ctasctes_inmueblesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:services\\ctasctes_inmueblesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\services\\cedulonesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\services\\cedulonesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:services\\cedulonesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\entities\\auditoria\\auditoriad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\entities\\auditoria\\auditoriad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:entities\\auditoria\\auditoriad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\services\\inmueblesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\services\\inmueblesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:services\\inmueblesservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\entities\\helpers\\combo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\entities\\helpers\\combo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:entities\\helpers\\combo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\entities\\auditoria\\auditoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\entities\\auditoria\\auditoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:entities\\auditoria\\auditoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\entities\\cedulones2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|c:\\vecino-va\\inmuebles_back\\entities\\cedulones2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:entities\\cedulones2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|d:\\dev\\net2022\\web_api_inm\\entities\\dalbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B71D7815-D9B8-4F11-828B-76C802493F74}|Web_Api_Inm.csproj|solutionrelative:entities\\dalbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,95 +90,206 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 24,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:138:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:137:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:136:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:134:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:133:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:141:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:149:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:150:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:140:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:142:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:143:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Ctasctes_inmueblesServices.cs",
-              "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Services\\Ctasctes_inmueblesServices.cs",
-              "RelativeDocumentMoniker": "Services\\Ctasctes_inmueblesServices.cs",
-              "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Services\\Ctasctes_inmueblesServices.cs",
-              "RelativeToolTip": "Services\\Ctasctes_inmueblesServices.cs",
-              "ViewState": "AgIAAKgAAAAAAAAAAAAAwNYAAAAIAAAAAAAAAA==",
+              "Title": "TarjetasDebitoController.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Controllers\\TarjetasDebitoController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TarjetasDebitoController.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Controllers\\TarjetasDebitoController.cs",
+              "RelativeToolTip": "Controllers\\TarjetasDebitoController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwBEAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-14T11:54:04.17Z"
+              "WhenOpened": "2025-05-29T13:39:52.207Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Startup.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Startup.cs",
+              "RelativeDocumentMoniker": "Startup.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Startup.cs",
+              "RelativeToolTip": "Startup.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAgwCEAAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T13:31:54.181Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-29T13:31:12.226Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Conceptos_inmuebleController.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Controllers\\Conceptos_inmuebleController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Conceptos_inmuebleController.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Controllers\\Conceptos_inmuebleController.cs",
+              "RelativeToolTip": "Controllers\\Conceptos_inmuebleController.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAAGQAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T13:35:56.333Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAQwBUAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T13:39:57.776Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TarjetasController.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Controllers\\TarjetasController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TarjetasController.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Controllers\\TarjetasController.cs",
+              "RelativeToolTip": "Controllers\\TarjetasController.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAwFcAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T13:39:26.999Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DebitoInmuebleController.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Controllers\\DebitoInmuebleController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DebitoInmuebleController.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Controllers\\DebitoInmuebleController.cs",
+              "RelativeToolTip": "Controllers\\DebitoInmuebleController.cs",
+              "ViewState": "AgIAAIUAAAAAAAAAAAAcwH8AAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T13:38:08.7Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACAAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T13:31:56.516Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Auditoria.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Entities\\AUDITORIA\\Auditoria.cs",
+              "RelativeDocumentMoniker": "Entities\\AUDITORIA\\Auditoria.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Entities\\AUDITORIA\\Auditoria.cs",
+              "RelativeToolTip": "Entities\\AUDITORIA\\Auditoria.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-21T15:46:01.645Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "InmueblesController.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Controllers\\InmueblesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\InmueblesController.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Controllers\\InmueblesController.cs",
+              "RelativeToolTip": "Controllers\\InmueblesController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAUwB8AAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-01T05:15:03.002Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "AuditoriaD.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Entities\\AUDITORIA\\AuditoriaD.cs",
+              "RelativeDocumentMoniker": "Entities\\AUDITORIA\\AuditoriaD.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Entities\\AUDITORIA\\AuditoriaD.cs",
+              "RelativeToolTip": "Entities\\AUDITORIA\\AuditoriaD.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-21T15:46:03.946Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Ctasctes_inmueblesController.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Controllers\\Ctasctes_inmueblesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Ctasctes_inmueblesController.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Controllers\\Ctasctes_inmueblesController.cs",
+              "RelativeToolTip": "Controllers\\Ctasctes_inmueblesController.cs",
+              "ViewState": "AgIAAEwBAAAAAAAAAAAuwFcBAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-01T05:15:13.93Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Combo.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Entities\\HELPERS\\Combo.cs",
+              "RelativeDocumentMoniker": "Entities\\HELPERS\\Combo.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Entities\\HELPERS\\Combo.cs",
+              "RelativeToolTip": "Entities\\HELPERS\\Combo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-08T20:08:57.477Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "InmueblesServices.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Services\\InmueblesServices.cs",
+              "RelativeDocumentMoniker": "Services\\InmueblesServices.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Services\\InmueblesServices.cs",
+              "RelativeToolTip": "Services\\InmueblesServices.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T01:33:35.406Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DALBase.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Entities\\DALBase.cs",
+              "RelativeDocumentMoniker": "Entities\\DALBase.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Entities\\DALBase.cs",
+              "RelativeToolTip": "Entities\\DALBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-10-10T02:25:55.627Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "Inmuebles.cs",
-              "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\Inmuebles.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Entities\\Inmuebles.cs",
               "RelativeDocumentMoniker": "Entities\\Inmuebles.cs",
-              "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\Inmuebles.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Entities\\Inmuebles.cs",
               "RelativeToolTip": "Entities\\Inmuebles.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAA9wAYAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -155,84 +298,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "InmueblesServices.cs",
-              "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Services\\InmueblesServices.cs",
-              "RelativeDocumentMoniker": "Services\\InmueblesServices.cs",
-              "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Services\\InmueblesServices.cs",
-              "RelativeToolTip": "Services\\InmueblesServices.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAANAAAA",
+              "DocumentIndex": 13,
+              "Title": "Ctasctes_inmueblesServices.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Services\\Ctasctes_inmueblesServices.cs",
+              "RelativeDocumentMoniker": "Services\\Ctasctes_inmueblesServices.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Services\\Ctasctes_inmueblesServices.cs",
+              "RelativeToolTip": "Services\\Ctasctes_inmueblesServices.cs",
+              "ViewState": "AgIAAKgAAAAAAAAAAAAAwNYAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-08T01:33:35.406Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Combo.cs",
-              "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\HELPERS\\Combo.cs",
-              "RelativeDocumentMoniker": "Entities\\HELPERS\\Combo.cs",
-              "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\HELPERS\\Combo.cs",
-              "RelativeToolTip": "Entities\\HELPERS\\Combo.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-08T20:08:57.477Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AuditoriaD.cs",
-              "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\AUDITORIA\\AuditoriaD.cs",
-              "RelativeDocumentMoniker": "Entities\\AUDITORIA\\AuditoriaD.cs",
-              "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\AUDITORIA\\AuditoriaD.cs",
-              "RelativeToolTip": "Entities\\AUDITORIA\\AuditoriaD.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T15:46:03.946Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Auditoria.cs",
-              "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\AUDITORIA\\Auditoria.cs",
-              "RelativeDocumentMoniker": "Entities\\AUDITORIA\\Auditoria.cs",
-              "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\AUDITORIA\\Auditoria.cs",
-              "RelativeToolTip": "Entities\\AUDITORIA\\Auditoria.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T15:46:01.645Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Ctasctes_inmueblesController.cs",
-              "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Controllers\\Ctasctes_inmueblesController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Ctasctes_inmueblesController.cs",
-              "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Controllers\\Ctasctes_inmueblesController.cs",
-              "RelativeToolTip": "Controllers\\Ctasctes_inmueblesController.cs",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAIwFwAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-01T05:15:13.93Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "InmueblesController.cs",
-              "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Controllers\\InmueblesController.cs",
-              "RelativeDocumentMoniker": "Controllers\\InmueblesController.cs",
-              "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Controllers\\InmueblesController.cs",
-              "RelativeToolTip": "Controllers\\InmueblesController.cs",
-              "ViewState": "AgIAAF8EAAAAAAAAAAAYwG8EAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-01T05:15:03.002Z",
+              "WhenOpened": "2024-08-14T11:54:04.17Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 19,
               "Title": "Cedulones2.cs",
-              "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\Cedulones2.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Entities\\Cedulones2.cs",
               "RelativeDocumentMoniker": "Entities\\Cedulones2.cs",
-              "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\Cedulones2.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Entities\\Cedulones2.cs",
               "RelativeToolTip": "Entities\\Cedulones2.cs",
               "ViewState": "AQIAADUCAAAAAAAAAAAiwE8CAAA9AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -240,39 +323,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 12,
               "Title": "Ctasctes_inmuebles.cs",
-              "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\Ctasctes_inmuebles.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Entities\\Ctasctes_inmuebles.cs",
               "RelativeDocumentMoniker": "Entities\\Ctasctes_inmuebles.cs",
-              "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\Ctasctes_inmuebles.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Entities\\Ctasctes_inmuebles.cs",
               "RelativeToolTip": "Entities\\Ctasctes_inmuebles.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-04T22:36:36.329Z"
+              "WhenOpened": "2024-04-04T22:36:36.329Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 14,
               "Title": "CedulonesServices.cs",
-              "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Services\\CedulonesServices.cs",
+              "DocumentMoniker": "C:\\Vecino-Va\\Inmuebles_Back\\Services\\CedulonesServices.cs",
               "RelativeDocumentMoniker": "Services\\CedulonesServices.cs",
-              "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Services\\CedulonesServices.cs",
+              "ToolTip": "C:\\Vecino-Va\\Inmuebles_Back\\Services\\CedulonesServices.cs",
               "RelativeToolTip": "Services\\CedulonesServices.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-04T22:13:30.997Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "DALBase.cs",
-              "DocumentMoniker": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\DALBase.cs",
-              "RelativeDocumentMoniker": "Entities\\DALBase.cs",
-              "ToolTip": "D:\\Dev\\NET2022\\Web_Api_Inm\\Entities\\DALBase.cs",
-              "RelativeToolTip": "Entities\\DALBase.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAgwBkAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-10-10T02:25:55.627Z"
             }
           ]
         }

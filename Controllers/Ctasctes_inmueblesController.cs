@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web_Api_Inm.Entities;
 using Web_Api_Inm.Entities.AUDITORIA;
@@ -18,7 +19,7 @@ namespace Web_Api_Inm.Controllers
             _Ctasctes_inmueblesServices = Ctasctes_InmueblesServices;
         }
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult IniciarCtacte(int cir, int sec, int man, int par, int p_h)
         {
@@ -30,6 +31,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(lista);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Confirma_iniciar_ctacte(CtasCtes_Con_Auditoria obj)
         {
@@ -44,6 +46,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(obj.lstCtastes);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Listar_periodos_a_cancelar(int cir, int sec, int man, int par, int p_h)
         {
@@ -55,6 +58,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(Ctasctes);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Confirma_cancelacion_ctasctes(int tipo_transaccion, CtasCtes_Con_Auditoria obj)
         {
@@ -70,6 +74,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(obj.lstCtastes);
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult<List<Ctasctes_inmuebles>> Listar_Periodos_cancelados(int cir, int sec, int man, int par, int p_h)
         {
@@ -81,6 +86,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(Ctasctes);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Confirma_elimina_cancelacion(CtasCtes_Con_Auditoria obj)
         {
@@ -95,6 +101,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(obj.lstCtastes);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Listar_periodos_a_reliquidar(int cir, int sec, int man, int par, int p_h)
         {
@@ -106,6 +113,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(ctasctes);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Reliquidar_periodos(int cir, int sec, int man, int par, int p_h, List<Ctasctes_inmuebles> lst)
         {
@@ -117,6 +125,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(ctasctes);
 
         }
+        [Authorize]
         [HttpPost]
         public IActionResult Confirma_reliquidacion(CtasCtes_Con_Auditoria obj)
         {
@@ -131,6 +140,8 @@ namespace Web_Api_Inm.Controllers
             return Ok(obj.lstCtastes);
 
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult<List<Ctasctes_inmuebles>> ListarCtacte(
             int cir, int sec, int man, int par, int p_h, int tipo_consulta,
@@ -141,6 +152,8 @@ namespace Web_Api_Inm.Controllers
 
             return Ok(Ctasctes);
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult<List<DETALLE_DEUDA>> DetalleDeuda(int nro_transaccion)
         {
@@ -148,6 +161,8 @@ namespace Web_Api_Inm.Controllers
 
             return Ok(Ctasctes);
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult DetalleProcuracion(int nro_proc)
         {
@@ -155,6 +170,8 @@ namespace Web_Api_Inm.Controllers
 
             return Ok(Ctasctes);
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult DetallePlan(int nro_plan)
         {
@@ -162,6 +179,8 @@ namespace Web_Api_Inm.Controllers
 
             return Ok(Ctasctes);
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult<string> Datos_transaccion(int tipo_transaccion, int nro_transaccion)
         {
@@ -172,6 +191,8 @@ namespace Web_Api_Inm.Controllers
             }
             return Ok(Transaccion);
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult DetallePago(int nro_cedulon, int nro_transaccion)
         {
@@ -182,6 +203,7 @@ namespace Web_Api_Inm.Controllers
             }
             return Ok(Transaccion);
         }
+        [Authorize]
         [HttpGet]
         public ActionResult getListDeudaTasa(int cir, int sec, int man, int par, int p_h)
         {
@@ -192,6 +214,7 @@ namespace Web_Api_Inm.Controllers
             }
             return Ok(lstDeuda);
         }
+        [Authorize]
         [HttpGet]
         public ActionResult getListDeudaTasaNoVencida(int cir, int sec, int man, int par, int p_h)
         {
@@ -202,6 +225,8 @@ namespace Web_Api_Inm.Controllers
             }
             return Ok(lstDeuda);
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult getListDeudaTasaProcurada(int cir, int sec, int man, int par, int p_h)
         {
@@ -212,6 +237,8 @@ namespace Web_Api_Inm.Controllers
             }
             return Ok(lstDeuda);
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult<List<Combo>> ListarCategoriasTasa()
         {
@@ -219,7 +246,8 @@ namespace Web_Api_Inm.Controllers
             return Ok(categorias);
         }
 
-          [HttpGet]
+        [Authorize]
+        [HttpGet]
         public IActionResult ListarDeudasXTasa(int cir, int sec, int man, int par, int p_h)
         {
             var lst = _Ctasctes_inmueblesServices.ListarDeudasXTasa(cir, sec, man, par, p_h);
@@ -232,6 +260,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(lst);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult ListarCategoriaDeuda()
         {
@@ -245,6 +274,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(lst);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult NuevaDeuda(CtasCtes_Con_Auditoria obj)
         {
@@ -282,7 +312,7 @@ namespace Web_Api_Inm.Controllers
 
         }
 
-
+        [Authorize]
         [HttpPut]
         public IActionResult ModificarDeuda(CtasCtes_Con_Auditoria obj)
         {
@@ -311,6 +341,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(new { message = $"Se modificó la deuda {obj.lstCtastes[0].nro_transaccion}" });
         }
 
+        [Authorize]
         [HttpDelete]
         public IActionResult EliminarDeuda(int cir, int sec, int man, int par, int p_h, int nro_transaccion, Auditoria obj)
         {

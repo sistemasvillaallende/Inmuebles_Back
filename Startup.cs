@@ -1,6 +1,9 @@
 ﻿using Web_Api_Auto.Services;
 using Web_Api_Inm.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Web_Api_Inm.Services.LOGIN;
+using System.Text;
 
 namespace Web_Api_Inm
 {
@@ -16,6 +19,34 @@ namespace Web_Api_Inm
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = "TuIssuer", // debe coincidir con el que usás en el micro de auth
+                            ValidAudience = "TuAudience", // debe coincidir también
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-very-long-secret-key-that-is-at-least-32-characters"))
+                        };
+                        options.Events = new JwtBearerEvents
+                        {
+                            OnAuthenticationFailed = context =>
+                            {
+                                Console.WriteLine("❌ Error de autenticación: " + context.Exception.Message);
+                                return Task.CompletedTask;
+                            },
+                            OnTokenValidated = context =>
+                            {
+                                Console.WriteLine("✅ Token validado correctamente para: " + context.Principal.Identity.Name);
+                                return Task.CompletedTask;
+                            }
+                        };
+                    });
             services.AddControllers();
             services.AddSwaggerGen();
             // configure DI for application services
@@ -67,7 +98,8 @@ namespace Web_Api_Inm
 
             app.UseRouting();
 
-            //app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

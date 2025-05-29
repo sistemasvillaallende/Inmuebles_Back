@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web_Api_Inm.Services;
 
@@ -14,6 +15,7 @@ namespace Web_Api_Auto.Controllers
             _TarjetasDebitoService = TarjetasDebitosServices;
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult GetAllTarjetasDebito()
         {

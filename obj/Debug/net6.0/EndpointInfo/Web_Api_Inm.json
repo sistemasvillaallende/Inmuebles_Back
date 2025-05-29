@@ -1,0 +1,3744 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Web_Api_Inm",
+    "version": "1.0"
+  },
+  "paths": {
+    "/Conceptos_inmueble/readConceptos": {
+      "get": {
+        "tags": [
+          "Conceptos_inmueble"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Conceptos_inmueble"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Conceptos_inmueble"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Conceptos_inmueble"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Conceptos_inmueble/listConceptosXinmueble": {
+      "get": {
+        "tags": [
+          "Conceptos_inmueble"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Descadic_x_inmueble"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Descadic_x_inmueble"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Descadic_x_inmueble"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Conceptos_inmueble/UpdateConcepto": {
+      "put": {
+        "tags": [
+          "Conceptos_inmueble"
+        ],
+        "parameters": [
+          {
+            "name": "usuario",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Descadic_x_inmueble"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Descadic_x_inmueble"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Descadic_x_inmueble"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Conceptos_inmueble/AddConcepto": {
+      "post": {
+        "tags": [
+          "Conceptos_inmueble"
+        ],
+        "parameters": [
+          {
+            "name": "usuario",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Descadic_x_inmueble"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Descadic_x_inmueble"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Descadic_x_inmueble"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Conceptos_inmueble/DeleteConcepto": {
+      "delete": {
+        "tags": [
+          "Conceptos_inmueble"
+        ],
+        "parameters": [
+          {
+            "name": "usuario",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Descadic_x_inmueble"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Descadic_x_inmueble"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Descadic_x_inmueble"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Conceptos_inmueble/GetAllConceptos": {
+      "get": {
+        "tags": [
+          "Conceptos_inmueble"
+        ],
+        "parameters": [
+          {
+            "name": "filterConcepto",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConceptoXInm"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConceptoXInm"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConceptoXInm"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/IniciarCtacte": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/Confirma_iniciar_ctacte": {
+      "post": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/Listar_periodos_a_cancelar": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/Confirma_cancelacion_ctasctes": {
+      "post": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "tipo_transaccion",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/Listar_Periodos_cancelados": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ctasctes_inmuebles"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ctasctes_inmuebles"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ctasctes_inmuebles"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/Confirma_elimina_cancelacion": {
+      "post": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/Listar_periodos_a_reliquidar": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/Reliquidar_periodos": {
+      "post": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Ctasctes_inmuebles"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Ctasctes_inmuebles"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Ctasctes_inmuebles"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/Confirma_reliquidacion": {
+      "post": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/ListarCtacte": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "tipo_consulta",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "cate_deuda_desde",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "cate_deuda_hasta",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ctasctes_inmuebles"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ctasctes_inmuebles"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ctasctes_inmuebles"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/DetalleDeuda": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "nro_transaccion",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DETALLE_DEUDA"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DETALLE_DEUDA"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DETALLE_DEUDA"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/DetalleProcuracion": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "nro_proc",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/DetallePlan": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "nro_plan",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/Datos_transaccion": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "tipo_transaccion",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "nro_transaccion",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/DetallePago": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "nro_cedulon",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "nro_transaccion",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/getListDeudaTasa": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/getListDeudaTasaNoVencida": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/getListDeudaTasaProcurada": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/ListarCategoriasTasa": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Combo"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Combo"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Combo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/ListarDeudasXTasa": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/ListarCategoriaDeuda": {
+      "get": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/NuevaDeuda": {
+      "post": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/ModificarDeuda": {
+      "put": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CtasCtes_Con_Auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Ctasctes_inmuebles/EliminarDeuda": {
+      "delete": {
+        "tags": [
+          "Ctasctes_inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "nro_transaccion",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/DebitoInmueble/NuevoDebito": {
+      "post": {
+        "tags": [
+          "DebitoInmueble"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Debitos_Inm_auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Debitos_Inm_auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Debitos_Inm_auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/DebitoInmueble/ModificarDebito": {
+      "put": {
+        "tags": [
+          "DebitoInmueble"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Debitos_Inm_auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Debitos_Inm_auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Debitos_Inm_auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/DebitoInmueble/EliminarDebito": {
+      "delete": {
+        "tags": [
+          "DebitoInmueble"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/DebitoInmueble/GetDebitoByInmueble": {
+      "get": {
+        "tags": [
+          "DebitoInmueble"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/getByPk": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "circunscripcion",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "seccion",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "manzana",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "parcela",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/Updateinmueble": {
+      "put": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Inmuebles"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Inmuebles"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Inmuebles"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/Categorias_liq_zona": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/GetInmueblesPaginado": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "buscarPor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "strParametro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "pagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "registros_por_pagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InmueblesPaginadorGenerico"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InmueblesPaginadorGenerico"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InmueblesPaginadorGenerico"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Inmuebles/GetInmueblesPaginadoDenominacion": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "circunscripcion",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "seccion",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "manzana",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "parcela",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InmueblesPaginadorGenerico"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InmueblesPaginadorGenerico"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InmueblesPaginadorGenerico"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Inmuebles/ListarCategoriasTasa": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/Resumendeuda": {
+      "post": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "tipo_consulta",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "periodo",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cate_deuda_desde",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "cate_deuda_hasta",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/FrentesXInmueble": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/GetZonas": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cod_zona",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/GetCalle": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "nom_calle",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/GetBarrios": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "barrio",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/NuevoFrente": {
+      "post": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Frentes_Con_Auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Frentes_Con_Auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Frentes_Con_Auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/ModificarFrente": {
+      "put": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Frentes_Con_Auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Frentes_Con_Auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Frentes_Con_Auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/EliminarFrente": {
+      "delete": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "nro_frente",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/GetDatosConexionAgua": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "nombre_titular",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/DatosDomicilioPostal": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/ActualizarDomicilioPostal": {
+      "put": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatosDomicilio_Con_Auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatosDomicilio_Con_Auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatosDomicilio_Con_Auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/GetBarrioXCalle": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cod_calle",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "nro_dom",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/BajaInmueble": {
+      "delete": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auditoria"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/GetDatosBaldio": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cir",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sec",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "man",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "par",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "p_h",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/GetInmueblesByConcepto": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "cod_concepto",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Inmuebles/GetOcupantePorNombre": {
+      "get": {
+        "tags": [
+          "Inmuebles"
+        ],
+        "parameters": [
+          {
+            "name": "nombre",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Tarjetas/getTarjetasWeb": {
+      "get": {
+        "tags": [
+          "Tarjetas"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Tarjetas/getTarjetasDesktop": {
+      "get": {
+        "tags": [
+          "Tarjetas"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Tarjetas/getTarjetasByPk": {
+      "get": {
+        "tags": [
+          "Tarjetas"
+        ],
+        "parameters": [
+          {
+            "name": "pk",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Tarjetas/getTarjetasByCodPayPerTic": {
+      "get": {
+        "tags": [
+          "Tarjetas"
+        ],
+        "parameters": [
+          {
+            "name": "pk",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Tarjetas/readPlanes": {
+      "get": {
+        "tags": [
+          "Tarjetas"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Tarjetas/getPlanBySubsistema": {
+      "get": {
+        "tags": [
+          "Tarjetas"
+        ],
+        "parameters": [
+          {
+            "name": "subsistema",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "deuda",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "cod_tarjeta",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Tarjetas/getPlanByPk": {
+      "get": {
+        "tags": [
+          "Tarjetas"
+        ],
+        "parameters": [
+          {
+            "name": "cod_plan",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/TarjetasDebito/GetAllTarjetasDebito": {
+      "get": {
+        "tags": [
+          "TarjetasDebito"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Auditoria": {
+        "type": "object",
+        "properties": {
+          "id_auditoria": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fecha": {
+            "type": "string",
+            "nullable": true
+          },
+          "usuario": {
+            "type": "string",
+            "nullable": true
+          },
+          "proceso": {
+            "type": "string",
+            "nullable": true
+          },
+          "identificacion": {
+            "type": "string",
+            "nullable": true
+          },
+          "autorizaciones": {
+            "type": "string",
+            "nullable": true
+          },
+          "observaciones": {
+            "type": "string",
+            "nullable": true
+          },
+          "detalle": {
+            "type": "string",
+            "nullable": true
+          },
+          "ip": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Combo": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "nullable": true
+          },
+          "text": {
+            "type": "string",
+            "nullable": true
+          },
+          "campo_enlace": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Conceptos_inmueble": {
+        "type": "object",
+        "properties": {
+          "cod_concepto_inmueble": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "des_concepto_inmueble": {
+            "type": "string",
+            "nullable": true
+          },
+          "suma": {
+            "type": "boolean"
+          },
+          "servicio_indirecto": {
+            "type": "boolean"
+          },
+          "activo": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConceptoXInm": {
+        "type": "object",
+        "properties": {
+          "codigo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "tipo": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CtasCtes_Con_Auditoria": {
+        "type": "object",
+        "properties": {
+          "cir": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sec": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "man": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "par": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "p_h": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lstCtastes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Ctasctes_inmuebles"
+            },
+            "nullable": true
+          },
+          "auditoria": {
+            "$ref": "#/components/schemas/Auditoria"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Ctasctes_inmuebles": {
+        "type": "object",
+        "properties": {
+          "tipo_transaccion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nro_transaccion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "circunscripcion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "seccion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "manzana": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parcela": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "p_h": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fecha_transaccion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "periodo": {
+            "type": "string",
+            "nullable": true
+          },
+          "cedulon_impreso": {
+            "type": "boolean"
+          },
+          "nro_pago_parcial": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "monto_original": {
+            "type": "number",
+            "format": "double"
+          },
+          "nro_plan": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "pagado": {
+            "type": "boolean"
+          },
+          "debe": {
+            "type": "number",
+            "format": "double"
+          },
+          "haber": {
+            "type": "number",
+            "format": "double"
+          },
+          "deuda_activa": {
+            "type": "boolean"
+          },
+          "pago_parcial": {
+            "type": "boolean"
+          },
+          "categoria_deuda": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nro_procuracion": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "vencimiento": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "nro_cedulon": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "monto_pagado": {
+            "type": "number",
+            "format": "double"
+          },
+          "recargo": {
+            "type": "number",
+            "format": "double"
+          },
+          "honorarios": {
+            "type": "number",
+            "format": "double"
+          },
+          "iva_hons": {
+            "type": "number",
+            "format": "double"
+          },
+          "tipo_deuda": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "decreto": {
+            "type": "string",
+            "nullable": true
+          },
+          "observaciones": {
+            "type": "string",
+            "nullable": true
+          },
+          "nro_cedulon_paypertic": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "des_movimiento": {
+            "type": "string",
+            "nullable": true
+          },
+          "des_categoria": {
+            "type": "string",
+            "nullable": true
+          },
+          "deuda": {
+            "type": "number",
+            "format": "double"
+          },
+          "sel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "costo_financiero": {
+            "type": "number",
+            "format": "double"
+          },
+          "des_rubro": {
+            "type": "string",
+            "nullable": true
+          },
+          "cod_tipo_per": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sub_total": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DatosDomicilio": {
+        "type": "object",
+        "properties": {
+          "nom_calle_dom_esp": {
+            "type": "string",
+            "nullable": true
+          },
+          "cod_calle_dom_esp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "piso_dpto_esp": {
+            "type": "string",
+            "nullable": true
+          },
+          "cod_barrio_dom_esp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nom_barrio_dom_esp": {
+            "type": "string",
+            "nullable": true
+          },
+          "ciudad_dom_esp": {
+            "type": "string",
+            "nullable": true
+          },
+          "provincia_dom_esp": {
+            "type": "string",
+            "nullable": true
+          },
+          "pais_dom_esp": {
+            "type": "string",
+            "nullable": true
+          },
+          "cod_postal": {
+            "type": "string",
+            "nullable": true
+          },
+          "email_envio_cedulon": {
+            "type": "string",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "celular": {
+            "type": "string",
+            "nullable": true
+          },
+          "cuit_ocupante": {
+            "type": "string",
+            "nullable": true
+          },
+          "fecha_cambio_domicilio": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "nro_bad": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nro_dom_esp": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DatosDomicilio_Con_Auditoria": {
+        "type": "object",
+        "properties": {
+          "datosDomicilio": {
+            "$ref": "#/components/schemas/DatosDomicilio"
+          },
+          "auditoria": {
+            "$ref": "#/components/schemas/Auditoria"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Debitos_Inm_auditoria": {
+        "type": "object",
+        "properties": {
+          "debito": {
+            "$ref": "#/components/schemas/Debitos_inmueble"
+          },
+          "auditoria": {
+            "$ref": "#/components/schemas/Auditoria"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Debitos_inmueble": {
+        "type": "object",
+        "properties": {
+          "circunscripcion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "seccion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "manzana": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parcela": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "p_h": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "nro_documento": {
+            "type": "string",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "fecha_alta": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fecha_baja": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cod_tarjeta": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nro_tarjeta": {
+            "type": "string",
+            "nullable": true
+          },
+          "pri_per_debitado": {
+            "type": "string",
+            "nullable": true
+          },
+          "ultimo_per_deb": {
+            "type": "string",
+            "nullable": true
+          },
+          "per_backup": {
+            "type": "string",
+            "nullable": true
+          },
+          "per_pendiente_debitar": {
+            "type": "string",
+            "nullable": true
+          },
+          "id_paypertic": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Descadic_x_inmueble": {
+        "type": "object",
+        "properties": {
+          "circunscripcion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "seccion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "manzana": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parcela": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "p_h": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cod_concepto_inmueble": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "des_concepto_inmueble": {
+            "type": "string",
+            "nullable": true
+          },
+          "porcentaje": {
+            "type": "number",
+            "format": "double"
+          },
+          "monto": {
+            "type": "number",
+            "format": "double"
+          },
+          "vencimiento": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "nro_decreto": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fecha_alta_registro": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "activo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "observaciones": {
+            "type": "string",
+            "nullable": true
+          },
+          "anio_desde": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "anio_hasta": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "objAuditoria": {
+            "$ref": "#/components/schemas/Auditoria"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DETALLE_DEUDA": {
+        "type": "object",
+        "properties": {
+          "concepto": {
+            "type": "string",
+            "nullable": true
+          },
+          "importe": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Frentes_Con_Auditoria": {
+        "type": "object",
+        "properties": {
+          "frente": {
+            "$ref": "#/components/schemas/FrentesInmueble"
+          },
+          "auditoria": {
+            "$ref": "#/components/schemas/Auditoria"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FrentesInmueble": {
+        "type": "object",
+        "properties": {
+          "circunscripcion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "seccion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "manzana": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parcela": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "p_h": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nro_frente": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cod_calle": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nro_domicilio": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "metros_frente": {
+            "type": "number",
+            "format": "float"
+          },
+          "cod_zona": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Inmuebles": {
+        "type": "object",
+        "properties": {
+          "circunscripcion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "seccion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "manzana": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parcela": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "p_h": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cod_barrio": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nro_bad": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "exhimido": {
+            "type": "boolean"
+          },
+          "jubilado": {
+            "type": "boolean"
+          },
+          "cod_barrio_dom_esp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nom_barrio_dom_esp": {
+            "type": "string",
+            "nullable": true
+          },
+          "cod_calle_dom_esp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nom_calle_dom_esp": {
+            "type": "string",
+            "nullable": true
+          },
+          "nro_dom_esp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "piso_dpto_esp": {
+            "type": "string",
+            "nullable": true
+          },
+          "ciudad_dom_esp": {
+            "type": "string",
+            "nullable": true
+          },
+          "provincia_dom_esp": {
+            "type": "string",
+            "nullable": true
+          },
+          "pais_dom_esp": {
+            "type": "string",
+            "nullable": true
+          },
+          "union_tributaria": {
+            "type": "boolean"
+          },
+          "edificado": {
+            "type": "boolean"
+          },
+          "parquizado": {
+            "type": "boolean"
+          },
+          "baldio_sucio": {
+            "type": "boolean"
+          },
+          "construccion": {
+            "type": "boolean"
+          },
+          "cod_uso": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "superficie": {
+            "type": "number",
+            "format": "float"
+          },
+          "piso_dpto": {
+            "type": "string",
+            "nullable": true
+          },
+          "cod_calle_pf": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nro_dom_pf": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cod_postal": {
+            "type": "string",
+            "nullable": true
+          },
+          "ultimo_periodo": {
+            "type": "string",
+            "nullable": true
+          },
+          "fecha_cambio_domicilio": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ocupante": {
+            "type": "string",
+            "nullable": true
+          },
+          "emite_cedulon": {
+            "type": "boolean"
+          },
+          "baldio_country": {
+            "type": "boolean"
+          },
+          "debito_automatico": {
+            "type": "boolean"
+          },
+          "nro_secuencia": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cod_situacion_judicial": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fecha_alta": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "clave_pago": {
+            "type": "string",
+            "nullable": true
+          },
+          "municipal": {
+            "type": "boolean"
+          },
+          "email_envio_cedulon": {
+            "type": "string",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "celular": {
+            "type": "string",
+            "nullable": true
+          },
+          "cod_tipo_per_elegido": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "con_deuda": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "saldo_adeudado": {
+            "type": "number",
+            "format": "double"
+          },
+          "superficie_edificada": {
+            "type": "number",
+            "format": "float"
+          },
+          "cod_estado": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cedulon_digital": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "oculto": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nro_doc_ocupante": {
+            "type": "string",
+            "nullable": true
+          },
+          "cuit_ocupante": {
+            "type": "string",
+            "nullable": true
+          },
+          "nro_bad_ocupante": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cod_categoria_zona_liq": {
+            "type": "string",
+            "nullable": true
+          },
+          "tipo_ph": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fecha_tipo_ph": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cuil": {
+            "type": "string",
+            "nullable": true
+          },
+          "fecha_vecino_digital": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cuit_vecino_digital": {
+            "type": "string",
+            "nullable": true
+          },
+          "lat": {
+            "type": "string",
+            "nullable": true
+          },
+          "long": {
+            "type": "string",
+            "nullable": true
+          },
+          "diR_GOOGLE": {
+            "type": "string",
+            "nullable": true
+          },
+          "total_row": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "objAuditoria": {
+            "$ref": "#/components/schemas/Auditoria"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InmueblesPaginadorGenerico": {
+        "type": "object",
+        "properties": {
+          "paginaActual": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "registrosPorPagina": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRegistros": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPaginas": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "busquedaPor": {
+            "type": "string",
+            "nullable": true
+          },
+          "parametro": {
+            "type": "string",
+            "nullable": true
+          },
+          "resultado": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Inmuebles"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

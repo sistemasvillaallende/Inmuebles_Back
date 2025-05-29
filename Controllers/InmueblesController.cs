@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Data;
 using System.Globalization;
@@ -28,6 +29,7 @@ namespace Web_Api_Inm.Controllers
         {
             _InmueblesService = InmueblesService;
         }
+        [Authorize]
         [HttpGet]
         public IActionResult getByPk(int circunscripcion, int seccion, int manzana, int parcela, int p_h)
         {
@@ -39,6 +41,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(resultado);
         }
 
+        [Authorize]
         [HttpPut]
         public ActionResult Updateinmueble(Inmuebles obj)
         {
@@ -56,6 +59,7 @@ namespace Web_Api_Inm.Controllers
 
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Categorias_liq_zona()
         {
@@ -63,6 +67,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(zonas);
         }
 
+        [Authorize]
         [HttpGet]
         public PaginadorGenerico<Entities.Inmuebles> GetInmueblesPaginado(string buscarPor = "",
             string strParametro = "", int pagina = 0, int registros_por_pagina = 10)
@@ -110,6 +115,8 @@ namespace Web_Api_Inm.Controllers
             else
                 return null;
         }
+
+        [Authorize]
         [HttpGet]
         public PaginadorGenerico<Entities.Inmuebles> GetInmueblesPaginadoDenominacion(
             int circunscripcion, int seccion, int manzana, int parcela, int p_h)
@@ -172,14 +179,14 @@ namespace Web_Api_Inm.Controllers
         //    }
         //    return Ok(reporte);
         //}
-
+        [Authorize]
         [HttpGet]
         public IActionResult ListarCategoriasTasa()
         {
             var categorias = _InmueblesService.ListarCategoriasTasa();
             return Ok(categorias);
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult Resumendeuda(int cir, int sec, int man, int par, int p_h, int tipo_consulta, string periodo, int cate_deuda_desde, int cate_deuda_hasta, Auditoria objA)
         {
@@ -191,7 +198,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(resumen);
         }
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult FrentesXInmueble(int cir, int sec, int man, int par, int p_h)
         {
@@ -205,14 +212,14 @@ namespace Web_Api_Inm.Controllers
             var lst = _InmueblesService.GetZonas(cod_zona);
             return Ok(lst);
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult GetCalle(string? nom_calle)
         {
             var lst = _InmueblesService.GetCalle(nom_calle);
             return Ok(lst);
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult GetBarrios(string? barrio)
         {
@@ -220,7 +227,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(lst);
         }
 
-
+        [Authorize]
         [HttpPost]
         public IActionResult NuevoFrente(Frentes_Con_Auditoria obj)
         {
@@ -232,7 +239,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(new { message = @"Se inserto nuevo frente correctamente." });
         }
 
-
+        [Authorize]
         [HttpPut]
         public IActionResult ModificarFrente(Frentes_Con_Auditoria obj)
         {
@@ -240,7 +247,7 @@ namespace Web_Api_Inm.Controllers
 
             return Ok(new { message = @"Se actualizo  frente correctamente." });
         }
-
+        [Authorize]
         [HttpDelete]
         public IActionResult EliminarFrente(int cir, int sec, int man, int par, int p_h, int nro_frente, Auditoria obj)
         {
@@ -709,7 +716,7 @@ namespace Web_Api_Inm.Controllers
         // where i.circunscripcion= :circunscripcion and i.seccion= :seccion
         // and i.manzana= :manzana and i.parcela= :parcela and i.p_h = :p_h
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult GetDatosConexionAgua(int cir, int sec, int man, int par, int p_h, string? nombre_titular)
         {
@@ -758,7 +765,7 @@ namespace Web_Api_Inm.Controllers
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult DatosDomicilioPostal(int cir, int sec, int man, int par, int p_h)
         {
@@ -767,7 +774,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(datos);
         }
 
-
+        [Authorize]
         [HttpPut]
         public IActionResult ActualizarDomicilioPostal(int cir, int sec, int man, int par, int p_h, DatosDomicilio_Con_Auditoria obj)
         {
@@ -784,7 +791,7 @@ namespace Web_Api_Inm.Controllers
             }
         }
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult GetBarrioXCalle(int cod_calle, int nro_dom)
         {
@@ -794,7 +801,7 @@ namespace Web_Api_Inm.Controllers
         }
 
 
-
+        [Authorize]
         [HttpDelete]
         public IActionResult BajaInmueble(int cir, int sec, int man, int par, int p_h, Auditoria obj)
         {

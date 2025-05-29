@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web_Api_Inm.Entities.AUDITORIA;
 using Web_Api_Inm.Entities.HELPERS;
@@ -16,7 +17,7 @@ namespace Web_Api_Inm.Controllers
             _DebitoInmuebleService = DebitoInmuebleService;
         }
 
-
+        [Authorize]
         [HttpPost]
         public IActionResult NuevoDebito(Debitos_Inm_auditoria obj)
         {
@@ -63,6 +64,7 @@ namespace Web_Api_Inm.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut]
         public IActionResult ModificarDebito(Debitos_Inm_auditoria obj)
         {
@@ -101,6 +103,7 @@ namespace Web_Api_Inm.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete]
         public IActionResult EliminarDebito(int cir, int sec, int man, int par, int p_h, Auditoria obj)
         {
@@ -122,7 +125,7 @@ namespace Web_Api_Inm.Controllers
             }
         }
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult GetDebitoByInmueble(int cir, int sec, int man, int par, int p_h)
         {

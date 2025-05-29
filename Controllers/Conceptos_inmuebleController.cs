@@ -3,6 +3,7 @@ using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using Web_Api_Inm.Services;
 using Web_Api_Inm.Entities;
 using Web_Api_Inm.Entities.HELPERS;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web_Api_Inm.Controllers
 {
@@ -20,6 +21,7 @@ namespace Web_Api_Inm.Controllers
             _Conceptos_inmuebleService = Conceptos_inmuebleService;
             _Descadic_x_inmuebleService = descadic_x_inmuebleService;
         }
+        [Authorize]
         [HttpGet]
         public ActionResult<List<Conceptos_inmueble>> readConceptos()
         {
@@ -27,6 +29,8 @@ namespace Web_Api_Inm.Controllers
 
             return Ok(conceptos);
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult<List<Descadic_x_inmueble>> listConceptosXinmueble(int cir, int sec,
             int man, int par, int p_h)
@@ -36,6 +40,8 @@ namespace Web_Api_Inm.Controllers
 
             return Ok(conceptos);
         }
+
+        [Authorize]
         [HttpPut]
         public IActionResult UpdateConcepto(Descadic_x_inmueble obj, string usuario)
         {
@@ -55,6 +61,8 @@ namespace Web_Api_Inm.Controllers
             }
             return Ok(Inmueble);
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult AddConcepto(Descadic_x_inmueble obj, string usuario)
         {
@@ -73,6 +81,8 @@ namespace Web_Api_Inm.Controllers
             }
             return Ok(inmueble);
         }
+
+        [Authorize]
         [HttpDelete]
         public IActionResult DeleteConcepto(Descadic_x_inmueble obj, string usuario)
         {
@@ -88,6 +98,7 @@ namespace Web_Api_Inm.Controllers
             return Ok(inmueble);
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult<List<ConceptoXInm>> GetAllConceptos(string? filterConcepto)
         {

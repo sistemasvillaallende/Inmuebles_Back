@@ -1,0 +1,1718 @@
+[
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Conceptos_inmuebleController",
+    "Method": "AddConcepto",
+    "RelativePath": "Conceptos_inmueble/AddConcepto",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.Descadic_x_inmueble",
+        "IsRequired": true
+      },
+      {
+        "Name": "usuario",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Conceptos_inmuebleController",
+    "Method": "DeleteConcepto",
+    "RelativePath": "Conceptos_inmueble/DeleteConcepto",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.Descadic_x_inmueble",
+        "IsRequired": true
+      },
+      {
+        "Name": "usuario",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Conceptos_inmuebleController",
+    "Method": "GetAllConceptos",
+    "RelativePath": "Conceptos_inmueble/GetAllConceptos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "filterConcepto",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Web_Api_Inm.Entities.HELPERS.ConceptoXInm, Web_Api_Inm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Conceptos_inmuebleController",
+    "Method": "listConceptosXinmueble",
+    "RelativePath": "Conceptos_inmueble/listConceptosXinmueble",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Web_Api_Inm.Entities.Descadic_x_inmueble, Web_Api_Inm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Conceptos_inmuebleController",
+    "Method": "readConceptos",
+    "RelativePath": "Conceptos_inmueble/readConceptos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Web_Api_Inm.Entities.Conceptos_inmueble, Web_Api_Inm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Conceptos_inmuebleController",
+    "Method": "UpdateConcepto",
+    "RelativePath": "Conceptos_inmueble/UpdateConcepto",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.Descadic_x_inmueble",
+        "IsRequired": true
+      },
+      {
+        "Name": "usuario",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "Confirma_cancelacion_ctasctes",
+    "RelativePath": "Ctasctes_inmuebles/Confirma_cancelacion_ctasctes",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tipo_transaccion",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.HELPERS.CtasCtes_Con_Auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "Confirma_elimina_cancelacion",
+    "RelativePath": "Ctasctes_inmuebles/Confirma_elimina_cancelacion",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.HELPERS.CtasCtes_Con_Auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "Confirma_iniciar_ctacte",
+    "RelativePath": "Ctasctes_inmuebles/Confirma_iniciar_ctacte",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.HELPERS.CtasCtes_Con_Auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "Confirma_reliquidacion",
+    "RelativePath": "Ctasctes_inmuebles/Confirma_reliquidacion",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.HELPERS.CtasCtes_Con_Auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "Datos_transaccion",
+    "RelativePath": "Ctasctes_inmuebles/Datos_transaccion",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tipo_transaccion",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "nro_transaccion",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "DetalleDeuda",
+    "RelativePath": "Ctasctes_inmuebles/DetalleDeuda",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nro_transaccion",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Web_Api_Inm.Entities.DETALLE_DEUDA, Web_Api_Inm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "DetallePago",
+    "RelativePath": "Ctasctes_inmuebles/DetallePago",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nro_cedulon",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "nro_transaccion",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "DetallePlan",
+    "RelativePath": "Ctasctes_inmuebles/DetallePlan",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nro_plan",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "DetalleProcuracion",
+    "RelativePath": "Ctasctes_inmuebles/DetalleProcuracion",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nro_proc",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "EliminarDeuda",
+    "RelativePath": "Ctasctes_inmuebles/EliminarDeuda",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "nro_transaccion",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.AUDITORIA.Auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "getListDeudaTasa",
+    "RelativePath": "Ctasctes_inmuebles/getListDeudaTasa",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "getListDeudaTasaNoVencida",
+    "RelativePath": "Ctasctes_inmuebles/getListDeudaTasaNoVencida",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "getListDeudaTasaProcurada",
+    "RelativePath": "Ctasctes_inmuebles/getListDeudaTasaProcurada",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "IniciarCtacte",
+    "RelativePath": "Ctasctes_inmuebles/IniciarCtacte",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "Listar_periodos_a_cancelar",
+    "RelativePath": "Ctasctes_inmuebles/Listar_periodos_a_cancelar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "Listar_periodos_a_reliquidar",
+    "RelativePath": "Ctasctes_inmuebles/Listar_periodos_a_reliquidar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "Listar_Periodos_cancelados",
+    "RelativePath": "Ctasctes_inmuebles/Listar_Periodos_cancelados",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Web_Api_Inm.Ctasctes_inmuebles, Web_Api_Inm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "ListarCategoriaDeuda",
+    "RelativePath": "Ctasctes_inmuebles/ListarCategoriaDeuda",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "ListarCategoriasTasa",
+    "RelativePath": "Ctasctes_inmuebles/ListarCategoriasTasa",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Web_Api_Inm.Entities.HELPERS.Combo, Web_Api_Inm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "ListarCtacte",
+    "RelativePath": "Ctasctes_inmuebles/ListarCtacte",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "tipo_consulta",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "cate_deuda_desde",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "cate_deuda_hasta",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Web_Api_Inm.Ctasctes_inmuebles, Web_Api_Inm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "ListarDeudasXTasa",
+    "RelativePath": "Ctasctes_inmuebles/ListarDeudasXTasa",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "ModificarDeuda",
+    "RelativePath": "Ctasctes_inmuebles/ModificarDeuda",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.HELPERS.CtasCtes_Con_Auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "NuevaDeuda",
+    "RelativePath": "Ctasctes_inmuebles/NuevaDeuda",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.HELPERS.CtasCtes_Con_Auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.Ctasctes_inmueblesController",
+    "Method": "Reliquidar_periodos",
+    "RelativePath": "Ctasctes_inmuebles/Reliquidar_periodos",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "lst",
+        "Type": "System.Collections.Generic.List\u00601[[Web_Api_Inm.Ctasctes_inmuebles, Web_Api_Inm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.DebitoInmuebleController",
+    "Method": "EliminarDebito",
+    "RelativePath": "DebitoInmueble/EliminarDebito",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.AUDITORIA.Auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.DebitoInmuebleController",
+    "Method": "GetDebitoByInmueble",
+    "RelativePath": "DebitoInmueble/GetDebitoByInmueble",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.DebitoInmuebleController",
+    "Method": "ModificarDebito",
+    "RelativePath": "DebitoInmueble/ModificarDebito",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.HELPERS.Debitos_Inm_auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.DebitoInmuebleController",
+    "Method": "NuevoDebito",
+    "RelativePath": "DebitoInmueble/NuevoDebito",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.HELPERS.Debitos_Inm_auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "ActualizarDomicilioPostal",
+    "RelativePath": "Inmuebles/ActualizarDomicilioPostal",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.HELPERS.DatosDomicilio_Con_Auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "BajaInmueble",
+    "RelativePath": "Inmuebles/BajaInmueble",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.AUDITORIA.Auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "Categorias_liq_zona",
+    "RelativePath": "Inmuebles/Categorias_liq_zona",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "DatosDomicilioPostal",
+    "RelativePath": "Inmuebles/DatosDomicilioPostal",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "EliminarFrente",
+    "RelativePath": "Inmuebles/EliminarFrente",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "nro_frente",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.AUDITORIA.Auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "FrentesXInmueble",
+    "RelativePath": "Inmuebles/FrentesXInmueble",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "GetBarrios",
+    "RelativePath": "Inmuebles/GetBarrios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "barrio",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "GetBarrioXCalle",
+    "RelativePath": "Inmuebles/GetBarrioXCalle",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cod_calle",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "nro_dom",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "getByPk",
+    "RelativePath": "Inmuebles/getByPk",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "circunscripcion",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "seccion",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "manzana",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "parcela",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "GetCalle",
+    "RelativePath": "Inmuebles/GetCalle",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nom_calle",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "GetDatosBaldio",
+    "RelativePath": "Inmuebles/GetDatosBaldio",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "GetDatosConexionAgua",
+    "RelativePath": "Inmuebles/GetDatosConexionAgua",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "nombre_titular",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "GetInmueblesByConcepto",
+    "RelativePath": "Inmuebles/GetInmueblesByConcepto",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cod_concepto",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "GetInmueblesPaginado",
+    "RelativePath": "Inmuebles/GetInmueblesPaginado",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "buscarPor",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "strParametro",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "pagina",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "registros_por_pagina",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Web_Api_Inm.Helpers.PaginadorGenerico\u00601[[Web_Api_Inm.Entities.Inmuebles, Web_Api_Inm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "GetInmueblesPaginadoDenominacion",
+    "RelativePath": "Inmuebles/GetInmueblesPaginadoDenominacion",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "circunscripcion",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "seccion",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "manzana",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "parcela",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Web_Api_Inm.Helpers.PaginadorGenerico\u00601[[Web_Api_Inm.Entities.Inmuebles, Web_Api_Inm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "GetOcupantePorNombre",
+    "RelativePath": "Inmuebles/GetOcupantePorNombre",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nombre",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "GetZonas",
+    "RelativePath": "Inmuebles/GetZonas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cod_zona",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "ListarCategoriasTasa",
+    "RelativePath": "Inmuebles/ListarCategoriasTasa",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "ModificarFrente",
+    "RelativePath": "Inmuebles/ModificarFrente",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.HELPERS.Frentes_Con_Auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "NuevoFrente",
+    "RelativePath": "Inmuebles/NuevoFrente",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.HELPERS.Frentes_Con_Auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "Resumendeuda",
+    "RelativePath": "Inmuebles/Resumendeuda",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cir",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sec",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "man",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "par",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "p_h",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "tipo_consulta",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "periodo",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "cate_deuda_desde",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "cate_deuda_hasta",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "objA",
+        "Type": "Web_Api_Inm.Entities.AUDITORIA.Auditoria",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.InmueblesController",
+    "Method": "Updateinmueble",
+    "RelativePath": "Inmuebles/Updateinmueble",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obj",
+        "Type": "Web_Api_Inm.Entities.Inmuebles",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.TarjetasController",
+    "Method": "getPlanByPk",
+    "RelativePath": "Tarjetas/getPlanByPk",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cod_plan",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.TarjetasController",
+    "Method": "getPlanBySubsistema",
+    "RelativePath": "Tarjetas/getPlanBySubsistema",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "subsistema",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "deuda",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "cod_tarjeta",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.TarjetasController",
+    "Method": "getTarjetasByCodPayPerTic",
+    "RelativePath": "Tarjetas/getTarjetasByCodPayPerTic",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pk",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.TarjetasController",
+    "Method": "getTarjetasByPk",
+    "RelativePath": "Tarjetas/getTarjetasByPk",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pk",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.TarjetasController",
+    "Method": "getTarjetasDesktop",
+    "RelativePath": "Tarjetas/getTarjetasDesktop",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.TarjetasController",
+    "Method": "getTarjetasWeb",
+    "RelativePath": "Tarjetas/getTarjetasWeb",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.TarjetasController",
+    "Method": "readPlanes",
+    "RelativePath": "Tarjetas/readPlanes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Auto.Controllers.TarjetasDebitoController",
+    "Method": "GetAllTarjetasDebito",
+    "RelativePath": "TarjetasDebito/GetAllTarjetasDebito",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_Api_Inm.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Web_Api_Inm.WeatherForecast, Web_Api_Inm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]
