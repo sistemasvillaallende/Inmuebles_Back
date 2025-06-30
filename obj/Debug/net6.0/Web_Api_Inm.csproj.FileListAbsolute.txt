@@ -93,3 +93,6 @@ C:\Vecino-Va\Inmuebles_Back\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebToke
 C:\Vecino-Va\Inmuebles_Back\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
 C:\Vecino-Va\Inmuebles_Back\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Vecino-Va\Inmuebles_Back\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Vecino-Va\Inmuebles_Back\bin\Debug\net6.0\Microsoft.Bcl.Memory.dll
+C:\Vecino-Va\Inmuebles_Back\bin\Debug\net6.0\Microsoft.Bcl.TimeProvider.dll
+C:\Vecino-Va\Inmuebles_Back\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

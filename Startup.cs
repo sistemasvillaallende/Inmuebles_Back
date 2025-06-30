@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Web_Api_Inm.Services.LOGIN;
 using System.Text;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using Web_Api_Inm.Validators;
 
 namespace Web_Api_Inm
 {
@@ -48,6 +51,8 @@ namespace Web_Api_Inm
                         };
                     });
             services.AddControllers();
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssembly(typeof(AuditoriaValidator).Assembly);
             services.AddSwaggerGen();
             // configure DI for application services
             services.AddScoped<IUsuarioServices, UsuarioServices>();
